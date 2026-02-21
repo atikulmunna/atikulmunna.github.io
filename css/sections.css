@@ -2283,22 +2283,23 @@ body {
   align-items: center;
   justify-content: center;
   width: fit-content;
-  min-height: 36px;
+  min-height: 38px;
   padding: var(--spacing-xs) var(--spacing-lg);
   border-radius: var(--radius-full);
   border: 1px solid transparent;
   background: linear-gradient(
     155deg,
-    rgba(245, 245, 245, 0.24) 0%,
-    rgba(38, 38, 38, 0.32) 58%,
-    rgba(17, 17, 17, 0.5) 100%
+    rgba(168, 168, 168, 0.22) 0%,
+    rgba(38, 38, 38, 0.4) 56%,
+    rgba(17, 17, 17, 0.62) 100%
   );
   background-clip: padding-box;
   overflow: hidden;
   isolation: isolate;
   color: var(--color-primary-light);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
+  line-height: 1;
   text-decoration: none;
   letter-spacing: 0.01em;
   box-shadow:
@@ -2316,18 +2317,22 @@ body {
     color var(--transition-fast) var(--easing-default);
 }
 
+.research-item__link::after {
+  display: none;
+}
+
 .research-item__link:hover {
   transform: translate3d(0, -2px, 0);
   background: linear-gradient(
     155deg,
-    rgba(245, 245, 245, 0.28) 0%,
-    rgba(38, 38, 38, 0.4) 58%,
-    rgba(17, 17, 17, 0.62) 100%
+    rgba(168, 168, 168, 0.26) 0%,
+    rgba(38, 38, 38, 0.46) 56%,
+    rgba(17, 17, 17, 0.7) 100%
   );
   box-shadow:
     0 12px 24px rgba(17, 17, 17, 0.26),
     inset 0 1px 0 rgba(245, 245, 245, 0.24),
-    0 0 0 1px rgba(168, 168, 168, 0.46);
+    0 0 0 1px rgba(168, 168, 168, 0.45);
   color: var(--color-primary-light);
 }
 
@@ -2340,19 +2345,9 @@ body {
 .research-item__link--placeholder,
 .research-item__link--placeholder:hover {
   cursor: default;
+  pointer-events: none;
   transform: none;
-  background: linear-gradient(
-    155deg,
-    rgba(168, 168, 168, 0.22) 0%,
-    rgba(92, 92, 92, 0.24) 58%,
-    rgba(38, 38, 38, 0.4) 100%
-  );
-  color: var(--color-primary-light);
-  box-shadow:
-    0 6px 14px rgba(17, 17, 17, 0.16),
-    inset 0 1px 0 rgba(245, 245, 245, 0.14),
-    0 0 0 1px rgba(168, 168, 168, 0.34);
-  opacity: 0.86;
+  opacity: 1;
 }
 
 @media (max-width: 767px) {
