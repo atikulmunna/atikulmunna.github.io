@@ -159,13 +159,32 @@ const Animations = {
 
     const hero = document.querySelector('.hero');
     if (!hero) return;
+    let heroInView = true;
+
+    if ('IntersectionObserver' in window) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          heroInView = entry.isIntersecting;
+          if (heroInView) {
+            // Snap values after re-entering viewport
+            updateDrift();
+          }
+        });
+      }, { threshold: 0.08 });
+      heroObserver.observe(hero);
+    }
 
     const updateDrift = () => {
+      if (!heroInView) {
+        this.state.heroDriftRaf = null;
+        return;
+      }
+
       const scrollY = window.scrollY || 0;
 
       // Keep movement subtle and bounded for a premium, non-distracting effect.
-      const driftA = Math.max(-24, Math.min(24, scrollY * 0.035));
-      const driftB = Math.max(-32, Math.min(32, scrollY * 0.05));
+      const driftA = Math.max(-18, Math.min(18, scrollY * 0.025));
+      const driftB = Math.max(-24, Math.min(24, scrollY * 0.035));
 
       hero.style.setProperty('--hero-liquid-drift-a', `${driftA.toFixed(2)}px`);
       hero.style.setProperty('--hero-liquid-drift-b', `${driftB.toFixed(2)}px`);
@@ -173,6 +192,7 @@ const Animations = {
     };
 
     window.addEventListener('scroll', () => {
+      if (!heroInView) return;
       if (this.state.heroDriftRaf !== null) return;
       this.state.heroDriftRaf = window.requestAnimationFrame(updateDrift);
     }, { passive: true });
