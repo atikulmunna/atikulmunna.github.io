@@ -18,7 +18,10 @@
   right: 0;
   width: 100%;
   z-index: var(--z-index-fixed);
-  transition: all var(--transition-base) var(--easing-default);
+  transition:
+    background var(--transition-base) var(--easing-default),
+    border-color var(--transition-base) var(--easing-default),
+    box-shadow var(--transition-base) var(--easing-default);
   
   /* Glassmorphism effect - Requirement 4.1 */
   /* Fallback for browsers without backdrop-filter support */
@@ -853,6 +856,7 @@ body {
   display: none;
 }
 
+.hero__cta .btn--primary,
 .hero__cta .btn--secondary {
   background: var(--color-secondary-dark);
   color: var(--color-primary-light);
@@ -860,6 +864,7 @@ body {
 }
 
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .hero__cta .btn--primary.btn--glass,
   .hero__cta .btn--secondary.btn--glass {
     background: linear-gradient(
       155deg,
@@ -873,6 +878,7 @@ body {
   }
 }
 
+.hero__cta .btn--primary:hover,
 .hero__cta .btn--secondary:hover {
   background: var(--color-primary-dark);
   color: var(--color-primary-light);
@@ -881,26 +887,31 @@ body {
 }
 
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .hero__cta .btn--primary.btn--glass:hover,
   .hero__cta .btn--secondary.btn--glass:hover {
     background: rgba(38, 38, 38, 0.64);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
   }
 }
 
+.hero__cta .btn--primary.btn--glass::before,
 .hero__cta .btn--secondary.btn--glass::before {
   opacity: 0.42;
 }
 
+.hero__cta .btn--primary.btn--glass:hover::before,
 .hero__cta .btn--secondary.btn--glass:hover::before {
   opacity: 0.3;
 }
 
+.hero__cta .btn--primary:focus,
 .hero__cta .btn--secondary:focus {
   color: var(--color-primary-light);
   outline: 2px solid var(--color-light-accent);
   outline-offset: 2px;
 }
 
+.hero__cta .btn--primary:active,
 .hero__cta .btn--secondary:active {
   color: var(--color-primary-light);
   transform: translateY(0);
