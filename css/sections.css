@@ -2026,6 +2026,32 @@ body {
   gap: var(--spacing-sm);
 }
 
+.research-item.card--glass {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(245, 245, 245, 0.1) 34%,
+    rgba(168, 168, 168, 0.16) 100%
+  );
+  border: 1px solid rgba(245, 245, 245, 0.24);
+  box-shadow:
+    0 10px 22px rgba(17, 17, 17, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .research-item.card--glass {
+    backdrop-filter: blur(var(--blur-lg)) saturate(122%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(122%);
+  }
+}
+
+.research-item.card--glass:hover {
+  box-shadow:
+    0 14px 30px rgba(17, 17, 17, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
 .research-item::before {
   content: '';
   position: absolute;
@@ -2654,6 +2680,25 @@ body {
   width: 100%;
   max-width: var(--container-lg);
   margin: 0 auto;
+  padding: var(--spacing-xl);
+  border: 1px solid rgba(245, 245, 245, 0.2);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(245, 245, 245, 0.08) 36%,
+    rgba(168, 168, 168, 0.14) 100%
+  );
+  box-shadow:
+    0 10px 22px rgba(17, 17, 17, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .contact-content {
+    backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+  }
 }
 
 /* Contact intro text */
@@ -2690,16 +2735,18 @@ body {
   min-width: 56px;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-border-light);
+  border: 1px solid rgba(245, 245, 245, 0.2);
   background: linear-gradient(
     150deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(168, 168, 168, 0.26) 55%,
-    rgba(255, 255, 255, 0.14) 100%
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(168, 168, 168, 0.22) 55%,
+    rgba(255, 255, 255, 0.12) 100%
   );
   color: var(--color-primary-dark);
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(17, 17, 17, 0.1);
+  box-shadow:
+    0 8px 20px rgba(17, 17, 17, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transition: transform var(--transition-fast) var(--easing-default),
               box-shadow var(--transition-fast) var(--easing-default),
               border-color var(--transition-fast) var(--easing-default);
@@ -2759,7 +2806,9 @@ body {
   --contact-liquid-o: 0.12;
   transform: translateY(-2px);
   border-color: var(--color-light-accent);
-  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.14);
+  box-shadow:
+    0 12px 24px rgba(17, 17, 17, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
 }
 
 .contact-icon-link:focus {
@@ -2770,6 +2819,7 @@ body {
 @media (max-width: 767px) {
   .contact-content {
     gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
   }
 
   .contact-intro {
