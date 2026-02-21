@@ -1,7 +1,3 @@
-# Atikul Munna Portfolio
-
-Production-ready personal portfolio built with semantic HTML, modular CSS, and vanilla JavaScript.
-
 ## Stack
 
 - HTML5 + ARIA-first semantics
