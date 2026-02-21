@@ -10,6 +10,7 @@ const HeroConstellation = {
   viewportWidth: 0,
   viewportHeight: 0,
   reduceMotion: false,
+  resizeFrameId: null,
 
   config: {
     density: 9500,
@@ -39,7 +40,7 @@ const HeroConstellation = {
       this.animate();
     }
 
-    window.addEventListener('resize', this.handleResize.bind(this), { passive: true });
+    window.addEventListener('resize', this.requestResize.bind(this), { passive: true });
     document.addEventListener('visibilitychange', this.handleVisibility.bind(this));
   },
 
@@ -61,13 +62,29 @@ const HeroConstellation = {
   },
 
   createParticles() {
-    const area = this.viewportWidth * this.viewportHeight;
-    const baseCount = Math.max(26, Math.floor(area / this.config.density));
-    const count = this.reduceMotion ? Math.floor(baseCount * 0.5) : baseCount;
+    const count = this.getTargetParticleCount();
     this.particles = [];
 
     for (let i = 0; i < count; i += 1) {
       this.particles.push(this.createParticle());
+    }
+  },
+
+  getTargetParticleCount() {
+    const area = this.viewportWidth * this.viewportHeight;
+    const baseCount = Math.max(26, Math.floor(area / this.config.density));
+    return this.reduceMotion ? Math.floor(baseCount * 0.5) : baseCount;
+  },
+
+  reconcileParticleCount() {
+    const target = this.getTargetParticleCount();
+
+    while (this.particles.length < target) {
+      this.particles.push(this.createParticle());
+    }
+
+    while (this.particles.length > target) {
+      this.particles.pop();
     }
   },
 
@@ -150,9 +167,39 @@ const HeroConstellation = {
     }
   },
 
+  requestResize() {
+    if (this.resizeFrameId) {
+      window.cancelAnimationFrame(this.resizeFrameId);
+    }
+
+    this.resizeFrameId = window.requestAnimationFrame(() => {
+      this.resizeFrameId = null;
+      this.handleResize();
+    });
+  },
+
   handleResize() {
+    const previousWidth = this.viewportWidth || 1;
+    const previousHeight = this.viewportHeight || 1;
+
     this.setupCanvas();
-    this.createParticles();
+
+    // Preserve particle flow across viewport changes instead of restarting.
+    if (this.particles.length === 0) {
+      this.createParticles();
+      this.drawFrame();
+      return;
+    }
+
+    const scaleX = this.viewportWidth / previousWidth;
+    const scaleY = this.viewportHeight / previousHeight;
+
+    for (let i = 0; i < this.particles.length; i += 1) {
+      this.particles[i].x *= scaleX;
+      this.particles[i].y *= scaleY;
+    }
+
+    this.reconcileParticleCount();
     this.drawFrame();
   },
 
