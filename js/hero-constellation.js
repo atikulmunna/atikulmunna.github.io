@@ -5,15 +5,18 @@
 const HeroConstellation = {
   canvas: null,
   context: null,
+  heroSection: null,
+  visibilityObserver: null,
   particles: [],
   animationId: null,
   viewportWidth: 0,
   viewportHeight: 0,
   reduceMotion: false,
+  isInViewport: true,
   resizeFrameId: null,
 
   config: {
-    density: 9500,
+    density: 12000,
     speed: 0.34,
     radiusMin: 0.8,
     radiusMax: 1.9,
@@ -25,6 +28,8 @@ const HeroConstellation = {
   init() {
     this.canvas = document.querySelector('.hero__constellation');
     if (!this.canvas) return;
+    this.heroSection = this.canvas.closest('.hero');
+    if (!this.heroSection) return;
 
     this.context = this.canvas.getContext('2d');
     if (!this.context) return;
@@ -40,15 +45,13 @@ const HeroConstellation = {
       this.animate();
     }
 
+    this.setupViewportObserver();
     window.addEventListener('resize', this.requestResize.bind(this), { passive: true });
     document.addEventListener('visibilitychange', this.handleVisibility.bind(this));
   },
 
   setupCanvas() {
-    const hero = this.canvas.closest('.hero');
-    if (!hero) return;
-
-    const rect = hero.getBoundingClientRect();
+    const rect = this.heroSection.getBoundingClientRect();
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
 
     this.viewportWidth = rect.width;
@@ -73,7 +76,42 @@ const HeroConstellation = {
   getTargetParticleCount() {
     const area = this.viewportWidth * this.viewportHeight;
     const baseCount = Math.max(26, Math.floor(area / this.config.density));
-    return this.reduceMotion ? Math.floor(baseCount * 0.5) : baseCount;
+    const mobileFactor = window.innerWidth < 768 ? 0.72 : 1;
+    const motionFactor = this.reduceMotion ? 0.5 : 1;
+    return Math.max(18, Math.floor(baseCount * mobileFactor * motionFactor));
+  },
+
+  setupViewportObserver() {
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    this.visibilityObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+
+      this.isInViewport = entry.isIntersecting;
+      this.syncAnimationState();
+    }, {
+      root: null,
+      threshold: 0.02
+    });
+
+    this.visibilityObserver.observe(this.heroSection);
+  },
+
+  syncAnimationState() {
+    if (this.reduceMotion) return;
+
+    const shouldRun = this.isInViewport && !document.hidden;
+
+    if (shouldRun && !this.animationId) {
+      this.animate();
+      return;
+    }
+
+    if (!shouldRun && this.animationId) {
+      window.cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
   },
 
   reconcileParticleCount() {
@@ -146,6 +184,11 @@ const HeroConstellation = {
   },
 
   animate() {
+    if (document.hidden || !this.isInViewport) {
+      this.animationId = null;
+      return;
+    }
+
     this.updateParticles();
     this.drawFrame();
     this.animationId = window.requestAnimationFrame(this.animate.bind(this));
@@ -205,16 +248,7 @@ const HeroConstellation = {
 
   handleVisibility() {
     if (this.reduceMotion) return;
-
-    if (document.hidden && this.animationId) {
-      window.cancelAnimationFrame(this.animationId);
-      this.animationId = null;
-      return;
-    }
-
-    if (!document.hidden && !this.animationId) {
-      this.animate();
-    }
+    this.syncAnimationState();
   },
 
   random(min, max) {
