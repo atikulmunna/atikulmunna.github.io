@@ -141,19 +141,19 @@ describe('Property 9: Text Readability Over Glass', () => {
     const cases = [
       {
         text: hexToRgb(resolveVarValue(vars['--color-primary-light'], vars)),
-        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(51, 65, 85, 0.9)'), bgLight)
+        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(38, 38, 38, 0.9)'), bgLight)
       },
       {
         text: hexToRgb(resolveVarValue(vars['--color-primary-dark'], vars)),
-        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(148, 163, 184, 0.9)'), bgLight)
+        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(168, 168, 168, 0.9)'), bgLight)
       },
       {
         text: hexToRgb(resolveVarValue(vars['--color-text-primary'], vars)),
-        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(248, 250, 252, 0.95)'), bgLight)
+        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(245, 245, 245, 0.95)'), bgLight)
       },
       {
         text: hexToRgb(resolveVarValue(vars['--color-text-light'], vars)),
-        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(31, 41, 55, 0.95)'), bgDark)
+        glassBackground: compositeRgbaOverBackground(parseRgba('rgba(17, 17, 17, 0.95)'), bgDark)
       }
     ];
 

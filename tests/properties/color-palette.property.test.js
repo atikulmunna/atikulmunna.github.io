@@ -6,8 +6,8 @@
  * **Validates: Requirements 3.1-3.7**
  * 
  * For any element with a background or text color, the color value SHALL be 
- * one of the defined palette colors (#1f2937, #334155, #64748b, #94a3b8, 
- * #f8fafc, #000000, #ffffff) or a transparent/rgba variant of these colors.
+ * one of the defined palette colors (#111111, #262626, #5c5c5c, #a8a8a8, 
+ * #f5f5f5, #000000, #ffffff) or a transparent/rgba variant of these colors.
  */
 
 const fc = require('fast-check');
@@ -22,11 +22,11 @@ const propertyTestConfig = {
 
 // Define the valid color palette
 const VALID_PALETTE = {
-  '#1f2937': { r: 31, g: 41, b: 55 },
-  '#334155': { r: 51, g: 65, b: 85 },
-  '#64748b': { r: 100, g: 116, b: 139 },
-  '#94a3b8': { r: 148, g: 163, b: 184 },
-  '#f8fafc': { r: 248, g: 250, b: 252 },
+  '#111111': { r: 17, g: 17, b: 17 },
+  '#262626': { r: 38, g: 38, b: 38 },
+  '#5c5c5c': { r: 92, g: 92, b: 92 },
+  '#a8a8a8': { r: 168, g: 168, b: 168 },
+  '#f5f5f5': { r: 245, g: 245, b: 245 },
   '#000000': { r: 0, g: 0, b: 0 },
   '#ffffff': { r: 255, g: 255, b: 255 }
 };
