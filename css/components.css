@@ -1,0 +1,914 @@
+/**
+ * Reusable Components
+ * Button, card, and other component styles
+ * Requirements: 4.2, 2.6, 7.1, 7.4, 7.7
+ */
+
+/* ===== Button Component ===== */
+
+/**
+ * Base button styles
+ * Requirement 4.2: Buttons with glassmorphism
+ * Requirement 2.6: Minimum 44x44px touch target size
+ * Requirement 7.1: Hover state feedback within 100ms
+ * Requirement 7.4: CSS transitions for state changes
+ * Requirement 7.7: Button click feedback
+ */
+
+/* Base button - shared styles for all buttons */
+.btn {
+  /* Layout & Sizing */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: var(--spacing-md) var(--spacing-xl);
+  
+  /* Typography */
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Visual */
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  
+  /* Transitions - Requirement 7.4 */
+  transition: all var(--transition-base) var(--easing-default);
+  
+  /* Accessibility */
+  -webkit-tap-highlight-color: transparent;
+  --liquid-pointer-x: 50%;
+  --liquid-pointer-y: 50%;
+  --liquid-pointer-o: 0;
+}
+
+/* Remove default button styles */
+.btn::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* Button text wrapper */
+.btn__text {
+  display: inline-block;
+}
+
+/* ===== Size Variants ===== */
+
+/**
+ * Small button - compact size for secondary actions
+ * Still maintains minimum 44x44px touch target
+ */
+.btn--small {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+/**
+ * Medium button - default size (already defined in .btn)
+ */
+.btn--medium {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-base);
+}
+
+/**
+ * Large button - prominent CTAs and hero section
+ */
+.btn--large {
+  min-width: 120px;
+  min-height: 56px;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ===== Color Variants ===== */
+
+/**
+ * Primary button - main call-to-action
+ * Uses secondary-dark color from palette
+ */
+.btn--primary {
+  background: var(--color-secondary-dark);
+  color: var(--color-primary-light);
+  border: 1px solid transparent;
+}
+
+/* Fallback for browsers without backdrop-filter */
+.btn--primary.btn--glass {
+  background: rgba(51, 65, 85, 0.9);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-soft);
+}
+
+/* Enhanced glassmorphism for supported browsers */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .btn--primary.btn--glass {
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      var(--glass-bg-medium) 60%,
+      rgba(148, 163, 184, 0.22) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+  }
+}
+
+/* Primary button hover state - Requirement 7.1 */
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .btn--primary.btn--glass:hover {
+    background: rgba(51, 65, 85, 0.5);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Primary button focus state */
+.btn--primary:focus {
+  outline: 2px solid var(--color-light-accent);
+  outline-offset: 2px;
+}
+
+/* Primary button active state - Requirement 7.7 */
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/**
+ * Secondary button - alternative actions
+ * Uses light-accent color from palette
+ */
+.btn--secondary {
+  background: var(--color-light-accent);
+  color: var(--color-primary-dark);
+  border: 1px solid transparent;
+}
+
+/* Fallback for browsers without backdrop-filter */
+.btn--secondary.btn--glass {
+  background: rgba(148, 163, 184, 0.9);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-soft);
+}
+
+/* Enhanced glassmorphism for supported browsers */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .btn--secondary.btn--glass {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(148, 163, 184, 0.3) 55%,
+      rgba(100, 116, 139, 0.28) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+  }
+}
+
+.btn--glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at var(--liquid-pointer-x) var(--liquid-pointer-y),
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 1.2)) 0%,
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 0.5)) 26%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  opacity: calc(0.55 + var(--liquid-pointer-o));
+  transition: opacity var(--transition-base) var(--easing-default);
+  pointer-events: none;
+}
+
+.btn--glass:hover::before {
+  opacity: calc(0.6 + var(--liquid-pointer-o));
+}
+
+.btn--glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--liquid-edge);
+  pointer-events: none;
+}
+
+.card--glass {
+  --liquid-pointer-x: 50%;
+  --liquid-pointer-y: 50%;
+  --liquid-pointer-o: 0;
+}
+
+.card--glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at var(--liquid-pointer-x) var(--liquid-pointer-y),
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 0.9)) 0%,
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 0.35)) 28%,
+      rgba(255, 255, 255, 0) 64%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0) 42%
+    );
+  pointer-events: none;
+}
+
+.card--glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--liquid-edge);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .btn,
+  .card--glass {
+    --liquid-pointer-o: 0;
+  }
+
+  .btn--glass::before,
+  .card--glass::before {
+    transition: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .card--glass {
+    --liquid-pointer-o: 0;
+  }
+}
+
+/* Secondary button hover state - Requirement 7.1 */
+.btn--secondary:hover {
+  background: var(--color-mid-tone);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .btn--secondary.btn--glass:hover {
+    background: rgba(148, 163, 184, 0.5);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Secondary button focus state */
+.btn--secondary:focus {
+  outline: 2px solid var(--color-secondary-dark);
+  outline-offset: 2px;
+}
+
+/* Secondary button active state - Requirement 7.7 */
+.btn--secondary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== Button States ===== */
+
+/**
+ * Disabled button state
+ */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/**
+ * Loading button state (optional)
+ */
+.btn--loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Button Groups ===== */
+
+/**
+ * Button group - for multiple buttons side by side
+ */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* ===== Accessibility & Performance ===== */
+
+/**
+ * Reduced motion support
+ * Requirement 7.6: Respect user motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  
+  .btn:hover,
+  .btn:active {
+    transform: none;
+  }
+  
+  .btn--loading::after {
+    animation: none;
+    border-top-color: currentColor;
+  }
+
+  .btn--glass::before {
+    transition: none;
+  }
+}
+
+/**
+ * High contrast mode support
+ */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+  
+  .btn:focus {
+    outline-width: 3px;
+  }
+}
+
+/**
+ * Responsive adjustments
+ */
+@media (max-width: 767px) {
+  /* Ensure touch targets remain adequate on mobile */
+  .btn {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+  }
+  
+  /* Adjust large buttons for mobile */
+  .btn--large {
+    min-width: 100px;
+    min-height: 52px;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-base);
+  }
+}
+
+/* ===== Card Component ===== */
+
+/**
+ * Base card styles with glassmorphism
+ * Requirement 4.3: Cards with glassmorphism effects
+ * Requirement 7.1: Hover effects with visual feedback
+ */
+
+/* Base card - shared styles for all cards */
+.card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  
+  /* Visual */
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-mid-tone);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  
+  /* Transitions - Requirement 7.4 */
+  transition: transform var(--transition-base) var(--easing-default),
+              box-shadow var(--transition-base) var(--easing-default);
+}
+
+/* ===== Glassmorphism Variant ===== */
+
+/**
+ * Glass card - card with glassmorphism effect
+ * Requirement 4.3: Cards with glassmorphism
+ * Requirement 4.6: Fallback for unsupported browsers
+ */
+
+/* Fallback for browsers without backdrop-filter support */
+.card--glass {
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-soft);
+  isolation: isolate;
+}
+
+/* Enhanced glassmorphism for supported browsers */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .card--glass {
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      var(--glass-bg-light) 52%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(130%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(130%);
+  }
+}
+
+
+/* Dark glass variant - for use on light backgrounds */
+.card--glass-dark {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-light);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .card--glass-dark {
+    background: rgba(31, 41, 55, 0.7);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+/* ===== Card Hover Effects ===== */
+
+/**
+ * Card hover state - transform and shadow
+ * Requirement 7.1: Hover state feedback within 100ms
+ */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card--glass:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Interactive card - for clickable cards */
+.card--interactive {
+  cursor: pointer;
+  user-select: none;
+}
+
+.card--interactive:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== Card Structure Elements ===== */
+
+/**
+ * Card image container
+ */
+.card__image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-mid-tone);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-base) var(--easing-default);
+}
+
+/* Image zoom on card hover */
+.card:hover .card__image img {
+  transform: scale(1.05);
+}
+
+/**
+ * Card content area
+ */
+.card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+}
+
+/**
+ * Card header (optional)
+ */
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/**
+ * Card title
+ */
+.card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+.card--glass-dark .card__title {
+  color: var(--color-text-light);
+}
+
+/**
+ * Card subtitle (optional)
+ */
+.card__subtitle {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card--glass-dark .card__subtitle {
+  color: var(--color-light-accent);
+}
+
+/**
+ * Card description
+ */
+.card__description {
+  margin: 0;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.card--glass-dark .card__description {
+  color: var(--color-primary-light);
+}
+
+/**
+ * Card footer (optional)
+ */
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--glass-border);
+  margin-top: auto;
+}
+
+/**
+ * Card tags/labels container
+ */
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+}
+
+/**
+ * Individual tag/label
+ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  color: var(--color-text-primary);
+  background: var(--color-light-accent);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  transition: background var(--transition-fast) var(--easing-default);
+}
+
+.tag:hover {
+  background: var(--color-mid-tone);
+}
+
+/* Tag variant for glass cards */
+.card--glass .tag,
+.card--glass-dark .tag {
+  background: rgba(148, 163, 184, 0.3);
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-primary);
+}
+
+.card--glass-dark .tag {
+  color: var(--color-text-light);
+}
+
+/* ===== Card Size Variants ===== */
+
+/**
+ * Small card - compact size
+ */
+.card--small .card__content {
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.card--small .card__title {
+  font-size: var(--font-size-lg);
+}
+
+.card--small .card__description {
+  font-size: var(--font-size-sm);
+}
+
+/**
+ * Large card - prominent size
+ */
+.card--large .card__content {
+  padding: var(--spacing-xl);
+  gap: var(--spacing-lg);
+}
+
+.card--large .card__title {
+  font-size: var(--font-size-2xl);
+}
+
+/* ===== Card Layout Variants ===== */
+
+/**
+ * Horizontal card - image and content side by side
+ */
+.card--horizontal {
+  flex-direction: row;
+}
+
+.card--horizontal .card__image {
+  width: 40%;
+  min-height: 200px;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.card--horizontal .card__content {
+  width: 60%;
+}
+
+/**
+ * Centered card - center-aligned content
+ */
+.card--centered .card__content {
+  align-items: center;
+  text-align: center;
+}
+
+/* ===== Responsive Card Layouts ===== */
+
+/**
+ * Card grid container
+ * Requirement 2.1, 2.2, 2.3: Responsive layouts
+ */
+.card-grid {
+  display: grid;
+  gap: var(--spacing-xl);
+  width: 100%;
+}
+
+/* Mobile: Single column */
+@media (max-width: 767px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  /* Horizontal cards stack on mobile */
+  .card--horizontal {
+    flex-direction: column;
+  }
+  
+  .card--horizontal .card__image {
+    width: 100%;
+    min-height: 200px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  
+  .card--horizontal .card__content {
+    width: 100%;
+  }
+}
+
+/* Tablet: Two columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  /* Allow single column variant on tablet */
+  .card-grid--single {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Desktop: Three columns (default) */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+  
+  /* Two column variant */
+  .card-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Four column variant */
+  .card-grid--four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Single column variant */
+  .card-grid--single {
+    grid-template-columns: 1fr;
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+}
+
+/* ===== Card States ===== */
+
+/**
+ * Loading card state
+ */
+.card--loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.card--loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  border: 3px solid var(--color-mid-tone);
+  border-radius: 50%;
+  border-top-color: var(--color-secondary-dark);
+  animation: card-spin 0.8s linear infinite;
+}
+
+@keyframes card-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/**
+ * Disabled card state
+ */
+.card--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/**
+ * Selected/Active card state
+ */
+.card--selected {
+  border-color: var(--color-secondary-dark);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(51, 65, 85, 0.2);
+}
+
+/* ===== Accessibility & Performance ===== */
+
+/**
+ * Reduced motion support
+ * Requirement 7.6: Respect user motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__image img,
+  .tag {
+    transition: none;
+  }
+  
+  .card:hover,
+  .card--interactive:active {
+    transform: none;
+  }
+  
+  .card:hover .card__image img {
+    transform: none;
+  }
+  
+  .card--loading::after {
+    animation: none;
+    border-top-color: var(--color-mid-tone);
+  }
+}
+
+/**
+ * High contrast mode support
+ */
+@media (prefers-contrast: high) {
+  .card {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+  
+  .card--glass,
+  .card--glass-dark {
+    border-width: 2px;
+  }
+  
+  .tag {
+    border: 2px solid currentColor;
+  }
+}
+
+/**
+ * Focus styles for keyboard navigation
+ * Requirement 10.5: Visible focus indicators
+ */
+.card--interactive:focus {
+  outline: 2px solid var(--color-secondary-dark);
+  outline-offset: 2px;
+}
+
+.card--interactive:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.card--interactive:focus-visible {
+  outline: 2px solid var(--color-secondary-dark);
+  outline-offset: 2px;
+}
+

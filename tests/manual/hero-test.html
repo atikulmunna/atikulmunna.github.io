@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Section Manual Test</title>
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/glassmorphism.css">
+  <link rel="stylesheet" href="../../css/sections.css">
+  
+  <style>
+    /* Test-specific styles */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .test-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+      max-width: 300px;
+      font-size: 14px;
+    }
+    
+    .test-info h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 16px;
+      color: #22223b;
+    }
+    
+    .test-info ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: #4a4e69;
+    }
+    
+    .test-info li {
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Test Information Panel -->
+  <div class="test-info">
+    <h3>Hero Section Test</h3>
+    <ul>
+      <li>Full viewport height ✓</li>
+      <li>Responsive typography ✓</li>
+      <li>Glass effect buttons ✓</li>
+      <li>Gradient background ✓</li>
+      <li>Centered content ✓</li>
+    </ul>
+    <p style="margin-top: 0.5rem; font-size: 12px; color: #9a8c98;">
+      Resize window to test responsive behavior
+    </p>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero section" id="hero">
+    <div class="hero__container">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="hero__greeting">Hi, I'm</span>
+          <span class="hero__name">Your Name</span>
+        </h1>
+        <p class="hero__subtitle">Professional Title / Role</p>
+        <p class="hero__description">Brief introduction text about your professional background and expertise. This is where you can showcase your passion and what makes you unique.</p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary btn--glass btn--large">Get In Touch</a>
+          <a href="#projects" class="btn btn--secondary btn--glass btn--large">View Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dummy section to test scroll -->
+  <section class="section section--light" id="about" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
+    <div class="section__container">
+      <h2 class="section__title">About Section (for scroll testing)</h2>
+      <p style="text-align: center; color: #4a4e69;">Scroll up to see the Hero section again</p>
+    </div>
+  </section>
+
+  <script>
+    // Log viewport dimensions for testing
+    console.log('Viewport dimensions:', {
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+    
+    // Log when window is resized
+    window.addEventListener('resize', () => {
+      console.log('Resized to:', {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        breakpoint: window.innerWidth < 768 ? 'mobile' : 
+                   window.innerWidth < 1024 ? 'tablet' : 'desktop'
+      });
+    });
+    
+    // Test button interactions
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Button clicked:', btn.textContent.trim());
+      });
+    });
+  </script>
+</body>
+</html>

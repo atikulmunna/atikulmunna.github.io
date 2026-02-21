@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Component Test</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/glassmorphism.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    body {
+      padding: 2rem;
+      background: linear-gradient(135deg, #22223b 0%, #4a4e69 100%);
+      min-height: 100vh;
+    }
+    
+    .test-section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: rgba(242, 233, 228, 0.1);
+      border-radius: 1rem;
+    }
+    
+    .test-section h2 {
+      color: var(--color-primary-light);
+      margin-bottom: 1.5rem;
+    }
+    
+    .test-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .test-label {
+      color: var(--color-light-accent);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="color: var(--color-primary-light); margin-bottom: 2rem;">Button Component Tests</h1>
+  
+  <!-- Size Variants -->
+  <div class="test-section">
+    <h2>Size Variants (Primary)</h2>
+    <span class="test-label">Small (44x44px min)</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass btn--small">Small Button</button>
+      <button class="btn btn--primary btn--glass btn--small" disabled>Disabled</button>
+    </div>
+    
+    <span class="test-label">Medium (44x44px min) - Default</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass btn--medium">Medium Button</button>
+      <button class="btn btn--primary btn--glass btn--medium" disabled>Disabled</button>
+    </div>
+    
+    <span class="test-label">Large (56px min height)</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass btn--large">Large Button</button>
+      <button class="btn btn--primary btn--glass btn--large" disabled>Disabled</button>
+    </div>
+  </div>
+  
+  <!-- Color Variants -->
+  <div class="test-section">
+    <h2>Color Variants</h2>
+    <span class="test-label">Primary with Glass Effect</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass">Primary Button</button>
+      <a href="#" class="btn btn--primary btn--glass">Primary Link</a>
+    </div>
+    
+    <span class="test-label">Secondary with Glass Effect</span>
+    <div class="test-row">
+      <button class="btn btn--secondary btn--glass">Secondary Button</button>
+      <a href="#" class="btn btn--secondary btn--glass">Secondary Link</a>
+    </div>
+  </div>
+  
+  <!-- Button Groups -->
+  <div class="test-section">
+    <h2>Button Groups</h2>
+    <span class="test-label">Hero CTA Example</span>
+    <div class="btn-group">
+      <button class="btn btn--primary btn--glass btn--large">Get In Touch</button>
+      <button class="btn btn--secondary btn--glass btn--large">View Work</button>
+    </div>
+  </div>
+  
+  <!-- States -->
+  <div class="test-section">
+    <h2>Interactive States</h2>
+    <span class="test-label">Hover over buttons to see effects</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass">Hover Me</button>
+      <button class="btn btn--secondary btn--glass">Hover Me</button>
+    </div>
+    
+    <span class="test-label">Click buttons to see active state</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass">Click Me</button>
+      <button class="btn btn--secondary btn--glass">Click Me</button>
+    </div>
+    
+    <span class="test-label">Tab to buttons to see focus state</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass">Focus Me</button>
+      <button class="btn btn--secondary btn--glass">Focus Me</button>
+    </div>
+  </div>
+  
+  <!-- Touch Target Verification -->
+  <div class="test-section">
+    <h2>Touch Target Size Verification</h2>
+    <span class="test-label">All buttons should be at least 44x44px (use browser dev tools to measure)</span>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass btn--small">44x44</button>
+      <button class="btn btn--primary btn--glass">44x44</button>
+      <button class="btn btn--primary btn--glass btn--large">56px+</button>
+    </div>
+  </div>
+  
+  <!-- Loading State (Optional) -->
+  <div class="test-section">
+    <h2>Loading State (Optional)</h2>
+    <div class="test-row">
+      <button class="btn btn--primary btn--glass btn--loading">Loading</button>
+      <button class="btn btn--secondary btn--glass btn--loading">Loading</button>
+    </div>
+  </div>
+</body>
+</html>

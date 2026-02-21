@@ -1,0 +1,146 @@
+/**
+ * CSS Custom Properties (Variables)
+ * Defines the design system tokens for the portfolio website
+ */
+
+:root {
+  /* ===== Color Palette ===== */
+  /* Primary Colors - Requirements 3.1-3.6 */
+  --color-primary-dark: #1f2937;
+  --color-secondary-dark: #334155;
+  --color-mid-tone: #64748b;
+  --color-light-accent: #94a3b8;
+  --color-primary-light: #f8fafc;
+  
+  /* Utility Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  
+  /* Glassmorphism Colors - Requirement 4.5 */
+  --glass-bg-dark: rgba(31, 41, 55, 0.7);
+  --glass-bg-medium: rgba(51, 65, 85, 0.3);
+  --glass-bg-light: rgba(248, 250, 252, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-light: rgba(255, 255, 255, 0.1);
+  
+  /* Semantic Colors - Requirement 3.7 */
+  --color-text-primary: var(--color-primary-dark);
+  --color-text-secondary: var(--color-secondary-dark);
+  --color-text-light: var(--color-primary-light);
+  --color-bg-dark: var(--color-primary-dark);
+  --color-bg-light: var(--color-primary-light);
+  
+  /* ===== Spacing System ===== */
+  /* Modular spacing scale - Requirement 8.7 */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
+  --spacing-4xl: 6rem;     /* 96px */
+  
+  /* ===== Typography System ===== */
+  /* Font Families - Requirement 8.1 */
+  --font-primary: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Merriweather', Georgia, 'Times New Roman', serif;
+  
+  /* Font Sizes - Requirements 8.2, 8.4 */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px - minimum for body text */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 2rem;      /* 32px */
+  --font-size-4xl: 2.5rem;    /* 40px */
+  --font-size-5xl: 3rem;      /* 48px */
+  
+  /* Line Heights - Requirement 8.3 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* ===== Responsive Breakpoints ===== */
+  /* Requirements 2.1, 2.2, 2.3 */
+  --breakpoint-sm: 640px;   /* Mobile landscape */
+  --breakpoint-md: 768px;   /* Tablet */
+  --breakpoint-lg: 1024px;  /* Desktop */
+  --breakpoint-xl: 1280px;  /* Large desktop */
+  
+  /* ===== Animation Timing ===== */
+  /* Requirements 7.4, 7.5 */
+  --transition-fast: 150ms;
+  --transition-base: 300ms;
+  --transition-slow: 500ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --easing-out: cubic-bezier(0, 0, 0.2, 1);
+  
+  /* ===== Glassmorphism Configuration ===== */
+  /* Requirements 4.1, 4.5 */
+  /* Blur amounts */
+  --blur-sm: 5px;
+  --blur-md: 10px;
+  --blur-lg: 20px;
+  --blur-xl: 30px;
+  
+  /* Glass opacity levels */
+  --glass-opacity-light: 0.1;
+  --glass-opacity-medium: 0.3;
+  --glass-opacity-heavy: 0.7;
+
+  /* Liquid glass accents */
+  --liquid-edge: rgba(255, 255, 255, 0.35);
+  --liquid-highlight: rgba(255, 255, 255, 0.22);
+  --liquid-shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.14);
+  --liquid-shadow-deep: 0 18px 36px rgba(0, 0, 0, 0.2);
+  
+  /* ===== Layout ===== */
+  /* Container max-widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  
+  /* Section padding */
+  --section-padding-mobile: var(--spacing-3xl);
+  --section-padding-desktop: var(--spacing-4xl);
+  
+  /* ===== Z-Index Scale ===== */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  
+  /* ===== Shadows ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* ===== Border Radius ===== */
+  --radius-sm: 0.25rem;
+  --radius-base: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* ===== Touch Target Size ===== */
+  /* Requirement 2.6 - Minimum 44x44px for touch devices */
+  --touch-target-min: 44px;
+}
+

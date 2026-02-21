@@ -1,0 +1,42 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Modern portfolio website with glassmorphism effects",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build:assets": "node scripts/build-assets.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "build:prod": "npm run build:assets && npm run optimize:images",
+    "validate:html": "node scripts/validate-html.js",
+    "validate:css": "node scripts/validate-css.js",
+    "validate": "npm run validate:html && npm run validate:css",
+    "test:minification": "jest tests/unit/minification.test.js --runInBand",
+    "test:images": "jest tests/unit/image-optimization.test.js --runInBand",
+    "test:e2e": "playwright test",
+    "audit:performance": "node scripts/performance-audit.js"
+  },
+  "keywords": [
+    "portfolio",
+    "glassmorphism",
+    "responsive"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@playwright/test": "^1.58.2",
+    "axe-core": "^4.11.1",
+    "clean-css": "^5.3.3",
+    "fast-check": "^3.15.0",
+    "html-validate": "^10.8.0",
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0",
+    "jest-axe": "^10.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^23.2.0",
+    "sharp": "^0.34.5",
+    "terser": "^5.46.0"
+  }
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Test - Portfolio Website</title>
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/glassmorphism.css">
+  <link rel="stylesheet" href="../../css/sections.css">
+  
+  <style>
+    /* Test-specific styles */
+    .test-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    
+    .test-section:nth-child(odd) {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+    
+    .test-section:nth-child(even) {
+      background: var(--color-primary-dark);
+      color: var(--color-primary-light);
+    }
+    
+    .test-info {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 1rem;
+      background: rgba(34, 34, 59, 0.9);
+      color: white;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      max-width: 300px;
+      z-index: 1000;
+    }
+    
+    .test-info h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+    }
+    
+    .test-info ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    
+    .test-info li {
+      margin: 0.25rem 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav__container">
+      <a href="#" class="nav__logo">Portfolio</a>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="nav__toggle-icon"></span>
+      </button>
+      <ul class="nav__menu">
+        <li class="nav__item"><a href="#hero" class="nav__link">Home</a></li>
+        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+        <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+        <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
+        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Test Sections -->
+  <section class="test-section" id="hero">
+    <div>
+      <h1>Hero Section</h1>
+      <p style="font-size: 1rem; margin-top: 1rem;">Scroll down to test navigation</p>
+    </div>
+  </section>
+
+  <section class="test-section" id="about">
+    <h2>About Section</h2>
+  </section>
+
+  <section class="test-section" id="skills">
+    <h2>Skills Section</h2>
+  </section>
+
+  <section class="test-section" id="projects">
+    <h2>Projects Section</h2>
+  </section>
+
+  <section class="test-section" id="experience">
+    <h2>Experience Section</h2>
+  </section>
+
+  <section class="test-section" id="contact">
+    <h2>Contact Section</h2>
+  </section>
+
+  <!-- Test Info Panel -->
+  <div class="test-info">
+    <h3>Navigation Test</h3>
+    <ul>
+      <li>✓ Fixed navigation bar</li>
+      <li>✓ Glassmorphism effect</li>
+      <li>✓ Smooth scroll on click</li>
+      <li>✓ Active section highlighting</li>
+      <li>✓ Mobile menu (resize to &lt;768px)</li>
+      <li>✓ Scroll effect (.nav--scrolled)</li>
+    </ul>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../../js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+/**
+ * Glassmorphism Effects
+ * Reusable glass effect utilities
+ * Requirements: 4.1, 4.5, 4.6
+ * 
+ * This file provides utility classes for applying glassmorphism effects
+ * with proper fallbacks for browsers that don't support backdrop-filter.
+ */
+
+/* ===== Base Glass Effect ===== */
+
+/**
+ * .glass-effect - Base glassmorphism utility class
+ * Applies backdrop blur and transparency with fallback support
+ * Requirement 4.5: Uses CSS backdrop-filter property
+ * Requirement 4.6: Ensures graceful degradation in unsupported browsers
+ */
+
+/* Fallback for browsers without backdrop-filter support */
+.glass-effect {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-soft);
+}
+
+/* Enhanced glassmorphism for supported browsers */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-effect {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      var(--glass-bg-light) 45%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+  }
+}
+
+.glass-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(
+    180deg,
+    var(--liquid-highlight) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== Opacity Variations ===== */
+
+/**
+ * Light opacity variant - subtle glass effect
+ * Best for overlays and subtle backgrounds
+ */
+.glass-effect--light {
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+@supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
+  .glass-effect--light {
+    background: rgba(248, 250, 252, var(--glass-opacity-light));
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+  }
+}
+
+/**
+ * Medium opacity variant - balanced glass effect
+ * Best for cards, buttons, and interactive elements
+ */
+.glass-effect--medium {
+  background: rgba(51, 65, 85, 0.9);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-soft);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-effect--medium {
+    background: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      var(--glass-bg-medium) 55%,
+      rgba(148, 163, 184, 0.2) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+  }
+}
+
+/**
+ * Heavy opacity variant - strong glass effect
+ * Best for navigation bars and prominent UI elements
+ */
+.glass-effect--heavy {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--liquid-shadow-deep);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-effect--heavy {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      var(--glass-bg-dark) 55%,
+      rgba(31, 41, 55, 0.85) 100%
+    );
+    backdrop-filter: blur(var(--blur-xl)) saturate(130%);
+    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(130%);
+  }
+}
+
+/* ===== Dark Variant ===== */
+
+/**
+ * Dark glass effect - for use on light backgrounds
+ */
+.glass-effect--dark {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text-light);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-effect--dark {
+    background: rgba(31, 41, 55, 0.7);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+/* ===== Light Variant ===== */
+
+/**
+ * Light glass effect - for use on dark backgrounds
+ */
+.glass-effect--light-bg {
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text-primary);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-effect--light-bg {
+    background: rgba(248, 250, 252, 0.1);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+/* ===== Blur Variations ===== */
+
+/**
+ * Small blur - subtle effect
+ */
+.glass-effect--blur-sm {
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+
+@supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
+  .glass-effect--blur-sm {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+  }
+}
+
+/**
+ * Large blur - strong effect
+ */
+.glass-effect--blur-lg {
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .glass-effect--blur-lg {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+  }
+}
+
+/* ===== Component-Specific Glass Effects ===== */
+
+/**
+ * Navigation glass effect
+ * Requirement 4.1: Navigation bar with glassmorphism
+ */
+.glass-nav {
+  background: rgba(31, 41, 55, 0.95);
+  border-bottom: 1px solid var(--glass-border-light);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-nav {
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+/**
+ * Button glass effect
+ * Requirement 4.2: Buttons with glassmorphism
+ */
+.glass-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(51, 65, 85, 0.9);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-base);
+  transition: all var(--transition-base) var(--easing-default);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-button {
+    background: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      var(--glass-bg-medium) 60%,
+      rgba(148, 163, 184, 0.22) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(120%);
+  }
+}
+
+.glass-button:hover {
+  background: rgba(51, 65, 85, 0.95);
+  transform: translateY(-2px);
+  box-shadow: var(--liquid-shadow-soft);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-button:hover {
+    background: rgba(51, 65, 85, 0.5);
+  }
+}
+
+/**
+ * Card glass effect
+ * Requirement 4.3: Cards with glassmorphism
+ */
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--liquid-shadow-soft);
+  transition: transform var(--transition-base) var(--easing-default),
+              box-shadow var(--transition-base) var(--easing-default);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-card {
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      var(--glass-bg-light) 50%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(125%);
+  }
+}
+
+.glass-card::after,
+.glass-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--liquid-edge);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/**
+ * Modal glass effect
+ * Requirement 4.4: Modal overlays with glassmorphism
+ */
+.glass-modal {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .glass-modal {
+    background: rgba(31, 41, 55, 0.8);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+  }
+}
+
+/* ===== Utility Classes ===== */
+
+/**
+ * Remove glass effect (useful for responsive overrides)
+ */
+.no-glass {
+  background: var(--color-bg-light);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--color-mid-tone);
+}
+
+/**
+ * Glass border utility
+ */
+.glass-border {
+  border: 1px solid var(--glass-border);
+}
+
+.glass-border-light {
+  border: 1px solid var(--glass-border-light);
+}
+
+/**
+ * Glass shadow utility
+ */
+.glass-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.glass-shadow-lg {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Accessibility & Performance ===== */
+
+/**
+ * Reduced motion support
+ * Requirement 7.6: Respect user motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+  .glass-button,
+  .glass-card {
+    transition: none;
+  }
+  
+  .glass-button:hover,
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/**
+ * High contrast mode support
+ * Ensure glass effects remain visible in high contrast mode
+ */
+@media (prefers-contrast: high) {
+  .glass-effect,
+  .glass-effect--light,
+  .glass-effect--medium,
+  .glass-effect--heavy,
+  .glass-nav,
+  .glass-button,
+  .glass-card,
+  .glass-modal {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+}
+

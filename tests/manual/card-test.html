@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Component Test</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/glassmorphism.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    body {
+      padding: 2rem;
+      background: linear-gradient(135deg, #22223b 0%, #4a4e69 100%);
+      min-height: 100vh;
+    }
+    
+    .test-section {
+      margin-bottom: 4rem;
+    }
+    
+    .test-section h2 {
+      color: var(--color-primary-light);
+      margin-bottom: 1.5rem;
+      font-size: var(--font-size-2xl);
+    }
+    
+    .test-section h3 {
+      color: var(--color-light-accent);
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      font-size: var(--font-size-xl);
+    }
+    
+    .test-description {
+      color: var(--color-primary-light);
+      margin-bottom: 1rem;
+      font-size: var(--font-size-base);
+    }
+    
+    /* Demo image placeholder */
+    .demo-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #9a8c98 0%, #c9ada7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary-dark);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-section">
+    <h2>Card Component Tests</h2>
+    <p class="test-description">Testing card component styles with glassmorphism effects, hover states, and responsive layouts.</p>
+  </div>
+
+  <!-- Test 1: Basic Card -->
+  <div class="test-section">
+    <h3>Test 1: Basic Card (No Glass Effect)</h3>
+    <div class="card" style="max-width: 400px;">
+      <div class="card__image">
+        <div class="demo-image">Card Image</div>
+      </div>
+      <div class="card__content">
+        <h3 class="card__title">Basic Card Title</h3>
+        <p class="card__description">This is a basic card without glassmorphism effect. It should have a solid background and standard shadow.</p>
+        <div class="card__tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 2: Glass Card -->
+  <div class="test-section">
+    <h3>Test 2: Glass Card (Light Variant)</h3>
+    <div class="card card--glass" style="max-width: 400px;">
+      <div class="card__image">
+        <div class="demo-image">Glass Card Image</div>
+      </div>
+      <div class="card__content">
+        <h3 class="card__title">Glass Card Title</h3>
+        <p class="card__description">This card has glassmorphism effect with backdrop blur. Hover to see the transform and shadow effects.</p>
+        <div class="card__tags">
+          <span class="tag">Glassmorphism</span>
+          <span class="tag">Modern</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 3: Dark Glass Card -->
+  <div class="test-section">
+    <h3>Test 3: Dark Glass Card</h3>
+    <div class="card card--glass-dark" style="max-width: 400px;">
+      <div class="card__image">
+        <div class="demo-image">Dark Glass Card</div>
+      </div>
+      <div class="card__content">
+        <h3 class="card__title">Dark Glass Card</h3>
+        <p class="card__description">This card uses dark glassmorphism with light text. Perfect for light backgrounds.</p>
+        <div class="card__tags">
+          <span class="tag">Dark Mode</span>
+          <span class="tag">Elegant</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 4: Interactive Card -->
+  <div class="test-section">
+    <h3>Test 4: Interactive Card (Clickable)</h3>
+    <div class="card card--glass card--interactive" style="max-width: 400px;" tabindex="0" role="button">
+      <div class="card__image">
+        <div class="demo-image">Click Me!</div>
+      </div>
+      <div class="card__content">
+        <h3 class="card__title">Interactive Card</h3>
+        <p class="card__description">This card is clickable and has cursor pointer. Try clicking or using keyboard focus.</p>
+        <div class="card__tags">
+          <span class="tag">Interactive</span>
+          <span class="tag">Clickable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 5: Card with Header and Footer -->
+  <div class="test-section">
+    <h3>Test 5: Card with Header and Footer</h3>
+    <div class="card card--glass" style="max-width: 400px;">
+      <div class="card__header">
+        <h3 class="card__title">Card with Sections</h3>
+        <span class="card__subtitle">Featured</span>
+      </div>
+      <div class="card__content">
+        <p class="card__description">This card demonstrates header and footer sections with proper borders and spacing.</p>
+      </div>
+      <div class="card__footer">
+        <div class="card__tags">
+          <span class="tag">Featured</span>
+        </div>
+        <span style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">2 days ago</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 6: Horizontal Card -->
+  <div class="test-section">
+    <h3>Test 6: Horizontal Card Layout</h3>
+    <div class="card card--glass card--horizontal" style="max-width: 600px;">
+      <div class="card__image">
+        <div class="demo-image">Horizontal</div>
+      </div>
+      <div class="card__content">
+        <h3 class="card__title">Horizontal Card</h3>
+        <p class="card__description">This card displays image and content side by side. On mobile, it stacks vertically.</p>
+        <div class="card__tags">
+          <span class="tag">Responsive</span>
+          <span class="tag">Flexible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 7: Card Sizes -->
+  <div class="test-section">
+    <h3>Test 7: Card Size Variants</h3>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <div class="card card--glass card--small" style="max-width: 250px;">
+        <div class="card__content">
+          <h3 class="card__title">Small Card</h3>
+          <p class="card__description">Compact size with reduced padding.</p>
+        </div>
+      </div>
+      
+      <div class="card card--glass" style="max-width: 300px;">
+        <div class="card__content">
+          <h3 class="card__title">Medium Card</h3>
+          <p class="card__description">Default size with standard padding.</p>
+        </div>
+      </div>
+      
+      <div class="card card--glass card--large" style="max-width: 400px;">
+        <div class="card__content">
+          <h3 class="card__title">Large Card</h3>
+          <p class="card__description">Prominent size with increased padding and larger text.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 8: Card Grid Layouts -->
+  <div class="test-section">
+    <h3>Test 8: Responsive Card Grid (3 columns on desktop, 2 on tablet, 1 on mobile)</h3>
+    <div class="card-grid">
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 1</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project One</h3>
+          <p class="card__description">First project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 2</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project Two</h3>
+          <p class="card__description">Second project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">Vue</span>
+            <span class="tag">Express</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 3</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project Three</h3>
+          <p class="card__description">Third project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">Angular</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 4</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project Four</h3>
+          <p class="card__description">Fourth project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">Python</span>
+            <span class="tag">Django</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 5</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project Five</h3>
+          <p class="card__description">Fifth project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">Ruby</span>
+            <span class="tag">Rails</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card card--glass">
+        <div class="card__image">
+          <div class="demo-image">Project 6</div>
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">Project Six</h3>
+          <p class="card__description">Sixth project in the grid layout.</p>
+          <div class="card__tags">
+            <span class="tag">PHP</span>
+            <span class="tag">Laravel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 9: Card States -->
+  <div class="test-section">
+    <h3>Test 9: Card States</h3>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <div class="card card--glass card--loading" style="max-width: 250px; min-height: 200px;">
+        <div class="card__content">
+          <h3 class="card__title">Loading Card</h3>
+          <p class="card__description">Shows loading spinner.</p>
+        </div>
+      </div>
+      
+      <div class="card card--glass card--disabled" style="max-width: 250px;">
+        <div class="card__content">
+          <h3 class="card__title">Disabled Card</h3>
+          <p class="card__description">Reduced opacity, not interactive.</p>
+        </div>
+      </div>
+      
+      <div class="card card--glass card--selected" style="max-width: 250px;">
+        <div class="card__content">
+          <h3 class="card__title">Selected Card</h3>
+          <p class="card__description">Highlighted border and shadow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 10: Centered Card -->
+  <div class="test-section">
+    <h3>Test 10: Centered Card Content</h3>
+    <div class="card card--glass card--centered" style="max-width: 400px;">
+      <div class="card__content">
+        <h3 class="card__title">Centered Card</h3>
+        <p class="card__description">All content is center-aligned for a balanced look.</p>
+        <div class="card__tags">
+          <span class="tag">Centered</span>
+          <span class="tag">Balanced</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2>Manual Testing Checklist</h2>
+    <div class="card card--glass" style="max-width: 800px;">
+      <div class="card__content">
+        <h3 class="card__title">Verification Steps</h3>
+        <ul style="color: var(--color-text-primary); line-height: 1.8;">
+          <li>✓ Base card styles display correctly with proper spacing</li>
+          <li>✓ Glassmorphism effect shows backdrop blur (check browser support)</li>
+          <li>✓ Hover effects work: transform translateY and shadow increase</li>
+          <li>✓ Image zoom effect on hover works smoothly</li>
+          <li>✓ Tags display correctly with proper styling</li>
+          <li>✓ Responsive grid adapts: 3 cols desktop, 2 cols tablet, 1 col mobile</li>
+          <li>✓ Horizontal cards stack vertically on mobile</li>
+          <li>✓ Interactive cards show cursor pointer and focus outline</li>
+          <li>✓ Card states (loading, disabled, selected) display correctly</li>
+          <li>✓ All transitions complete within 300ms</li>
+          <li>✓ Reduced motion: Test with prefers-reduced-motion enabled</li>
+          <li>✓ High contrast: Test with high contrast mode enabled</li>
+          <li>✓ Keyboard navigation: Tab through interactive cards</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add click handler for interactive cards
+    document.querySelectorAll('.card--interactive').forEach(card => {
+      card.addEventListener('click', () => {
+        console.log('Card clicked!');
+        alert('Interactive card clicked!');
+      });
+      
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
