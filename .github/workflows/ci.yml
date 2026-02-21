@@ -20,6 +20,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Update asset version references
+        run: npm run version:assets
       - name: Validate HTML and CSS
         run: npm run validate
 
@@ -36,6 +38,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Update asset version references
+        run: npm run version:assets
       - name: Run unit and property tests
         run: npm test -- --runInBand
 
@@ -52,6 +56,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Update asset version references
+        run: npm run version:assets
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium firefox webkit
       - name: Run cross-browser E2E tests
@@ -70,6 +76,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Update asset version references
+        run: npm run version:assets
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Run performance audit
