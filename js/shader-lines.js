@@ -13,6 +13,10 @@ const ShaderLines = {
   dpr: 1,
   active: false,
   reduceMotion: false,
+  heroVisible: true,
+  frameInterval: 1000 / 36,
+  lastFrameTime: 0,
+  observer: null,
 
   init() {
     this.canvas = document.querySelector('.hero__shader');
@@ -31,6 +35,7 @@ const ShaderLines = {
     document.addEventListener('visibilitychange', this.onVisibilityChange);
 
     this.resize();
+    this.setupVisibilityObserver();
     this.start();
   },
 
@@ -49,14 +54,14 @@ const ShaderLines = {
 
   buildLines() {
     const mobile = window.matchMedia('(max-width: 767px)').matches;
-    const count = mobile ? 12 : 20;
+    const count = mobile ? 8 : 14;
     this.lines = [];
 
     for (let i = 0; i < count; i += 1) {
       const progress = (i + 1) / (count + 1);
       this.lines.push({
         baseY: progress * this.height,
-        ampA: (mobile ? 10 : 16) + Math.random() * (mobile ? 12 : 20),
+        ampA: (mobile ? 8 : 12) + Math.random() * (mobile ? 8 : 14),
         ampB: (mobile ? 5 : 8) + Math.random() * (mobile ? 8 : 12),
         freqA: 0.006 + Math.random() * 0.006,
         freqB: 0.002 + Math.random() * 0.004,
@@ -69,8 +74,14 @@ const ShaderLines = {
   },
 
   drawFrame(time) {
+    if (time - this.lastFrameTime < this.frameInterval) {
+      this.rafId = requestAnimationFrame((t) => this.drawFrame(t));
+      return;
+    }
+    this.lastFrameTime = time;
+
     this.ctx.clearRect(0, 0, this.width, this.height);
-    const step = window.matchMedia('(max-width: 767px)').matches ? 16 : 12;
+    const step = window.matchMedia('(max-width: 767px)').matches ? 20 : 16;
 
     for (const line of this.lines) {
       this.ctx.beginPath();
@@ -86,17 +97,13 @@ const ShaderLines = {
 
       this.ctx.strokeStyle = `rgba(245, 245, 245, ${line.alpha})`;
       this.ctx.lineWidth = line.width;
-      this.ctx.shadowBlur = 10;
-      this.ctx.shadowColor = 'rgba(245, 245, 245, 0.18)';
       this.ctx.stroke();
     }
-
-    this.ctx.shadowBlur = 0;
     this.rafId = requestAnimationFrame((t) => this.drawFrame(t));
   },
 
   start() {
-    if (this.active) return;
+    if (this.active || !this.heroVisible || document.hidden) return;
     this.active = true;
     this.rafId = requestAnimationFrame((t) => this.drawFrame(t));
   },
@@ -112,6 +119,21 @@ const ShaderLines = {
   handleVisibilityChange() {
     if (document.hidden) this.stop();
     else this.start();
+  },
+
+  setupVisibilityObserver() {
+    const hero = document.querySelector('.hero');
+    if (!hero || !('IntersectionObserver' in window)) return;
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        this.heroVisible = entry.isIntersecting;
+        if (this.heroVisible) this.start();
+        else this.stop();
+      });
+    }, { threshold: 0.08 });
+
+    this.observer.observe(hero);
   }
 };
 
@@ -124,4 +146,3 @@ if (document.readyState === 'loading') {
 if (typeof window !== 'undefined') {
   window.ShaderLines = ShaderLines;
 }
-
