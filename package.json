@@ -12,6 +12,7 @@
     "validate:html": "node scripts/validate-html.js",
     "validate:css": "node scripts/validate-css.js",
     "validate": "npm run validate:html && npm run validate:css",
+    "version:assets": "node scripts/update-asset-version.js",
     "test:minification": "jest tests/unit/minification.test.js --runInBand",
     "test:images": "jest tests/unit/image-optimization.test.js --runInBand",
     "test:e2e": "playwright test",

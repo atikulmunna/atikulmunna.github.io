@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atikulmunna.github.io/sitemap.xml
+
