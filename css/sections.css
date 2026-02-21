@@ -1928,7 +1928,7 @@ body {
 .project-card__links .btn {
   min-height: 38px;
   padding: var(--spacing-xs) var(--spacing-lg);
-  border: 1px solid rgba(245, 245, 245, 0.2);
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   background: linear-gradient(
     155deg,
@@ -1936,11 +1936,18 @@ body {
     rgba(38, 38, 38, 0.4) 56%,
     rgba(17, 17, 17, 0.62) 100%
   );
+  background-clip: padding-box;
+  overflow: hidden;
+  isolation: isolate;
   color: var(--color-primary-light);
   box-shadow:
     0 8px 18px rgba(17, 17, 17, 0.2),
-    inset 0 1px 0 rgba(245, 245, 245, 0.2);
+    inset 0 1px 0 rgba(245, 245, 245, 0.2),
+    0 0 0 1px rgba(245, 245, 245, 0.2);
   letter-spacing: 0.01em;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .project-card__links .btn::after {
@@ -1948,8 +1955,7 @@ body {
 }
 
 .project-card__links .btn:hover {
-  transform: translateY(-2px);
-  border-color: rgba(168, 168, 168, 0.45);
+  transform: translate3d(0, -2px, 0);
   background: linear-gradient(
     155deg,
     rgba(168, 168, 168, 0.26) 0%,
@@ -1958,7 +1964,8 @@ body {
   );
   box-shadow:
     0 12px 24px rgba(17, 17, 17, 0.26),
-    inset 0 1px 0 rgba(245, 245, 245, 0.24);
+    inset 0 1px 0 rgba(245, 245, 245, 0.24),
+    0 0 0 1px rgba(168, 168, 168, 0.45);
 }
 
 .project-card__links .btn:focus-visible {
@@ -2279,13 +2286,16 @@ body {
   min-height: 36px;
   padding: var(--spacing-xs) var(--spacing-lg);
   border-radius: var(--radius-full);
-  border: 1px solid rgba(245, 245, 245, 0.22);
+  border: 1px solid transparent;
   background: linear-gradient(
     155deg,
     rgba(245, 245, 245, 0.24) 0%,
     rgba(38, 38, 38, 0.32) 58%,
     rgba(17, 17, 17, 0.5) 100%
   );
+  background-clip: padding-box;
+  overflow: hidden;
+  isolation: isolate;
   color: var(--color-primary-light);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
@@ -2293,7 +2303,11 @@ body {
   letter-spacing: 0.01em;
   box-shadow:
     0 8px 18px rgba(17, 17, 17, 0.2),
-    inset 0 1px 0 rgba(245, 245, 245, 0.2);
+    inset 0 1px 0 rgba(245, 245, 245, 0.2),
+    0 0 0 1px rgba(245, 245, 245, 0.22);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition:
     transform var(--transition-fast) var(--easing-default),
     border-color var(--transition-fast) var(--easing-default),
@@ -2303,8 +2317,7 @@ body {
 }
 
 .research-item__link:hover {
-  transform: translateY(-2px);
-  border-color: rgba(168, 168, 168, 0.46);
+  transform: translate3d(0, -2px, 0);
   background: linear-gradient(
     155deg,
     rgba(245, 245, 245, 0.28) 0%,
@@ -2313,7 +2326,8 @@ body {
   );
   box-shadow:
     0 12px 24px rgba(17, 17, 17, 0.26),
-    inset 0 1px 0 rgba(245, 245, 245, 0.24);
+    inset 0 1px 0 rgba(245, 245, 245, 0.24),
+    0 0 0 1px rgba(168, 168, 168, 0.46);
   color: var(--color-primary-light);
 }
 
@@ -2327,7 +2341,6 @@ body {
 .research-item__link--placeholder:hover {
   cursor: default;
   transform: none;
-  border-color: rgba(168, 168, 168, 0.34);
   background: linear-gradient(
     155deg,
     rgba(168, 168, 168, 0.22) 0%,
@@ -2337,7 +2350,8 @@ body {
   color: var(--color-primary-light);
   box-shadow:
     0 6px 14px rgba(17, 17, 17, 0.16),
-    inset 0 1px 0 rgba(245, 245, 245, 0.14);
+    inset 0 1px 0 rgba(245, 245, 245, 0.14),
+    0 0 0 1px rgba(168, 168, 168, 0.34);
   opacity: 0.86;
 }
 
