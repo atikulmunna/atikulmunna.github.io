@@ -412,36 +412,68 @@
   /* Mobile menu styling */
   .nav__menu {
     position: fixed;
-    top: 64px;
-    right: 0;
+    top: 72px;
+    right: var(--spacing-sm);
     bottom: auto;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: var(--spacing-md);
-    width: 100%;
-    max-width: 300px;
-    height: calc(100vh - 64px);
-    padding: var(--spacing-xl) var(--spacing-lg);
+    gap: var(--spacing-sm);
+    width: min(82vw, 248px);
+    max-width: 248px;
+    height: auto;
+    max-height: calc(100vh - 88px);
+    padding: var(--spacing-md);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     
-    /* Glassmorphism background */
-    background: rgba(31, 41, 55, 0.98);
-    border-left: 1px solid var(--glass-border);
-    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+    /* Liquid-glass background */
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(31, 41, 55, 0.88) 58%,
+      rgba(31, 41, 55, 0.95) 100%
+    );
+    border: 1px solid var(--glass-border-light);
+    border-radius: var(--radius-xl);
+    box-shadow:
+      0 16px 34px rgba(15, 23, 42, 0.36),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
     
     /* Hidden by default */
     transform: translateX(100%);
     transition: transform var(--transition-base) var(--easing-default);
     z-index: var(--z-index-fixed);
+    overflow: hidden;
+    isolation: isolate;
+    --liquid-pointer-x: 50%;
+    --liquid-pointer-y: 50%;
+    --liquid-pointer-o: 0.12;
+  }
+
+  .nav__menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at var(--liquid-pointer-x) var(--liquid-pointer-y),
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.06) 30%,
+        rgba(255, 255, 255, 0) 62%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(255, 255, 255, 0) 52%
+      );
+    pointer-events: none;
   }
   
   @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
     .nav__menu {
-      background: rgba(31, 41, 55, 0.95);
-      backdrop-filter: blur(var(--blur-lg));
-      -webkit-backdrop-filter: blur(var(--blur-lg));
+      backdrop-filter: blur(var(--blur-xl)) saturate(128%);
+      -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(128%);
     }
   }
   
@@ -452,16 +484,22 @@
   
   /* Mobile menu items */
   .nav__item {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
   }
   
   /* Mobile menu links */
   .nav__link {
-    width: 100%;
+    width: auto;
+    min-width: 132px;
     justify-content: center;
-    padding: var(--spacing-md) var(--spacing-lg);
-    font-size: var(--font-size-lg);
+    padding: var(--spacing-xs) var(--spacing-md);
+    min-height: 38px;
+    font-size: var(--font-size-base);
     color: var(--color-primary-light);
+    border: 1px solid rgba(248, 250, 252, 0.16);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.05);
   }
   
   /* Active link indicator on mobile */
