@@ -704,15 +704,61 @@ body {
   --hero-liquid-drift-b: 0px;
 }
 
-.hero__shader {
+.hero__aurora {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -10%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.7;
+  filter: blur(18px);
+}
+
+.hero__aurora-blob {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
   mix-blend-mode: screen;
+  opacity: 0.35;
+  animation: hero-aurora-drift 14s ease-in-out infinite;
+}
+
+.hero__aurora-blob--one {
+  top: -8%;
+  left: -14%;
+  width: 56vw;
+  height: 42vh;
+  background: radial-gradient(circle, rgba(245, 245, 245, 0.42) 0%, rgba(168, 168, 168, 0.22) 36%, rgba(255, 255, 255, 0) 72%);
+  animation-delay: -2s;
+}
+
+.hero__aurora-blob--two {
+  right: -20%;
+  bottom: -12%;
+  width: 52vw;
+  height: 48vh;
+  background: radial-gradient(circle, rgba(168, 168, 168, 0.35) 0%, rgba(92, 92, 92, 0.2) 40%, rgba(255, 255, 255, 0) 74%);
+  animation-duration: 18s;
+}
+
+.hero__aurora-blob--three {
+  top: 28%;
+  left: 18%;
+  width: 42vw;
+  height: 34vh;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0%, rgba(168, 168, 168, 0.16) 42%, rgba(255, 255, 255, 0) 72%);
+  animation-duration: 16s;
+  animation-delay: -6s;
+}
+
+@keyframes hero-aurora-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  35% {
+    transform: translate3d(3%, -4%, 0) scale(1.06);
+  }
+  68% {
+    transform: translate3d(-4%, 3%, 0) scale(0.96);
+  }
 }
 
 .hero::before {
@@ -1040,7 +1086,7 @@ body {
  * Requirement 7.6: Respect user motion preferences
  */
 @media (prefers-reduced-motion: reduce) {
-  .hero__shader {
+  .hero__aurora {
     display: none;
   }
 
