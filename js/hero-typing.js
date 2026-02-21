@@ -3,7 +3,7 @@
  * Types the hero description on every page load unless reduced motion is preferred.
  */
 const HeroTyping = {
-  speedMs: 34,
+  speedMs: 70,
   pauseAfterMs: 250,
 
   init() {

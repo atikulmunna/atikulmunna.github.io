@@ -824,6 +824,20 @@ body {
   color: var(--color-light-accent);
   letter-spacing: 0.02em;
   text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: hero-subtitle-fade-in 1.35s var(--easing-out) 0.4s forwards;
+}
+
+@keyframes hero-subtitle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hero description */
@@ -1092,6 +1106,12 @@ body {
 
   .hero__name {
     animation: none;
+  }
+
+  .hero__subtitle {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 
   .hero__description--typing::after {
