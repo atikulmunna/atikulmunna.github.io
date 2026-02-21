@@ -29,6 +29,26 @@
   - app bootstrap
   - feature detection (`backdrop-filter`)
   - fault-tolerant module initialization
+- `js/hero-constellation.js`
+  - hero particle-constellation canvas background
+  - pauses animation when hero is offscreen (IntersectionObserver)
+  - pauses/resumes on tab visibility changes
+  - adaptive particle density for smaller screens
+  - resize-safe particle preservation (no visible reset)
+- `js/hero-typing.js`
+  - load-time typing effect for hero summary line
+  - reduced-motion fallback
+
+## Recent performance optimizations
+
+- Offscreen hero animation throttling:
+  - constellation animation now runs only when the hero section is visible.
+- Reduced render load on mobile:
+  - adaptive particle density lowers draw cost on smaller viewports.
+- Resize continuity:
+  - particle state is preserved across viewport changes to avoid hard resets.
+- Scroll smoothness improvements:
+  - reduced background animation workload during section-to-section scrolling.
 
 ### Styling layers
 
