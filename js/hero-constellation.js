@@ -14,7 +14,7 @@ const HeroConstellation = {
 
   config: {
     density: 9500,
-    speed: 0.28,
+    speed: 0.34,
     radiusMin: 0.8,
     radiusMax: 1.9,
     connectDistance: 120,
