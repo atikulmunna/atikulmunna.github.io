@@ -122,3 +122,22 @@ Primary deployment target is GitHub Pages user site:
 - Repository: `atikulmunna/atikulmunna.github.io`
 - URL: `https://atikulmunna.github.io/`
 - Source: `main` branch, root directory
+
+## Maintenance Notes
+
+### Content updates
+
+- Main content sections are edited in `index.html` (Hero, About, Projects, Research, Experience, Contact).
+- Section-specific visual tuning is in `css/sections.css`.
+- Component-level button/card styles are in `css/components.css`.
+
+### Asset cache-busting
+
+- Run `npm run version:assets` after frontend asset updates.
+- This updates CSS/JS `?v=...` references in `index.html`.
+- CI also runs this automatically.
+
+### Local editor guide
+
+- A local-only editing map exists as `LOCAL_EDITING_GUIDE.md`.
+- Keep it local (do not commit).
