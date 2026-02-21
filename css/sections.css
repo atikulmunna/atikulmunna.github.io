@@ -2911,10 +2911,14 @@ body {
 .footer__container {
   max-width: var(--container-xl);
   margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .footer__text {
   margin: 0;
+  width: 100%;
   text-align: center;
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
