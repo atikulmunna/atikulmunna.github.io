@@ -5,6 +5,7 @@
 const HeroTyping = {
   speedMs: 70,
   pauseAfterMs: 250,
+  startDelayMs: 2550,
 
   init() {
     const target = document.querySelector('[data-hero-typing]');
@@ -18,7 +19,10 @@ const HeroTyping = {
       return;
     }
 
-    this.runTyping(target, fullText);
+    target.classList.add('hero__description--queued');
+    window.setTimeout(() => {
+      this.runTyping(target, fullText);
+    }, this.startDelayMs);
   },
 
   prefersReducedMotion() {
@@ -27,6 +31,8 @@ const HeroTyping = {
   },
 
   runTyping(target, fullText) {
+    target.classList.remove('hero__description--queued');
+    target.classList.add('hero__description--ready');
     target.textContent = '';
     target.classList.add('hero__description--typing');
 
