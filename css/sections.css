@@ -882,6 +882,26 @@ body {
   will-change: filter;
 }
 
+.hero__name::after {
+  content: '';
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 44%;
+  height: 88%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: radial-gradient(
+    circle,
+    rgba(245, 245, 245, 0.38) 0%,
+    rgba(168, 168, 168, 0.22) 34%,
+    rgba(168, 168, 168, 0) 74%
+  );
+  filter: blur(12px);
+  opacity: 0.25;
+  pointer-events: none;
+  animation: hero-name-right-blink 2.8s ease-in-out infinite;
+}
+
 @keyframes hero-name-glow {
   0%,
   100% {
@@ -893,6 +913,18 @@ body {
     filter:
       drop-shadow(0 0 12px rgba(245, 245, 245, 0.3))
       drop-shadow(0 0 24px rgba(168, 168, 168, 0.22));
+  }
+}
+
+@keyframes hero-name-right-blink {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 0.66;
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
