@@ -868,10 +868,6 @@ body {
   animation: hero-typing-caret 0.9s steps(1, end) infinite;
 }
 
-.hero__description--typing-complete::after {
-  display: none;
-}
-
 @keyframes hero-typing-caret {
   0%,
   49% {
