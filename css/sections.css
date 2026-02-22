@@ -870,9 +870,10 @@ body {
   display: block;
   font-size: var(--font-size-4xl);
   background: linear-gradient(
-    135deg,
+    120deg,
     var(--color-primary-light) 0%,
-    var(--color-light-accent) 100%
+    var(--color-light-accent) 46%,
+    var(--color-primary-light) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
