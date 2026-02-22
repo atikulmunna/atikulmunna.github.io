@@ -107,8 +107,10 @@
 
 /* Logo/Brand */
 .nav__logo {
+  position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
@@ -119,24 +121,56 @@
   z-index: calc(var(--z-index-fixed) + 1);
 }
 
+.nav__logo-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  border: 1px dotted rgba(245, 245, 245, 0.28);
+  border-radius: var(--radius-full);
+  box-shadow:
+    inset 0 0 0 1px rgba(245, 245, 245, 0.06),
+    0 0 16px rgba(17, 17, 17, 0.32);
+  pointer-events: none;
+  animation: nav-logo-orbit 7.2s linear infinite;
+}
+
+.nav__logo-orbit-star {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-light);
+  text-shadow:
+    0 0 6px rgba(245, 245, 245, 0.6),
+    0 0 10px rgba(168, 168, 168, 0.5);
+  animation: nav-logo-star-pulse 1.9s ease-in-out infinite;
+}
+
 .nav__logo-icon {
   display: block;
   width: 44px;
   height: 44px;
   object-fit: contain;
-  border-radius: var(--radius-md);
-  box-shadow:
-    0 0 0 1px rgba(245, 245, 245, 0.14),
-    0 8px 18px rgba(17, 17, 17, 0.26);
+  transform: scale(1.3);
+  transform-origin: center;
+  border-radius: 0;
+  box-shadow: none;
   transition: transform var(--transition-fast) var(--easing-default),
               box-shadow var(--transition-fast) var(--easing-default);
 }
 
 .nav__logo:hover .nav__logo-icon {
-  transform: scale(1.04);
-  box-shadow:
-    0 0 0 1px rgba(245, 245, 245, 0.2),
-    0 10px 22px rgba(17, 17, 17, 0.34);
+  transform: scale(1.36);
+  box-shadow: none;
+}
+
+.nav__logo:hover .nav__logo-orbit {
+  animation-duration: 5.8s;
 }
 
 .nav__logo-mark {
@@ -258,6 +292,26 @@
   }
   50% {
     filter: brightness(1.12) saturate(1.14);
+  }
+}
+
+@keyframes nav-logo-orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes nav-logo-star-pulse {
+  0%, 100% {
+    opacity: 0.72;
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.2) saturate(1.12);
   }
 }
 
@@ -420,6 +474,17 @@
   .nav__logo-icon {
     width: 38px;
     height: 38px;
+    transform: scale(1.32);
+  }
+
+  .nav__logo-orbit {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav__logo-orbit-star {
+    top: -7px;
+    font-size: 0.7rem;
   }
 
   .nav__logo-mark {
@@ -586,6 +651,8 @@
   .nav,
   .nav__logo,
   .nav__logo-icon,
+  .nav__logo-orbit,
+  .nav__logo-orbit-star,
   .nav__logo-mark,
   .nav__toggle,
   .nav__toggle-icon,
