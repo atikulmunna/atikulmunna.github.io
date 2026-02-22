@@ -169,10 +169,6 @@
   box-shadow: none;
 }
 
-.nav__logo:hover .nav__logo-orbit {
-  animation-duration: 5.8s;
-}
-
 .nav__logo-mark {
   position: relative;
   display: inline-flex;
