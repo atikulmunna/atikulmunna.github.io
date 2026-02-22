@@ -3,9 +3,9 @@
  * Types the hero description on every page load unless reduced motion is preferred.
  */
 const HeroTyping = {
-  speedMs: 70,
+  speedMs: 95,
   pauseAfterMs: 250,
-  startDelayMs: 2550,
+  startDelayMs: 2700,
 
   init() {
     const target = document.querySelector('[data-hero-typing]');

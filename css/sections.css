@@ -929,7 +929,7 @@ body {
   text-align: center;
   opacity: 0;
   transform: translateY(8px);
-  animation: hero-subtitle-flash 1.45s var(--easing-out) 1.1s forwards;
+  animation: hero-subtitle-flash 2.2s var(--easing-out) 0.95s forwards;
 }
 
 .hero__subtitle-stage .hero__description {
