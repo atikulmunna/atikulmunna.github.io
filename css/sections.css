@@ -2573,7 +2573,6 @@ body {
   max-width: 100%;
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
-  transition: width var(--transition-fast) var(--easing-default);
 }
 
 .experience-disclosure.is-expanded {

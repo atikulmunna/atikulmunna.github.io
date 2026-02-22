@@ -123,19 +123,63 @@ const Animations = {
     );
 
     targets.forEach((target) => {
-      target.addEventListener('pointermove', (event) => {
+      const isNav = target.classList.contains('nav');
+      let navRect = null;
+      let pointerRafId = null;
+      let lastPointerEvent = null;
+
+      const updatePointer = () => {
+        pointerRafId = null;
+        if (!lastPointerEvent) return;
+
         const rect = target.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
 
-        const x = ((event.clientX - rect.left) / rect.width) * 100;
-        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        const x = ((lastPointerEvent.clientX - rect.left) / rect.width) * 100;
+        const y = ((lastPointerEvent.clientY - rect.top) / rect.height) * 100;
 
         target.style.setProperty('--liquid-pointer-x', `${Math.max(0, Math.min(100, x)).toFixed(2)}%`);
         target.style.setProperty('--liquid-pointer-y', `${Math.max(0, Math.min(100, y)).toFixed(2)}%`);
         target.style.setProperty('--liquid-pointer-o', '0.22');
-      });
+      };
+
+      target.addEventListener('pointermove', (event) => {
+        if (isNav) {
+          if (!navRect) {
+            navRect = target.getBoundingClientRect();
+          }
+          if (!navRect.width || !navRect.height) return;
+
+          const x = ((event.clientX - navRect.left) / navRect.width) * 100;
+          const y = ((event.clientY - navRect.top) / navRect.height) * 100;
+
+          target.style.setProperty('--liquid-pointer-x', `${Math.max(0, Math.min(100, x)).toFixed(2)}%`);
+          target.style.setProperty('--liquid-pointer-y', `${Math.max(0, Math.min(100, y)).toFixed(2)}%`);
+          target.style.setProperty('--liquid-pointer-o', '0.22');
+          return;
+        }
+
+        lastPointerEvent = event;
+        if (pointerRafId !== null) return;
+        pointerRafId = window.requestAnimationFrame(updatePointer);
+      }, { passive: true });
+
+      if (isNav) {
+        const refreshNavRect = () => {
+          navRect = target.getBoundingClientRect();
+        };
+
+        target.addEventListener('pointerenter', refreshNavRect, { passive: true });
+        window.addEventListener('resize', refreshNavRect, { passive: true });
+        window.addEventListener('scroll', refreshNavRect, { passive: true });
+      }
 
       target.addEventListener('pointerleave', () => {
+        if (pointerRafId !== null) {
+          window.cancelAnimationFrame(pointerRafId);
+          pointerRafId = null;
+        }
+        lastPointerEvent = null;
         target.style.setProperty('--liquid-pointer-o', '0');
       });
     });
