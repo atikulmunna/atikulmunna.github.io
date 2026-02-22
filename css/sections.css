@@ -919,6 +919,7 @@ body {
 }
 
 .hero__subtitle {
+  grid-area: 1 / 1;
   margin: 0;
   font-family: var(--font-primary);
   font-size: var(--font-size-xl);
@@ -932,13 +933,13 @@ body {
 }
 
 .hero__subtitle-stage .hero__description {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
+  position: relative;
   display: block;
-  width: 100%;
+  width: max-content;
+  max-width: 100%;
   text-align: center;
-  margin: 0;
-  max-width: none;
+  margin: 0 auto;
   min-height: 2.2rem;
   font-size: clamp(0.95rem, 2.4vw, var(--font-size-xl));
   line-height: 1.2;
