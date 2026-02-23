@@ -842,6 +842,53 @@
   }
 }
 
+/* Safari tuning: reduce expensive blur layers for smoother scrolling/animation */
+@supports (-webkit-touch-callout: none) {
+  .nav {
+    backdrop-filter: blur(var(--blur-lg)) saturate(122%);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(122%);
+  }
+
+  .nav::before {
+    background: radial-gradient(
+      circle at var(--liquid-pointer-x) var(--liquid-pointer-y),
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 0.55)) 0%,
+      rgba(255, 255, 255, calc(var(--liquid-pointer-o) * 0.22)) 24%,
+      rgba(255, 255, 255, 0) 58%
+    );
+  }
+
+  .hero__contrib-grid {
+    opacity: 0.7;
+    filter: blur(0.8px);
+  }
+
+  .hero::before {
+    filter: blur(var(--blur-lg));
+    opacity: 0.52;
+  }
+
+  .hero::after {
+    filter: blur(var(--blur-lg));
+    opacity: 0.62;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 767px) {
+    .hero__contrib-grid {
+      opacity: 0.62;
+      filter: blur(0.45px);
+    }
+
+    .hero::before,
+    .hero::after {
+      filter: blur(var(--blur-md));
+      opacity: 0.42;
+    }
+  }
+}
+
 /* ===== Body Padding for Fixed Navigation ===== */
 
 /**
