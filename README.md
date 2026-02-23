@@ -2,7 +2,7 @@
 
 - HTML5 + ARIA-first semantics
 - CSS custom properties + mobile-first layout system
-- Vanilla JS modules for navigation, animation, image handling, and progressive enhancement
+- Vanilla JS modules for navigation, animation, image handling and progressive enhancement
 - Jest for unit/property tests
 - Playwright for cross-browser E2E
 
@@ -157,3 +157,4 @@ Primary deployment target is GitHub Pages user site:
 
 - A local-only editing map exists as `LOCAL_EDITING_GUIDE.md`.
 - Keep it local (do not commit).
+
