@@ -947,7 +947,7 @@ body {
   color: var(--color-light-accent);
   opacity: 0;
   transform: scale(0.75) rotate(0deg);
-  animation: hero-spark-intro 1.35s var(--easing-out) 0.1s forwards;
+  animation: hero-spark-intro 2.05s var(--easing-out) 0.08s forwards;
   pointer-events: none;
 }
 
@@ -961,8 +961,9 @@ body {
   letter-spacing: 0.02em;
   text-align: center;
   opacity: 0;
-  transform: translateY(8px);
-  animation: hero-subtitle-flash 2.2s var(--easing-out) 0.95s forwards;
+  transform: translateY(6px);
+  filter: blur(2px);
+  animation: hero-subtitle-flash 2.35s var(--easing-out) 1.45s forwards;
 }
 
 .hero__subtitle-stage .hero__description {
@@ -990,42 +991,50 @@ body {
 @keyframes hero-spark-intro {
   0% {
     opacity: 0;
-    transform: scale(0.64) rotate(-60deg);
+    transform: scale(0.56) rotate(-80deg);
   }
-  22% {
+  24% {
     opacity: 1;
-    transform: scale(1.15) rotate(160deg);
+    transform: scale(1.2) rotate(160deg);
   }
-  45% {
+  52% {
     opacity: 1;
-    transform: scale(0.9) rotate(290deg);
+    transform: scale(0.92) rotate(360deg);
   }
-  70% {
-    opacity: 0.95;
-    transform: scale(1.04) rotate(420deg);
+  78% {
+    opacity: 0.88;
+    transform: scale(1.02) rotate(560deg);
   }
   100% {
     opacity: 0;
-    transform: scale(0.82) rotate(540deg);
+    transform: scale(0.84) rotate(760deg);
   }
 }
 
 @keyframes hero-subtitle-flash {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
+    letter-spacing: 0.18em;
+    filter: blur(2px);
   }
-  28% {
+  26% {
     opacity: 1;
     transform: translateY(0);
+    letter-spacing: 0.04em;
+    filter: blur(0);
   }
-  62% {
+  66% {
     opacity: 1;
     transform: translateY(0);
+    letter-spacing: 0.04em;
+    filter: blur(0);
   }
   to {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-2px);
+    letter-spacing: 0.11em;
+    filter: blur(1.6px);
   }
 }
 
@@ -1044,16 +1053,14 @@ body {
 .hero__description--queued {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
+  transform: none;
 }
 
 .hero__description--ready {
   visibility: visible;
   opacity: 0.9;
-  transform: translateY(0);
-  transition:
-    opacity var(--transition-fast) var(--easing-out),
-    transform var(--transition-fast) var(--easing-out);
+  transform: none;
+  transition: opacity var(--transition-fast) var(--easing-out);
 }
 
 .hero__description--typing {
