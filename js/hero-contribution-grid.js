@@ -22,6 +22,8 @@ const HeroContributionGrid = {
   gap: 3,
   cols: 0,
   rows: 0,
+  offsetX: 0,
+  offsetY: 0,
 
   init() {
     this.canvas = document.querySelector('.hero__contrib-grid');
@@ -104,6 +106,14 @@ const HeroContributionGrid = {
 
     this.cols = Math.max(8, Math.floor((this.width - this.gap) / (this.cellSize + this.gap)));
     this.rows = Math.max(6, Math.floor((this.height - this.gap) / (this.cellSize + this.gap)));
+
+    // Center the grid so leftover space is distributed on both sides
+    // instead of appearing as a right/bottom bias.
+    const gridWidth = this.cols * (this.cellSize + this.gap);
+    const gridHeight = this.rows * (this.cellSize + this.gap);
+    this.offsetX = Math.max(0, (this.width - gridWidth) * 0.5);
+    this.offsetY = Math.max(0, (this.height - gridHeight) * 0.5);
+
     this.buildCells();
   },
 
@@ -121,8 +131,8 @@ const HeroContributionGrid = {
     for (let row = 0; row < this.rows; row += 1) {
       for (let col = 0; col < this.cols; col += 1) {
         this.cells.push({
-          x: this.gap + col * (this.cellSize + this.gap),
-          y: this.gap + row * (this.cellSize + this.gap),
+          x: this.offsetX + col * (this.cellSize + this.gap),
+          y: this.offsetY + row * (this.cellSize + this.gap),
           level: this.randomLevel(),
           glow: 0
         });
