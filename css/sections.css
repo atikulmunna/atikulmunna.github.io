@@ -39,7 +39,7 @@
       rgba(255, 255, 255, 0.14) 0%,
       rgba(255, 255, 255, 0) 55%
     );
-  border: 1px solid var(--glass-border-light);
+  border: none;
   border-radius: var(--radius-lg);
   box-shadow:
     0 10px 28px rgba(0, 0, 0, 0.28),
@@ -70,7 +70,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   border-radius: inherit;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),

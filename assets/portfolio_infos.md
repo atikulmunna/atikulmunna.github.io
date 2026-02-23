@@ -30,7 +30,7 @@ AI-driven Software Engineer and Computer Science undergraduate specializing in m
 
 **Databases:** Qdrant, Elasticsearch, Neo4j, Redis, SQL, MongoDB
 
-**Backend:** FastAPI, Node.js, Express, Socket.io, WebTorrent, WebRTC (STUN/TURN), WebSocket tracker (bittorrent-tracker), Pydantic, HTTPX
+**Backend:** FastAPI, Node.js, Express, WebTorrent, WebSocket, Pydantic, HTTPX
 
 **MLOps:** Docker, Docker Compose, OpenTelemetry
 
