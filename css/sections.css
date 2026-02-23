@@ -1555,6 +1555,41 @@ body {
   .hero__name {
     -webkit-text-fill-color: var(--color-primary-light);
     background: none;
+    color: var(--color-primary-light);
+    text-shadow:
+      0 0 12px rgba(245, 245, 245, 0.34),
+      0 0 24px rgba(245, 245, 245, 0.18);
+  }
+
+  .nav__toggle-icon,
+  .nav__toggle-icon::before,
+  .nav__toggle-icon::after {
+    background: var(--color-primary-light);
+    box-shadow: 0 0 14px rgba(245, 245, 245, 0.38);
+  }
+}
+
+/* Forced-color mode support (Windows/Edge high contrast and similar overrides) */
+@media (forced-colors: active) {
+  .hero__name {
+    background: none;
+    -webkit-text-fill-color: var(--color-primary-light);
+    color: var(--color-primary-light);
+    text-shadow:
+      0 0 10px rgba(245, 245, 245, 0.32),
+      0 0 18px rgba(245, 245, 245, 0.16);
+    filter: none;
+  }
+
+  .hero__name::after {
+    opacity: 0.2;
+  }
+
+  .nav__toggle-icon,
+  .nav__toggle-icon::before,
+  .nav__toggle-icon::after {
+    background: var(--color-primary-light);
+    box-shadow: 0 0 14px rgba(245, 245, 245, 0.34);
   }
 }
 
