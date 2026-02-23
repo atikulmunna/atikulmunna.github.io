@@ -60,6 +60,11 @@ const App = {
     } else {
       this.log('backdrop-filter is supported');
     }
+
+    // Add browser class hooks for targeted perf tuning.
+    if (this.isEdgeBrowser()) {
+      document.documentElement.classList.add('is-edge');
+    }
   },
 
   /**
@@ -80,6 +85,18 @@ const App = {
       // If CSS.supports throws an exception, assume not supported
       return false;
     }
+  },
+
+  /**
+   * Detect Chromium Edge for targeted performance tuning.
+   * @returns {boolean} True if current browser is Edge
+   */
+  isEdgeBrowser() {
+    if (typeof navigator === 'undefined' || !navigator.userAgent) {
+      return false;
+    }
+
+    return /Edg\//.test(navigator.userAgent);
   },
 
   /**

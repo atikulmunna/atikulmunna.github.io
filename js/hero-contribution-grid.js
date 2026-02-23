@@ -10,6 +10,10 @@ const HeroContributionGrid = {
   rafId: null,
   visibilityObserver: null,
   isVisible: true,
+  isEdge: false,
+  frameIntervalMs: 16.7,
+  lastFrameTs: 0,
+  scrollThrottleUntil: 0,
   reduceMotion: false,
   width: 0,
   height: 0,
@@ -31,6 +35,8 @@ const HeroContributionGrid = {
 
     this.reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.isEdge = typeof navigator !== 'undefined' && /Edg\//.test(navigator.userAgent || '');
+    this.frameIntervalMs = this.isEdge ? 30 : 16.7;
 
     this.setupCanvas();
     this.setupVisibilityObserver();
@@ -58,6 +64,13 @@ const HeroContributionGrid = {
       }
     };
     document.addEventListener('visibilitychange', this.onVisibility);
+
+    this.onScroll = () => {
+      if (!this.isEdge) return;
+      const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      this.scrollThrottleUntil = now + 170;
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
   },
 
   setupVisibilityObserver() {
@@ -171,8 +184,19 @@ const HeroContributionGrid = {
 
   animate() {
     if (this.rafId !== null) return;
-    const tick = () => {
+    const tick = (ts) => {
       this.rafId = requestAnimationFrame(tick);
+      const now = typeof ts === 'number' ? ts : ((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now());
+      let targetInterval = this.frameIntervalMs;
+      if (this.isEdge && now < this.scrollThrottleUntil) {
+        targetInterval = 52;
+      }
+
+      if (now - this.lastFrameTs < targetInterval) {
+        return;
+      }
+
+      this.lastFrameTs = now;
       this.updateCells();
       this.render();
     };
@@ -184,6 +208,7 @@ const HeroContributionGrid = {
       cancelAnimationFrame(this.rafId);
       this.rafId = null;
     }
+    this.lastFrameTs = 0;
   }
 };
 
