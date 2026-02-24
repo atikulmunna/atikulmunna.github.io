@@ -1950,6 +1950,58 @@ body {
  * Properties: 3 (Responsive Layout), 7 (Glassmorphism on Cards)
  */
 
+/* Soft animated divider between adjacent dark sections (Experience -> Tools) */
+#skills {
+  position: relative;
+}
+
+#skills::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(920px, 84%);
+  height: 2px;
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    rgba(245, 245, 245, 0) 0%,
+    rgba(168, 168, 168, 0.28) 22%,
+    rgba(245, 245, 245, 0.7) 50%,
+    rgba(168, 168, 168, 0.28) 78%,
+    rgba(245, 245, 245, 0) 100%
+  );
+  box-shadow:
+    0 0 10px rgba(245, 245, 245, 0.12),
+    0 0 20px rgba(168, 168, 168, 0.08);
+  opacity: 0.8;
+  pointer-events: none;
+  animation: section-divider-breathe 3.8s ease-in-out infinite;
+}
+
+@keyframes section-divider-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    box-shadow:
+      0 0 8px rgba(245, 245, 245, 0.1),
+      0 0 16px rgba(168, 168, 168, 0.06);
+  }
+  50% {
+    opacity: 0.92;
+    box-shadow:
+      0 0 14px rgba(245, 245, 245, 0.18),
+      0 0 28px rgba(168, 168, 168, 0.11);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #skills::before {
+    animation: none;
+  }
+}
+
 /* Skills grid container */
 .skills-grid {
   display: grid;
