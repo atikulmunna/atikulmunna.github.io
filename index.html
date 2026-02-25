@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/components.css?v=582c62e">
   <link rel="stylesheet" href="css/glassmorphism.css?v=582c62e">
   <link rel="stylesheet" href="css/sections.css?v=582c62e">
+  <link rel="stylesheet" href="css/theme-light.css?v=582c62e">
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -46,6 +47,9 @@
           <span class="nav__logo-orbit-star">✦</span>
         </span>
       </a>
+      <button type="button" class="theme-toggle theme-toggle--mobile" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">
+        <span class="theme-toggle__icon" data-theme-icon aria-hidden="true">☀</span>
+      </button>
       <button type="button" class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
         <span class="nav__toggle-icon"></span>
       </button>
@@ -57,6 +61,11 @@
         <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
         <li class="nav__item"><a href="#research" class="nav__link">Research</a></li>
         <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+        <li class="nav__item nav__item--theme">
+          <button type="button" class="theme-toggle theme-toggle--desktop" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">
+            <span class="theme-toggle__icon" data-theme-icon aria-hidden="true">☀</span>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -520,6 +529,7 @@
 
   <!-- JavaScript Files -->
   <script src="js/navigation.js?v=582c62e"></script>
+  <script src="js/theme-toggle.js?v=582c62e"></script>
   <script src="js/animations.js?v=582c62e"></script>
   <script src="js/image-loader.js?v=582c62e"></script>
   <script src="js/experience-toggle.js?v=582c62e"></script>

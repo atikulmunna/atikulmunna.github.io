@@ -140,11 +140,17 @@ const HeroContributionGrid = {
     }
   },
 
+  isLightThemeActive() {
+    return Boolean(document.body && document.body.classList.contains('theme-light'));
+  },
+
   drawCell(cell, isStatic = false) {
     const base = 0.05 + (cell.level * 0.08);
     const flash = isStatic ? 0 : cell.glow * 0.88;
     const alpha = Math.min(0.92, base + flash);
-    this.ctx.fillStyle = `rgba(245, 245, 245, ${alpha})`;
+    this.ctx.fillStyle = this.isLightThemeActive()
+      ? `rgba(17, 17, 17, ${alpha})`
+      : `rgba(245, 245, 245, ${alpha})`;
     this.roundedRect(cell.x, cell.y, this.cellSize, this.cellSize, 3);
     this.ctx.fill();
   },
