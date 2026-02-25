@@ -1634,6 +1634,10 @@ body {
   color: var(--color-text-light);
 }
 
+#about .section__title {
+  color: var(--color-primary-light);
+}
+
 #about::before {
   content: '';
   position: absolute;
