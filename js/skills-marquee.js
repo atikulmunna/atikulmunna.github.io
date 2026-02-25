@@ -51,6 +51,7 @@ const SkillsMarquee = {
 
     this.updateShifts();
     this.bindResize();
+    this.bindFontReady();
   },
 
   updateShifts() {
@@ -60,7 +61,9 @@ const SkillsMarquee = {
       const cloneStart = list.querySelector('[data-clone-start="true"]');
       if (!originalStart || !cloneStart) return;
 
-      const cycleShift = cloneStart.offsetLeft - originalStart.offsetLeft;
+      const originalRect = originalStart.getBoundingClientRect();
+      const cloneRect = cloneStart.getBoundingClientRect();
+      const cycleShift = cloneRect.left - originalRect.left;
       if (cycleShift > 0) {
         list.style.setProperty('--skills-marquee-shift', `${cycleShift.toFixed(2)}px`);
       }
@@ -78,6 +81,15 @@ const SkillsMarquee = {
       });
     };
     window.addEventListener('resize', this.resizeHandler, { passive: true });
+  },
+
+  bindFontReady() {
+    if (!document.fonts || typeof document.fonts.ready?.then !== 'function') return;
+    document.fonts.ready.then(() => {
+      this.updateShifts();
+    }).catch(() => {
+      // Ignore font readiness failures and keep current measurements.
+    });
   }
 };
 
