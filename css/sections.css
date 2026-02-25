@@ -2270,7 +2270,7 @@ body {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(calc(-1 * var(--skills-marquee-shift, 50%)), 0, 0);
   }
 }
 
@@ -2294,6 +2294,17 @@ body {
   white-space: nowrap;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+.skill-item--spacer {
+  width: clamp(2.25rem, 3.6vw, 4.5rem);
+  min-width: clamp(2.25rem, 3.6vw, 4.5rem);
+  height: 1px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 /* Skill item hover effect */
