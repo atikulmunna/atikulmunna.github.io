@@ -237,7 +237,6 @@ body.theme-light .skill-item:hover {
 
 body.theme-light .btn--primary.btn--glass,
 body.theme-light .btn--secondary.btn--glass,
-body.theme-light .project-card__links .btn,
 body.theme-light .research-item__link,
 body.theme-light .experience-toggle,
 body.theme-light .contact-icon-link {
@@ -256,7 +255,6 @@ body.theme-light .contact-icon-link {
 
 body.theme-light .btn--primary.btn--glass:hover,
 body.theme-light .btn--secondary.btn--glass:hover,
-body.theme-light .project-card__links .btn:hover,
 body.theme-light .research-item__link:hover,
 body.theme-light .experience-toggle:hover,
 body.theme-light .contact-icon-link:hover {
@@ -267,6 +265,31 @@ body.theme-light .contact-icon-link:hover {
     rgba(168, 168, 168, 0.36) 100%
   );
   color: var(--color-primary-dark);
+}
+
+body.theme-light .project-card__links .btn {
+  background: linear-gradient(
+    155deg,
+    rgba(38, 38, 38, 0.94) 0%,
+    rgba(17, 17, 17, 0.96) 56%,
+    rgba(38, 38, 38, 0.9) 100%
+  );
+  color: var(--color-primary-light);
+  border: 1px solid rgba(245, 245, 245, 0.22);
+  box-shadow:
+    0 10px 20px rgba(17, 17, 17, 0.26),
+    inset 0 1px 0 rgba(245, 245, 245, 0.14);
+}
+
+body.theme-light .project-card__links .btn:hover {
+  background: linear-gradient(
+    155deg,
+    rgba(38, 38, 38, 0.98) 0%,
+    rgba(17, 17, 17, 1) 56%,
+    rgba(38, 38, 38, 0.94) 100%
+  );
+  color: var(--color-primary-light);
+  border-color: rgba(245, 245, 245, 0.28);
 }
 
 body.theme-light .contact-icon-link span {
