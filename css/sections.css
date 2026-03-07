@@ -786,6 +786,11 @@
     bottom: 12px;
   }
 
+  /* Hide active underline bar in hamburger menu */
+  .nav__menu .nav__link--active::after {
+    display: none;
+  }
+
   .nav__link:hover,
   .nav__link:focus {
     transform: translateY(-1px);
