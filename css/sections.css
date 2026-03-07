@@ -2870,9 +2870,9 @@ body {
     border: 1px solid rgba(168, 168, 168, 0.28);
     background: linear-gradient(
       155deg,
-      rgba(120, 120, 120, 0.2) 0%,
-      rgba(28, 28, 28, 0.56) 56%,
-      rgba(10, 10, 10, 0.82) 100%
+      rgba(168, 168, 168, 0.2) 0%,
+      rgba(38, 38, 38, 0.56) 56%,
+      rgba(17, 17, 17, 0.82) 100%
     );
     color: rgba(245, 245, 245, 0.95);
     box-shadow:
@@ -2883,9 +2883,9 @@ body {
   .project-card__toggle:hover {
     background: linear-gradient(
       155deg,
-      rgba(140, 140, 140, 0.24) 0%,
-      rgba(36, 36, 36, 0.62) 56%,
-      rgba(12, 12, 12, 0.88) 100%
+      rgba(168, 168, 168, 0.24) 0%,
+      rgba(38, 38, 38, 0.62) 56%,
+      rgba(17, 17, 17, 0.88) 100%
     );
     box-shadow:
       0 8px 16px rgba(0, 0, 0, 0.42),
@@ -2893,7 +2893,7 @@ body {
   }
 
   .project-card__toggle:focus-visible {
-    outline: 2px solid rgba(220, 220, 220, 0.7);
+    outline: 2px solid rgba(245, 245, 245, 0.7);
     outline-offset: 2px;
   }
 
