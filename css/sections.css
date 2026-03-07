@@ -2756,45 +2756,100 @@ body {
  */
 @media (max-width: 767px) {
   .project-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 118px;
+    grid-template-rows: auto auto auto;
+    column-gap: var(--spacing-sm);
+    row-gap: var(--spacing-sm);
     min-height: auto;
+    padding: var(--spacing-md);
   }
   
   .project-card__image {
-    height: 180px;
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 118px;
+    height: 86px;
+    border-radius: var(--radius-md);
+    z-index: 1;
   }
   
   .project-card__content {
-    padding: var(--spacing-lg);
-    gap: var(--spacing-sm);
+    display: contents;
+    padding: 0;
   }
   
   .project-card__title {
+    grid-column: 1;
+    grid-row: 1;
     font-size: var(--font-size-lg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 0.42rem 0.72rem;
+    min-height: 0;
+    display: block;
+    text-align: left;
+    align-self: start;
   }
   
   .project-card__description {
+    grid-column: 1;
+    grid-row: 2;
     font-size: var(--font-size-sm);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    overflow: visible;
   }
   
   .project-card__tags {
+    position: absolute;
+    top: calc(var(--spacing-md) + 86px + var(--spacing-xs));
+    right: var(--spacing-md);
+    width: 118px;
     gap: var(--spacing-xs);
-    padding-top: var(--spacing-sm);
+    padding: 0;
+    margin-top: 0;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    max-height: calc(100% - (var(--spacing-md) * 2 + 86px + var(--spacing-xs)));
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .project-card__tags::-webkit-scrollbar {
+    display: none;
   }
   
   .project-card__tags .tag {
     font-size: 0.625rem; /* 10px */
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: 0.22rem 0.42rem;
   }
   
   .project-card__links {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
-    padding-top: var(--spacing-sm);
+    grid-column: 1;
+    grid-row: 3;
+    flex-direction: row;
+    gap: var(--spacing-xs);
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    align-self: start;
+    justify-content: flex-start;
   }
   
   .project-card__links .btn {
-    width: 100%;
+    width: auto;
+    min-height: 30px;
+    padding: 0.28rem 0.62rem;
+    border-radius: var(--radius-md);
+    font-size: 0.68rem;
+    text-align: center;
   }
 }
 
