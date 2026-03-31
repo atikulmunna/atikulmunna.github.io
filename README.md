@@ -1,7 +1,3 @@
-# Atikul Islam Munna Portfolio
-
-Personal portfolio site for [atikulmunna.github.io](https://atikulmunna.github.io/), built as a static frontend with modular CSS, vanilla JavaScript and an automated validation pipeline. The project is intentionally lightweight: no framework runtime, no client-side hydration cost and no build step required for local iteration unless you want optimized production assets.
-
 ## Technical Overview
 
 - Semantic HTML5 structure with ARIA-aware navigation, disclosures and interactive controls
