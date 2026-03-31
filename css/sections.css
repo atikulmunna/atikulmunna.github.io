@@ -1784,6 +1784,23 @@ body {
   max-width: 100%;
 }
 
+.about__link {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(245, 245, 245, 0.72);
+  text-underline-offset: 0.18em;
+  transition:
+    color var(--transition-fast) var(--easing-default),
+    text-decoration-color var(--transition-fast) var(--easing-default);
+}
+
+.about__link:hover,
+.about__link:focus-visible {
+  color: var(--color-light-accent);
+  text-decoration-color: rgba(245, 245, 245, 0.95);
+}
+
 /* About education section */
 .about__education {
   margin-top: var(--spacing-2xl);

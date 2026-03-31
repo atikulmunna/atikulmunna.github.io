@@ -139,6 +139,17 @@ body.theme-light .footer__text {
   color: var(--color-primary-dark);
 }
 
+body.theme-light .about__link {
+  color: inherit;
+  text-decoration-color: rgba(17, 17, 17, 0.42);
+}
+
+body.theme-light .about__link:hover,
+body.theme-light .about__link:focus-visible {
+  color: var(--color-primary-dark);
+  text-decoration-color: rgba(17, 17, 17, 0.72);
+}
+
 body.theme-light #about .education-item {
   background: linear-gradient(
     160deg,
