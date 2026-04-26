@@ -305,6 +305,14 @@ const Navigation = {
     if (activeLink) {
       activeLink.classList.add('nav__link--active');
     }
+
+    if (this.elements.nav && this.elements.links.length > 0) {
+      const activeIndex = this.elements.links.findIndex(link => link === activeLink);
+      const fallbackIndex = activeIndex >= 0 ? activeIndex : 0;
+      const progressSteps = Math.max(this.elements.links.length - 1, 1);
+      const progressScale = 0.14 + ((fallbackIndex / progressSteps) * 0.86);
+      this.elements.nav.style.setProperty('--nav-progress-scale', progressScale.toFixed(3));
+    }
   }
 };
 

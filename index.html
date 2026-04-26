@@ -68,6 +68,7 @@
         </li>
       </ul>
     </div>
+    <span class="nav__progress" aria-hidden="true"></span>
   </nav>
 
   <!-- Main Content -->
@@ -255,36 +256,105 @@
     <!-- Projects Section -->
     <section class="section section--light" id="projects">
       <div class="section__container">
-        <h2 class="section__title">Projects</h2>
+        <h2 class="section__title section__title--with-bookmark">
+          <a href="#projects" class="section-bookmark" aria-label="Projects section bookmark">
+            <span class="section-bookmark__icon" aria-hidden="true"></span>
+          </a>
+          <span>Projects</span>
+        </h2>
         <div class="section__content">
+          <div class="projects-tier">
+            <div class="projects-featured-grid">
+              <article class="project-card project-card--featured project-card--featured-primary card card--glass">
+                <div class="project-card__image">
+                  <img src="assets/images/workspace-management.png" alt="Townhall API workspace management interface preview" loading="lazy" decoding="async" width="1280" height="720">
+                </div>
+                <div class="project-card__content">
+                  <h3 class="project-card__title">Townhall API</h3>
+                  <p class="project-card__description">Built a production-ready multi-tenant workspace management REST API with passwordless auth, role-based access control and real-time email invitations, deployed live on Railway.</p>
+                  <div class="project-card__tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">Express</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Prisma</span>
+                    <span class="tag">Zod</span>
+                    <span class="tag">JWT</span>
+                    <span class="tag">Nodemailer</span>
+                    <span class="tag">OpenAPI 3.1</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Railway</span>
+                    <span class="tag">Jest</span>
+                    <span class="tag">GitHub Actions</span>
+                  </div>
+                  <div class="project-card__links">
+                    <a href="https://github.com/atikulmunna/workspace-management-beta" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Townhall API GitHub repository">GitHub</a>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card project-card--featured card card--glass">
+                <div class="project-card__image">
+                  <img src="assets/images/smartform.jpg" alt="SmartForm app exercise tracking interface preview" loading="lazy" decoding="async" width="1280" height="720">
+                </div>
+                <div class="project-card__content">
+                  <h3 class="project-card__title">SmartForm: AI-Based Exercise Form &amp; Rep Tracking</h3>
+                  <p class="project-card__description">Built an on-device Android app for real-time pose and hand tracking to analyze form, count reps and provide posture feedback. Added gesture-based controls and per-user calibration with robust rep quality scoring.</p>
+                  <div class="project-card__tags">
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">Jetpack Compose</span>
+                    <span class="tag">CameraX</span>
+                    <span class="tag">ML Kit</span>
+                    <span class="tag">MediaPipe</span>
+                  </div>
+                  <div class="project-card__links">
+                    <a href="https://github.com/atikulmunna/SmartForm" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open SmartForm GitHub repository">GitHub</a>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card project-card--featured card card--glass">
+                <div class="project-card__image">
+                  <img src="assets/images/sagrag-demo.png" alt="SAG-RAG project demo interface preview" loading="lazy" decoding="async" width="1280" height="720">
+                </div>
+                <div class="project-card__content">
+                  <h3 class="project-card__title">SAG-RAG: Speculative Agentic Graph RAG Platform</h3>
+                  <p class="project-card__description">Built a RAG system combining speculative query planning, hybrid retrieval, reranking and evidence-grounded synthesis with provenance tracking for reliable answers.</p>
+                  <div class="project-card__tags">
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Qdrant</span>
+                    <span class="tag">Elasticsearch</span>
+                    <span class="tag">Neo4j</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">spaCy</span>
+                  </div>
+                  <div class="project-card__links">
+                    <a href="https://github.com/atikulmunna/sagrag" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open SAG-RAG GitHub repository">GitHub</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="projects-mobile-reveal" data-project-mobile-reveal hidden>
+            <button
+              type="button"
+              class="projects-mobile-reveal__button"
+              data-project-mobile-reveal-toggle
+              aria-expanded="false"
+              aria-controls="projects-additional-tier"
+            >
+              <span class="projects-mobile-reveal__arrows" aria-hidden="true">
+                <span>&rsaquo;</span>
+                <span>&rsaquo;</span>
+                <span>&rsaquo;</span>
+              </span>
+              <span class="projects-mobile-reveal__label">More projects</span>
+            </button>
+          </div>
+          <div class="projects-tier" id="projects-additional-tier" data-project-additional-tier>
+            <p class="projects-tier__eyebrow projects-tier__eyebrow--with-marker">
+              <span class="projects-tier__marker" aria-hidden="true"></span>
+              <span>Additional Projects</span>
+            </p>
           <div class="projects-grid">
-            <article class="project-card card card--glass">
-              <div class="project-card__image">
-                <img src="assets/images/workspace-management.png" alt="Townhall API workspace management interface preview" loading="lazy" decoding="async" width="1280" height="720">
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title">Townhall API</h3>
-                <p class="project-card__description">Built a production-ready multi-tenant workspace management REST API with passwordless auth, role-based access control and real-time email invitations, deployed live on Railway.</p>
-                <div class="project-card__tags">
-                  <span class="tag">Node.js</span>
-                  <span class="tag">TypeScript</span>
-                  <span class="tag">Express</span>
-                  <span class="tag">PostgreSQL</span>
-                  <span class="tag">Prisma</span>
-                  <span class="tag">Zod</span>
-                  <span class="tag">JWT</span>
-                  <span class="tag">Nodemailer</span>
-                  <span class="tag">OpenAPI 3.1</span>
-                  <span class="tag">Docker</span>
-                  <span class="tag">Railway</span>
-                  <span class="tag">Jest</span>
-                  <span class="tag">GitHub Actions</span>
-                </div>
-                <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/workspace-management-beta" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Townhall API GitHub repository">GitHub</a>
-                </div>
-              </div>
-            </article>
             <article class="project-card card card--glass">
               <div class="project-card__image">
                 <img src="assets/images/invoice_operations.png" alt="Receipt2Ledger invoice operations workflow preview" loading="lazy" decoding="async" width="1280" height="720">
@@ -305,6 +375,29 @@
                 </div>
                 <div class="project-card__links">
                   <a href="https://github.com/atikulmunna/visual-invoice-processor" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Receipt2Ledger Visual Invoice Processor GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image">
+                <img src="assets/images/vaultcli.jpg" alt="VaultCLI encrypted file vault command-line interface preview" loading="lazy" decoding="async" width="1280" height="720">
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">VaultCLI</h3>
+                <p class="project-card__description">Built a security-focused Python CLI for encrypted file vaults with outer and hidden-volume workflows, including authenticated encryption, passphrase-based key derivation, integrity verification and streaming file handling. Implemented end-to-end validation, CI/release automation and a tested developer UX with one-command smoke and release checks.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Typer</span>
+                  <span class="tag">Rich</span>
+                  <span class="tag">Poetry</span>
+                  <span class="tag">MyPy</span>
+                  <span class="tag">Ruff</span>
+                  <span class="tag">Argon2id</span>
+                  <span class="tag">AES-256-GCM</span>
+                  <span class="tag">MsgPack</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/encrypted-file-vault-cli" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open VaultCLI GitHub repository">GitHub</a>
                 </div>
               </div>
             </article>
@@ -361,45 +454,6 @@
             </article>
             <article class="project-card card card--glass">
               <div class="project-card__image">
-                <img src="assets/images/smartform.jpg" alt="SmartForm app exercise tracking interface preview" loading="lazy" decoding="async" width="1280" height="720">
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title">SmartForm: AI-Based Exercise Form &amp; Rep Tracking</h3>
-                <p class="project-card__description">Built an on-device Android app for real-time pose and hand tracking to analyze form, count reps and provide posture feedback. Added gesture-based controls and per-user calibration with robust rep quality scoring.</p>
-                <div class="project-card__tags">
-                  <span class="tag">Kotlin</span>
-                  <span class="tag">Jetpack Compose</span>
-                  <span class="tag">CameraX</span>
-                  <span class="tag">ML Kit</span>
-                  <span class="tag">MediaPipe</span>
-                </div>
-                <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/SmartForm" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open SmartForm GitHub repository">GitHub</a>
-                </div>
-              </div>
-            </article>
-            <article class="project-card card card--glass">
-              <div class="project-card__image">
-                <img src="assets/images/sagrag-demo.png" alt="SAG-RAG project demo interface preview" loading="lazy" decoding="async" width="1280" height="720">
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title">SAG-RAG: Speculative Agentic Graph RAG Platform</h3>
-                <p class="project-card__description">Built a RAG system combining speculative query planning, hybrid retrieval, reranking and evidence-grounded synthesis with provenance tracking for reliable answers.</p>
-                <div class="project-card__tags">
-                  <span class="tag">FastAPI</span>
-                  <span class="tag">Qdrant</span>
-                  <span class="tag">Elasticsearch</span>
-                  <span class="tag">Neo4j</span>
-                  <span class="tag">Redis</span>
-                  <span class="tag">spaCy</span>
-                </div>
-                <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/sagrag" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open SAG-RAG GitHub repository">GitHub</a>
-                </div>
-              </div>
-            </article>
-            <article class="project-card card card--glass">
-              <div class="project-card__image">
                 <img src="assets/images/decision-arch.png" alt="Decision Archaeology decision intelligence platform preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
               <div class="project-card__content">
@@ -425,7 +479,7 @@
                 </div>
               </div>
             </article>
-            <article class="project-card card card--glass">
+            <article class="project-card card card--glass" id="project-research-assistant" data-project-archive-item>
               <div class="project-card__image">
                 <img src="assets/images/research-assistant.png" alt="Multi-Step Research Assistant Platform dashboard preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
@@ -544,7 +598,7 @@
                 </div>
               </div>
             </article>
-            <article class="project-card card card--glass">
+            <article class="project-card card card--glass" id="project-dfs" data-project-archive-item>
               <div class="project-card__image">
                 <img src="assets/images/dfs.png" alt="High-Throughput Distributed File Service interface preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
@@ -563,7 +617,7 @@
                 </div>
               </div>
             </article>
-            <article class="project-card card card--glass">
+            <article class="project-card card card--glass" id="project-loom" data-project-archive-item>
               <div class="project-card__image">
                 <img src="assets/images/loom_dashboard.png" alt="Loom log observer and monitor dashboard preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
@@ -602,7 +656,7 @@
                 </div>
               </div>
             </article>
-            <article class="project-card card card--glass">
+            <article class="project-card card card--glass" id="project-nativenote" data-project-archive-item>
               <div class="project-card__image">
                 <img src="assets/images/nativenoteicon.png" alt="NativeNote offline AI notepad app preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
@@ -644,6 +698,19 @@
               </div>
             </article>
           </div>
+          <div class="projects-archive-control">
+            <button
+              type="button"
+              class="btn btn--secondary btn--glass projects-archive-toggle"
+              data-project-archive-toggle
+              aria-expanded="false"
+              aria-controls="project-research-assistant project-dfs project-loom project-nativenote"
+              hidden
+            >
+              Show more
+            </button>
+          </div>
+          </div>
         </div>
       </div>
     </section>
@@ -655,7 +722,7 @@
         <div class="section__content">
           <div class="research-list">
             <article class="research-item card card--glass">
-              <h3 class="research-item__title">High-Accuracy Multimodal Sentiment Classification of Bengali Memes on MemoSen with Custom Fusion Models</h3>
+              <h3 class="research-item__title">Bengali MemeNet (BMN): A Multimodal Framework for Sentiment Classification of Bengali Memes</h3>
               <p class="research-item__authors">S. Pramanik, R. R. Antu, <strong>A. I. Munna</strong>, M. I. Khalil, S. M. Abyad, N. M. Sifat, A. F. H. Dhrubo, M. A. Qayum and M. Sajjad</p>
               <p class="research-item__venue"><em>ACM Transactions on Intelligent Systems and Technology</em>, 2026. (Under Review)</p>
               <a class="research-item__link" href="https://doi.org/10.13140/RG.2.2.15836.65921" target="_blank" rel="noopener" aria-label="Open DOI link for Bengali Memes sentiment classification publication">Link</a>
@@ -663,7 +730,7 @@
 
             <article class="research-item card card--glass">
               <h3 class="research-item__title">Bone Fracture Detection Using Vision Transformers: A Comparative Analysis of the Pooling-based Vision Transformer (PiT) and the Causal Transformer (CaFormer) Models</h3>
-              <p class="research-item__authors"><strong>A. I. Munna</strong>, M. I. Khalil, A. Munna, A. Halder, S. Pramanik and A. F. Dhrubo</p>
+              <p class="research-item__authors"><strong>A. I. Munna</strong>, M. I. Khalil, A. Munna, A. Halder, S. Pramanik and A. F. H. Dhrubo</p>
               <p class="research-item__venue"><em>2nd IEEE Conference on Secure and Trustworthy Cyberinfrastructure for IoT and Microelectronics (SaTC)</em>, 2026.</p>
               <a class="research-item__link research-item__link--placeholder" href="#" aria-label="Publication link coming soon" aria-disabled="true">Link</a>
             </article>
@@ -674,6 +741,30 @@
               <p class="research-item__venue"><em>5th International Conference on Sentiment Analysis and Deep Learning (ICSADL)</em>, 2026.</p>
               <a class="research-item__link" href="https://doi.org/10.13140/RG.2.2.17953.47208" target="_blank" rel="noopener" aria-label="Open DOI link for cardiovascular disease detection publication">Link</a>
             </article>
+
+            <section class="research-thread card card--glass" aria-labelledby="works-in-progress-title">
+              <div class="research-thread__header">
+                <h3 class="research-thread__title" id="works-in-progress-title">Works in Progress</h3>
+              </div>
+              <ol class="research-thread__list">
+                <li class="research-thread__item">
+                  <span class="research-thread__node" aria-hidden="true"></span>
+                  <p class="research-thread__text">ChainAttest: Cross-Chain Verification of Privacy-Preserving ML Attestations from Permissioned to Public Blockchains</p>
+                </li>
+                <li class="research-thread__item">
+                  <span class="research-thread__node" aria-hidden="true"></span>
+                  <p class="research-thread__text">HAMP: Hardware-Aware Mixed-Precision Quantization via Sensitivity-Guided Evolutionary Search</p>
+                </li>
+                <li class="research-thread__item">
+                  <span class="research-thread__node" aria-hidden="true"></span>
+                  <p class="research-thread__text">Edge-Native Autonomous Manipulation: A Hybrid Imitation-Reinforcement Learning Framework on Constrained Hardware</p>
+                </li>
+                <li class="research-thread__item">
+                  <span class="research-thread__node" aria-hidden="true"></span>
+                  <p class="research-thread__text">Artificial Dexterity: A Unified Survey of Robotic Hand Architectures, Multimodal Perception and Embodied AI</p>
+                </li>
+              </ol>
+            </section>
           </div>
         </div>
       </div>
@@ -729,6 +820,7 @@
   <script src="js/hero-typing.js?v=582c62e"></script>
   <script src="js/skills-marquee.js?v=582c62e"></script>
   <script src="js/mobile-project-cards.js?v=582c62e"></script>
+  <script src="js/project-archive-toggle.js?v=582c62e"></script>
   <script src="js/main.js?v=582c62e"></script>
 </body>
 </html>

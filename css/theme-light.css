@@ -90,6 +90,33 @@ body.theme-light .nav__link--active::after {
   background: var(--color-primary-dark);
 }
 
+body.theme-light .nav__progress {
+  background: rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light .nav__progress::before {
+  background: linear-gradient(
+    90deg,
+    rgba(17, 17, 17, 0.18) 0%,
+    rgba(17, 17, 17, 0.42) 74%,
+    rgba(17, 17, 17, 0.7) 100%
+  );
+  box-shadow: 0 0 12px rgba(17, 17, 17, 0.12);
+}
+
+body.theme-light .nav__progress::after {
+  background: radial-gradient(
+    circle,
+    rgba(17, 17, 17, 0.78) 0%,
+    rgba(17, 17, 17, 0.36) 42%,
+    rgba(17, 17, 17, 0.08) 72%,
+    rgba(17, 17, 17, 0) 100%
+  );
+  box-shadow:
+    0 0 12px rgba(17, 17, 17, 0.18),
+    0 0 22px rgba(17, 17, 17, 0.08);
+}
+
 body.theme-light .section--dark,
 body.theme-light #about,
 body.theme-light #skills,
@@ -133,10 +160,82 @@ body.theme-light .project-card__tags .tag,
 body.theme-light .research-item__title,
 body.theme-light .research-item__authors,
 body.theme-light .research-item__venue,
+body.theme-light .research-thread__title,
+body.theme-light .research-thread__intro,
+body.theme-light .research-thread__text,
 body.theme-light .skill-category__title,
 body.theme-light .contact-intro,
 body.theme-light .footer__text {
   color: var(--color-primary-dark);
+}
+
+body.theme-light .projects-tier__eyebrow {
+  color: rgba(17, 17, 17, 0.58);
+}
+
+body.theme-light .projects-tier__marker {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 17, 17, 0.88) 0%,
+    rgba(38, 38, 38, 0.72) 100%
+  );
+  box-shadow:
+    0 0 10px rgba(17, 17, 17, 0.1),
+    inset 0 1px 0 rgba(245, 245, 245, 0.14);
+}
+
+body.theme-light .projects-tier__marker::before {
+  background: rgba(245, 245, 245, 0.84);
+}
+
+body.theme-light .projects-tier__marker::after {
+  border-color: rgba(17, 17, 17, 0.16);
+}
+
+body.theme-light .section-bookmark__icon {
+  background: linear-gradient(
+    180deg,
+    rgba(17, 17, 17, 0.9) 0%,
+    rgba(38, 38, 38, 0.74) 100%
+  );
+  box-shadow:
+    0 0 10px rgba(17, 17, 17, 0.12),
+    inset 0 1px 0 rgba(245, 245, 245, 0.12);
+}
+
+body.theme-light .section-bookmark__icon::after {
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(17, 17, 17, 0.22) 0%,
+    rgba(17, 17, 17, 0) 72%
+  );
+}
+
+body.theme-light .projects-mobile-reveal__button,
+body.theme-light .projects-archive-toggle {
+  color: var(--color-primary-dark);
+  border-color: rgba(17, 17, 17, 0.12);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(245, 245, 245, 0.66) 52%,
+    rgba(168, 168, 168, 0.22) 100%
+  );
+  box-shadow:
+    0 10px 22px rgba(17, 17, 17, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+body.theme-light .projects-mobile-reveal__button:hover,
+body.theme-light .projects-mobile-reveal__button:focus-visible,
+body.theme-light .projects-archive-toggle:hover,
+body.theme-light .projects-archive-toggle:focus-visible {
+  color: var(--color-primary-dark);
+  border-color: rgba(17, 17, 17, 0.2);
+}
+
+body.theme-light .projects-mobile-reveal__arrows {
+  color: rgba(17, 17, 17, 0.82);
 }
 
 body.theme-light .about__link {
@@ -174,6 +273,7 @@ body.theme-light .card--glass,
 body.theme-light .card--glass-dark,
 body.theme-light .project-card.card--glass,
 body.theme-light .research-item.card--glass,
+body.theme-light .research-thread.card--glass,
 body.theme-light .contact-content {
   background: linear-gradient(
     155deg,
@@ -185,6 +285,15 @@ body.theme-light .contact-content {
   box-shadow:
     0 10px 24px rgba(17, 17, 17, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+body.theme-light .project-card--featured-primary.card--glass {
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(245, 245, 245, 0.68) 42%,
+    rgba(168, 168, 168, 0.28) 100%
+  );
 }
 
 /* Dark cursor-follow glow in light mode for Experience + Projects cards */
@@ -301,6 +410,34 @@ body.theme-light .project-card__links .btn:hover {
   );
   color: var(--color-primary-light);
   border-color: rgba(245, 245, 245, 0.28);
+}
+
+body.theme-light .research-thread__item {
+  border-color: rgba(17, 17, 17, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(245, 245, 245, 0.5) 42%,
+    rgba(168, 168, 168, 0.16) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 8px 18px rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light .research-thread__node {
+  border-color: rgba(168, 168, 168, 0.82);
+  border-top-color: rgba(17, 17, 17, 0.88);
+  border-right-color: rgba(17, 17, 17, 0.32);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(17, 17, 17, 0.08) 0%,
+    rgba(17, 17, 17, 0.02) 52%,
+    rgba(17, 17, 17, 0) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(17, 17, 17, 0.14),
+    0 0 12px rgba(17, 17, 17, 0.12);
 }
 
 body.theme-light .contact-icon-link span {
