@@ -1,44 +1,29 @@
 /**
- * Projects Archive Toggle
- * Collapses lower-priority projects behind a single toggle while preserving
- * a no-JS fallback where every project remains visible.
+ * Projects tier interactions.
+ * Mobile: reveal/hide the full additional projects tier.
+ * Desktop: keep all additional projects visible.
  */
 (function () {
-  const ProjectsArchiveToggle = {
-    MOBILE_QUERY: '(max-width: 767px)',
+  const MOBILE_QUERY = '(max-width: 767px)';
+
+  const ProjectsTierToggle = {
     section: null,
-    cards: [],
-    toggle: null,
     mobileReveal: null,
     mobileRevealToggle: null,
     additionalTier: null,
     mq: null,
-    expanded: false,
     mobileExpanded: false,
 
     init() {
       this.section = document.getElementById('projects');
       if (!this.section) return;
 
-      this.cards = Array.from(
-        this.section.querySelectorAll('[data-project-archive-item]')
-      );
-      this.toggle = this.section.querySelector('[data-project-archive-toggle]');
       this.mobileReveal = this.section.querySelector('[data-project-mobile-reveal]');
       this.mobileRevealToggle = this.section.querySelector('[data-project-mobile-reveal-toggle]');
       this.additionalTier = this.section.querySelector('[data-project-additional-tier]');
-      this.mq = window.matchMedia(this.MOBILE_QUERY);
+      this.mq = window.matchMedia(MOBILE_QUERY);
 
       if (!this.additionalTier) return;
-
-      if (this.toggle && this.cards.length) {
-        this.toggle.hidden = false;
-        this.setExpanded(false);
-
-        this.toggle.addEventListener('click', () => {
-          this.setExpanded(!this.expanded);
-        });
-      }
 
       if (this.mobileReveal && this.mobileRevealToggle) {
         this.mobileReveal.hidden = false;
@@ -49,21 +34,6 @@
 
       this.applyViewportState();
       this.bindViewportListener();
-    },
-
-    setExpanded(expanded) {
-      this.expanded = expanded;
-
-      this.cards.forEach((card) => {
-        card.hidden = !expanded;
-      });
-
-      this.toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      this.toggle.textContent = expanded
-        ? 'Show less'
-        : 'Show more';
-
-      this.section.classList.toggle('projects--archive-open', expanded);
     },
 
     setMobileExpanded(expanded) {
@@ -83,12 +53,6 @@
         }
       }
 
-      if (this.cards.length) {
-        this.cards.forEach((card) => {
-          card.hidden = !expanded;
-        });
-      }
-
       this.section.classList.toggle('projects--mobile-expanded', expanded);
     },
 
@@ -101,19 +65,11 @@
 
       if (isMobile) {
         this.setMobileExpanded(false);
-        if (this.toggle) {
-          this.toggle.hidden = true;
-        }
         return;
       }
 
       if (this.additionalTier) {
         this.additionalTier.hidden = false;
-      }
-
-      if (this.toggle && this.cards.length) {
-        this.toggle.hidden = false;
-        this.setExpanded(false);
       }
 
       this.section.classList.remove('projects--mobile-expanded');
@@ -132,12 +88,12 @@
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => ProjectsArchiveToggle.init());
+    document.addEventListener('DOMContentLoaded', () => ProjectsTierToggle.init());
   } else {
-    ProjectsArchiveToggle.init();
+    ProjectsTierToggle.init();
   }
 
   if (typeof window !== 'undefined') {
-    window.ProjectsArchiveToggle = ProjectsArchiveToggle;
+    window.ProjectsTierToggle = ProjectsTierToggle;
   }
 })();

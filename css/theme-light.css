@@ -211,8 +211,7 @@ body.theme-light .section-bookmark__icon::after {
   );
 }
 
-body.theme-light .projects-mobile-reveal__button,
-body.theme-light .projects-archive-toggle {
+body.theme-light .projects-mobile-reveal__button {
   color: var(--color-primary-dark);
   border-color: rgba(17, 17, 17, 0.12);
   background: linear-gradient(
@@ -227,9 +226,7 @@ body.theme-light .projects-archive-toggle {
 }
 
 body.theme-light .projects-mobile-reveal__button:hover,
-body.theme-light .projects-mobile-reveal__button:focus-visible,
-body.theme-light .projects-archive-toggle:hover,
-body.theme-light .projects-archive-toggle:focus-visible {
+body.theme-light .projects-mobile-reveal__button:focus-visible {
   color: var(--color-primary-dark);
   border-color: rgba(17, 17, 17, 0.2);
 }

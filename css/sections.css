@@ -2890,95 +2890,6 @@ body {
   text-transform: uppercase;
 }
 
-.projects-archive-control {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--spacing-2xl);
-}
-
-.projects-archive-toggle {
-  position: relative;
-  min-height: 36px;
-  min-width: 0;
-  padding: 0.4rem 0.95rem;
-  color: var(--color-primary-light);
-  isolation: isolate;
-  overflow: hidden;
-  border: 1px solid rgba(245, 245, 245, 0.16);
-  border-radius: var(--radius-full);
-  background: linear-gradient(
-    155deg,
-    rgba(245, 245, 245, 0.1) 0%,
-    rgba(168, 168, 168, 0.1) 38%,
-    rgba(17, 17, 17, 0.4) 100%
-  );
-  box-shadow:
-    0 10px 22px rgba(17, 17, 17, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.projects-archive-toggle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    120deg,
-    rgba(245, 245, 245, 0) 0%,
-    rgba(245, 245, 245, 0.12) 26%,
-    rgba(245, 245, 245, 0.72) 50%,
-    rgba(168, 168, 168, 0.18) 66%,
-    rgba(245, 245, 245, 0) 100%
-  );
-  transform: translateX(-135%);
-  animation: projects-archive-border-glide 4.8s ease-in-out infinite;
-  pointer-events: none;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-}
-
-.projects-archive-toggle:hover,
-.projects-archive-toggle:focus-visible {
-  color: var(--color-primary-light);
-  border-color: rgba(245, 245, 245, 0.26);
-  box-shadow:
-    0 12px 24px rgba(17, 17, 17, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-@keyframes projects-archive-border-glide {
-  0%,
-  18% {
-    transform: translateX(-135%);
-    opacity: 0;
-  }
-
-  28% {
-    opacity: 0.95;
-  }
-
-  62% {
-    transform: translateX(135%);
-    opacity: 0.95;
-  }
-
-  100% {
-    transform: translateX(135%);
-    opacity: 0;
-  }
-}
-
 @keyframes projects-mobile-arrow-pulse {
   0%,
   100% {
@@ -3023,10 +2934,6 @@ body {
 
   [data-project-additional-tier] {
     margin-top: var(--spacing-lg);
-  }
-
-  .projects-archive-control {
-    display: none;
   }
 }
 
