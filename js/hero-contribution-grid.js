@@ -180,12 +180,12 @@ const HeroContributionGrid = {
   updateCells() {
     for (let i = 0; i < this.cells.length; i += 1) {
       const cell = this.cells[i];
-      cell.glow *= 0.92;
+      cell.glow *= 0.955;
 
       // Higher "commit level" cells flash more often and brighter.
-      const chance = 0.0012 + (cell.level * 0.0014);
+      const chance = 0.0007 + (cell.level * 0.0009);
       if (Math.random() < chance) {
-        const burst = 0.18 + (cell.level * 0.16) + (Math.random() * 0.18);
+        const burst = 0.14 + (cell.level * 0.13) + (Math.random() * 0.14);
         cell.glow = Math.max(cell.glow, burst);
       }
     }
