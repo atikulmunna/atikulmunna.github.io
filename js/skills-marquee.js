@@ -5,6 +5,9 @@
 const SkillsMarquee = {
   lists: [],
   resizeHandler: null,
+  observer: null,
+  sectionVisible: true,
+  pageVisible: true,
 
   init() {
     const lists = document.querySelectorAll('#skills .skill-list');
@@ -52,6 +55,8 @@ const SkillsMarquee = {
     this.updateShifts();
     this.bindResize();
     this.bindFontReady();
+    this.bindVisibility();
+    this.syncPlayback();
   },
 
   updateShifts() {
@@ -89,6 +94,38 @@ const SkillsMarquee = {
       this.updateShifts();
     }).catch(() => {
       // Ignore font readiness failures and keep current measurements.
+    });
+  },
+
+  bindVisibility() {
+    if (!this.observer && 'IntersectionObserver' in window) {
+      const section = document.getElementById('skills');
+      if (section) {
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            this.sectionVisible = entry.isIntersecting;
+            this.syncPlayback();
+          });
+        }, {
+          threshold: 0.08
+        });
+        this.observer.observe(section);
+      }
+    }
+
+    if (!this.visibilityHandler) {
+      this.visibilityHandler = () => {
+        this.pageVisible = !document.hidden;
+        this.syncPlayback();
+      };
+      document.addEventListener('visibilitychange', this.visibilityHandler);
+    }
+  },
+
+  syncPlayback() {
+    const shouldPause = !this.sectionVisible || !this.pageVisible;
+    this.lists.forEach((list) => {
+      list.classList.toggle('is-paused', shouldPause);
     });
   }
 };

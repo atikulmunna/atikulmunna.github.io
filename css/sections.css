@@ -1915,6 +1915,16 @@ body {
   color: var(--color-text-light);
 }
 
+/* Defer rendering work for heavier lower sections until they near the viewport. */
+#experience,
+#skills,
+#projects,
+#research,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 920px;
+}
+
 /* About text content */
 .about__text {
   display: flex;
@@ -2448,6 +2458,10 @@ body {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   contain: layout paint;
+}
+
+.skill-list.is-paused {
+  animation-play-state: paused;
 }
 
 .skills-grid .skill-category:nth-child(even) .skill-list {
@@ -5268,6 +5282,7 @@ body {
 .animate-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
