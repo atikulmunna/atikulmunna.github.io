@@ -487,8 +487,7 @@ body.theme-light .card--glass,
 body.theme-light .card--glass-dark,
 body.theme-light .project-card.card--glass,
 body.theme-light .research-item.card--glass,
-body.theme-light .research-thread.card--glass,
-body.theme-light .contact-content {
+body.theme-light .research-thread.card--glass {
   background: linear-gradient(
     155deg,
     rgba(255, 255, 255, 0.82) 0%,
@@ -703,6 +702,10 @@ body.theme-light .contact-icon-link__meta {
 
 body.theme-light .contact-intro {
   color: rgba(38, 38, 38, 0.84);
+}
+
+body.theme-light .contact-footer-text {
+  color: rgba(38, 38, 38, 0.64);
 }
 
 @media (min-width: 1024px) {
