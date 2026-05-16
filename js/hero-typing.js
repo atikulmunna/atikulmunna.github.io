@@ -5,7 +5,7 @@
 const HeroTyping = {
   speedMs: 95,
   pauseAfterMs: 250,
-  startDelayMs: 3950,
+  startDelayMs: 4350,
 
   init() {
     const target = document.querySelector('[data-hero-typing]');

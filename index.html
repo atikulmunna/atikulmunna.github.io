@@ -376,7 +376,8 @@
               <span class="projects-tier__marker" aria-hidden="true"></span>
               <span>Additional Projects</span>
             </p>
-          <div class="projects-grid">
+            <div class="projects-tabs" data-project-tabs hidden></div>
+          <div class="projects-grid" data-project-additional-grid>
             <article class="project-card card card--glass">
               <div class="project-card__image">
                 <img src="assets/images/invoice_operations.png" alt="Receipt2Ledger invoice operations workflow preview" loading="lazy" decoding="async" width="1280" height="720">
@@ -782,30 +783,38 @@
 
     <!-- Contact Section -->
     <section class="section section--light" id="contact">
+      <canvas class="contact__rain" aria-hidden="true"></canvas>
       <div class="section__container">
         <div class="section__content">
           <div class="contact-content">
             <p class="contact-intro">Open to AI engineering roles, research collaborations and product-focused conversations. Reach out through any of the channels below.</p>
-            <div class="contact-methods">
-              <a class="contact-icon-link contact-card" href="mailto:atikulxmunna@gmail.com" aria-label="Send email to Atikul Islam Munna">
-                <img src="assets/icons/email.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-                <span>atikulxmunna@gmail.com</span>
-              </a>
-              <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://www.linkedin.com/in/aimunna" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">
-                <img src="assets/icons/linkedin.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-              </a>
-              <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://scholar.google.com/citations?hl=en&user=SRi5CiEAAAAJ" target="_blank" rel="noopener" aria-label="Open Google Scholar profile">
-                <img src="assets/icons/scholar.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-              </a>
-              <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://www.researchgate.net/profile/Atikul-Munna?ev=hdr_xprf" target="_blank" rel="noopener" aria-label="Open ResearchGate profile">
-                <img src="assets/icons/researchgate.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-              </a>
-              <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://github.com/atikulmunna" target="_blank" rel="noopener" aria-label="Open GitHub profile">
-                <img src="assets/icons/github.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-              </a>
-              <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://discord.gg/WhGUME8YGd" target="_blank" rel="noopener" aria-label="Join Discord server">
-                <img src="assets/icons/discord.png" alt="" width="32" height="32" loading="lazy" decoding="async">
-              </a>
+            <div class="contact-actions">
+              <div class="contact-primary">
+                <a class="contact-icon-link contact-icon-link--email contact-card" href="mailto:atikulxmunna@gmail.com" aria-label="Send email to Atikul Islam Munna">
+                  <img src="assets/icons/email.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                  <span class="contact-icon-link__content">
+                    <strong class="contact-icon-link__title">atikulxmunna@gmail.com</strong>
+                    <span class="contact-icon-link__meta">Best for opportunities, collaborations and direct conversations.</span>
+                  </span>
+                </a>
+              </div>
+              <div class="contact-methods contact-methods--dock" role="group" aria-label="Social and research profiles">
+                <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://www.linkedin.com/in/aimunna" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">
+                  <img src="assets/icons/linkedin.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                </a>
+                <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://scholar.google.com/citations?hl=en&user=SRi5CiEAAAAJ" target="_blank" rel="noopener" aria-label="Open Google Scholar profile">
+                  <img src="assets/icons/scholar.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                </a>
+                <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://www.researchgate.net/profile/Atikul-Munna?ev=hdr_xprf" target="_blank" rel="noopener" aria-label="Open ResearchGate profile">
+                  <img src="assets/icons/researchgate.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                </a>
+                <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://github.com/atikulmunna" target="_blank" rel="noopener" aria-label="Open GitHub profile">
+                  <img src="assets/icons/github.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                </a>
+                <a class="contact-icon-link contact-icon-link--icon-only contact-card" href="https://discord.gg/WhGUME8YGd" target="_blank" rel="noopener" aria-label="Join Discord server">
+                  <img src="assets/icons/discord.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -831,6 +840,8 @@
   <script src="js/skills-marquee.js?v=582c62e"></script>
   <script src="js/mobile-project-cards.js?v=582c62e"></script>
   <script src="js/project-archive-toggle.js?v=20260427b"></script>
+  <script src="js/additional-project-tabs.js?v=20260516a"></script>
+  <script src="js/contact-rain.js?v=20260516a"></script>
   <script src="js/main.js?v=582c62e"></script>
 </body>
 </html>

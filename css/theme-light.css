@@ -415,6 +415,43 @@ body.theme-light .projects-mobile-reveal__arrows {
   color: rgba(17, 17, 17, 0.82);
 }
 
+body.theme-light .projects-tabs.is-enhanced .projects-tabs__rail {
+  border-color: rgba(17, 17, 17, 0.1);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.84) 0%,
+    rgba(245, 245, 245, 0.66) 52%,
+    rgba(168, 168, 168, 0.24) 100%
+  );
+  box-shadow:
+    0 12px 26px rgba(17, 17, 17, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+body.theme-light .projects-tabs__tab {
+  color: rgba(17, 17, 17, 0.64);
+}
+
+body.theme-light .projects-tabs__tab:hover,
+body.theme-light .projects-tabs__tab:focus-visible {
+  color: var(--color-primary-dark);
+  border-color: rgba(17, 17, 17, 0.14);
+}
+
+body.theme-light .projects-tabs__tab[aria-selected="true"] {
+  color: var(--color-primary-dark);
+  border-color: rgba(17, 17, 17, 0.16);
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(245, 245, 245, 0.74) 46%,
+    rgba(168, 168, 168, 0.22) 100%
+  );
+  box-shadow:
+    0 8px 18px rgba(17, 17, 17, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
 body.theme-light .about__link {
   color: inherit;
   text-decoration-color: rgba(17, 17, 17, 0.42);
@@ -660,6 +697,25 @@ body.theme-light .contact-icon-link span {
   color: var(--color-primary-dark);
 }
 
+body.theme-light .contact-icon-link__meta {
+  color: rgba(38, 38, 38, 0.68);
+}
+
+body.theme-light .contact-intro {
+  color: rgba(38, 38, 38, 0.84);
+}
+
+@media (min-width: 1024px) {
+  body.theme-light .contact-intro {
+    border-right-color: rgba(17, 17, 17, 0.1);
+  }
+
+  body.theme-light .contact-icon-link--icon-only {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
 body.theme-light .section--dark::before,
 body.theme-light #about::before,
 body.theme-light #skills::before,
@@ -678,6 +734,20 @@ body.theme-light #contact::before {
   box-shadow:
     0 0 8px rgba(17, 17, 17, 0.08),
     0 0 16px rgba(168, 168, 168, 0.08);
+}
+
+body.theme-light .contact__rain {
+  opacity: 0.24;
+  filter: none;
+}
+
+body.theme-light #contact::after {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(245, 245, 245, 0.28) 38%,
+    rgba(245, 245, 245, 0.38) 100%
+  );
 }
 
 @media (max-width: 767px) {
