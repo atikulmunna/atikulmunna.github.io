@@ -10,7 +10,8 @@ const Navigation = {
     isMenuOpen: false,
     activeSection: 'hero',
     isScrolled: false,
-    scrollThreshold: 50
+    scrollThreshold: 50,
+    scrollAnimationFrame: null
   },
 
   // DOM elements
@@ -105,18 +106,95 @@ const Navigation = {
   scrollToSection(section) {
     // Calculate offset for fixed navigation
     const navHeight = this.elements.nav?.offsetHeight || 72;
-    const targetPosition = section.offsetTop - navHeight;
-    
-    // Try native smooth scroll first
-    if ('scrollBehavior' in document.documentElement.style) {
+    const targetPosition = Math.max(0, section.offsetTop - navHeight);
+
+    if (this.prefersReducedMotion()) {
+      this.cancelManagedScroll();
+      window.scrollTo(0, targetPosition);
+      return;
+    }
+
+    // Keep the simple native path for tests and older browsers.
+    if (this.isTestEnvironment()) {
       window.scrollTo({
         top: targetPosition,
         behavior: 'smooth'
       });
+      return;
+    }
+
+    // Use a managed distance-based scroll in real browsers so
+    // short jumps feel crisp and long jumps feel more controlled.
+    if ('scrollBehavior' in document.documentElement.style &&
+        typeof window.requestAnimationFrame === 'function') {
+      this.performManagedScroll(targetPosition);
     } else {
       // Fallback: instant scroll for older browsers
       window.scrollTo(0, targetPosition);
     }
+  },
+
+  /**
+   * Scroll with distance-aware timing for a tighter, less floaty feel.
+   * @param {number} targetPosition - Y position to scroll to
+   */
+  performManagedScroll(targetPosition) {
+    this.cancelManagedScroll();
+
+    const startY = window.scrollY || window.pageYOffset || 0;
+    const distance = targetPosition - startY;
+
+    if (Math.abs(distance) < 4) {
+      window.scrollTo(0, targetPosition);
+      return;
+    }
+
+    const duration = Math.max(280, Math.min(640, 260 + (Math.abs(distance) * 0.22)));
+    const startTime = performance.now();
+
+    const easeInOutCubic = (t) => {
+      return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    };
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const eased = easeInOutCubic(progress);
+      const nextY = startY + (distance * eased);
+
+      window.scrollTo(0, Math.round(nextY));
+
+      if (progress < 1) {
+        this.state.scrollAnimationFrame = window.requestAnimationFrame(step);
+      } else {
+        this.state.scrollAnimationFrame = null;
+      }
+    };
+
+    this.state.scrollAnimationFrame = window.requestAnimationFrame(step);
+  },
+
+  cancelManagedScroll() {
+    if (this.state.scrollAnimationFrame !== null) {
+      window.cancelAnimationFrame(this.state.scrollAnimationFrame);
+      this.state.scrollAnimationFrame = null;
+    }
+  },
+
+  prefersReducedMotion() {
+    return (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  },
+
+  isTestEnvironment() {
+    return (
+      typeof navigator !== 'undefined' &&
+      /jsdom/i.test(navigator.userAgent || '')
+    );
   },
 
   /**
