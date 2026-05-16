@@ -111,7 +111,7 @@ const App = {
           this.modules.Navigation = Navigation;
           this.log('Navigation module loaded');
         } else {
-          throw new Error('Navigation module not found');
+          this.log('Navigation module not found; continuing without enhancement');
         }
       } catch (error) {
         this.handleError('Navigation initialization failed', error);

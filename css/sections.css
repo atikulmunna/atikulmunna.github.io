@@ -4863,16 +4863,21 @@ body {
   z-index: 2;
 }
 
-.contact-footer-text {
-  position: relative;
-  z-index: 2;
-  margin: var(--spacing-2xl) auto 0;
-  width: 100%;
+  .contact-footer-text {
+    position: relative;
+    z-index: 2;
+    margin: var(--spacing-2xl) auto 0;
+    width: 100%;
   text-align: center;
   color: rgba(245, 245, 245, 0.72);
   font-size: var(--font-size-sm);
-  letter-spacing: 0.01em;
-}
+    letter-spacing: 0.01em;
+  }
+
+  .contact-footer {
+    display: block;
+    width: 100%;
+  }
 
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .contact-content {
