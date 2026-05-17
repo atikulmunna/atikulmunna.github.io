@@ -86,9 +86,6 @@ const Navigation = {
             // Smooth scroll to section
             this.scrollToSection(targetSection);
             
-            // Update active link
-            this.updateActiveLink(targetId);
-            
             // Update URL hash without jumping
             if (history.pushState) {
               history.pushState(null, null, href);
@@ -149,19 +146,17 @@ const Navigation = {
       return;
     }
 
-    const duration = Math.max(280, Math.min(640, 260 + (Math.abs(distance) * 0.22)));
+    const duration = Math.max(90, Math.min(220, 95 + (Math.abs(distance) * 0.05)));
     const startTime = performance.now();
 
-    const easeInOutCubic = (t) => {
-      return t < 0.5
-        ? 4 * t * t * t
-        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const easeOutCubic = (t) => {
+      return 1 - Math.pow(1 - t, 3);
     };
 
     const step = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / duration);
-      const eased = easeInOutCubic(progress);
+      const eased = easeOutCubic(progress);
       const nextY = startY + (distance * eased);
 
       window.scrollTo(0, Math.round(nextY));
