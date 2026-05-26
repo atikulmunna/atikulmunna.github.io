@@ -33,8 +33,8 @@
   <link rel="stylesheet" href="css/layout.css?v=582c62e">
   <link rel="stylesheet" href="css/components.css?v=582c62e">
   <link rel="stylesheet" href="css/glassmorphism.css?v=582c62e">
-  <link rel="stylesheet" href="css/sections.css?v=20260516b">
-  <link rel="stylesheet" href="css/theme-light.css?v=582c62e">
+  <link rel="stylesheet" href="css/sections.css?v=20260526a">
+  <link rel="stylesheet" href="css/theme-light.css?v=20260526a">
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -370,6 +370,7 @@
               </span>
               <span class="projects-mobile-reveal__label">More projects</span>
             </button>
+            <div class="projects-mobile-filters" data-project-mobile-filters hidden></div>
           </div>
           <div class="projects-tier" id="projects-additional-tier" data-project-additional-tier>
             <p class="projects-tier__eyebrow projects-tier__eyebrow--with-marker">
@@ -720,6 +721,75 @@
                 </div>
               </div>
             </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image project-card__placeholder project-card__image--research research-thumb research-thumb--federated" aria-hidden="true">
+                <span class="research-thumb__grid"></span>
+                <span class="research-thumb__node research-thumb__node--a"></span>
+                <span class="research-thumb__node research-thumb__node--b"></span>
+                <span class="research-thumb__node research-thumb__node--c"></span>
+                <span class="research-thumb__ring"></span>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">Federated Learning with Differential Privacy</h3>
+                <p class="project-card__description">Built a research framework for comparing FedAvg, client-level DP-FedAvg and sample-level DP-SGD across synthetic, MNIST and CIFAR-10 datasets. The project includes configurable federated simulations, RDP privacy accounting, IID/non-IID partitioning, experiment sweeps, report generation and a dashboard for privacy-utility analysis.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Federated Learning</span>
+                  <span class="tag">Differential Privacy</span>
+                  <span class="tag">RDP Accounting</span>
+                  <span class="tag">MNIST</span>
+                  <span class="tag">CIFAR-10</span>
+                  <span class="tag">Experiment Sweeps</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/dp-federated-learning-framework" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Federated Learning with Differential Privacy GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image project-card__placeholder project-card__image--research research-thumb research-thumb--forecasting" aria-hidden="true">
+                <span class="research-thumb__axis"></span>
+                <span class="research-thumb__wave research-thumb__wave--a"></span>
+                <span class="research-thumb__wave research-thumb__wave--b"></span>
+                <span class="research-thumb__pulse"></span>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">Anomaly-Aware Probabilistic Forecasting for Multivariate Time Series</h3>
+                <p class="project-card__description">Built a research framework for joint probabilistic forecasting and anomaly detection on multivariate time series. The project implements MDN-LSTM and regime-aware joint models, full SMD benchmark evaluation, calibrated thresholding, persistence-based false-alarm reduction, CRPS/Energy Score metrics and reproducible experiment reporting with tested pipelines.</p>
+                <div class="project-card__tags">
+                  <span class="tag">MDN-LSTM</span>
+                  <span class="tag">Time Series</span>
+                  <span class="tag">Anomaly Detection</span>
+                  <span class="tag">SMD Benchmark</span>
+                  <span class="tag">CRPS</span>
+                  <span class="tag">Energy Score</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/anomaly-aware-forecasting" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Anomaly-Aware Probabilistic Forecasting GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image project-card__placeholder project-card__image--research research-thumb research-thumb--provenance" aria-hidden="true">
+                <span class="research-thumb__chain research-thumb__chain--a"></span>
+                <span class="research-thumb__chain research-thumb__chain--b"></span>
+                <span class="research-thumb__proof"></span>
+                <span class="research-thumb__relay"></span>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">Cross-Chain AI Provenance Verification</h3>
+                <p class="project-card__description">Designed and implemented a blockchain protocol for carrying privacy-preserving AI model attestations across chains, combining zero-knowledge verification, permissioned-to-public relay flows and automated end-to-end orchestration.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Blockchain</span>
+                  <span class="tag">Zero Knowledge</span>
+                  <span class="tag">AI Provenance</span>
+                  <span class="tag">Cross-Chain</span>
+                  <span class="tag">Attestations</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/chainattest" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Cross-Chain AI Provenance Verification GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -835,8 +905,8 @@
   <script src="js/hero-typing.js?v=582c62e"></script>
   <script src="js/skills-marquee.js?v=20260516b"></script>
   <script src="js/mobile-project-cards.js?v=582c62e"></script>
-  <script src="js/project-archive-toggle.js?v=20260427b"></script>
-  <script src="js/additional-project-tabs.js?v=20260516a"></script>
+  <script src="js/project-archive-toggle.js?v=20260526a"></script>
+  <script src="js/additional-project-tabs.js?v=20260526a"></script>
   <script src="js/contact-rain.js?v=20260516a"></script>
   <script src="js/main.js?v=582c62e"></script>
 </body>

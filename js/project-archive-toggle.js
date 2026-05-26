@@ -10,6 +10,7 @@
     section: null,
     mobileReveal: null,
     mobileRevealToggle: null,
+    mobileFilters: null,
     additionalTier: null,
     mq: null,
     mobileExpanded: false,
@@ -20,6 +21,7 @@
 
       this.mobileReveal = this.section.querySelector('[data-project-mobile-reveal]');
       this.mobileRevealToggle = this.section.querySelector('[data-project-mobile-reveal-toggle]');
+      this.mobileFilters = this.section.querySelector('[data-project-mobile-filters]');
       this.additionalTier = this.section.querySelector('[data-project-additional-tier]');
       this.mq = window.matchMedia(MOBILE_QUERY);
 
@@ -53,6 +55,10 @@
         }
       }
 
+      if (this.mobileFilters) {
+        this.mobileFilters.hidden = !expanded;
+      }
+
       this.section.classList.toggle('projects--mobile-expanded', expanded);
     },
 
@@ -61,6 +67,10 @@
 
       if (this.mobileReveal) {
         this.mobileReveal.hidden = !isMobile;
+      }
+
+      if (this.mobileFilters) {
+        this.mobileFilters.hidden = true;
       }
 
       if (isMobile) {

@@ -10,7 +10,8 @@
     { key: 'ai-systems', label: 'AI Systems' },
     { key: 'developer-tools', label: 'Developer Tools' },
     { key: 'systems-infra', label: 'Systems & Infra' },
-    { key: 'mobile-edge', label: 'Mobile & Edge' }
+    { key: 'mobile-edge', label: 'Mobile & Edge' },
+    { key: 'research', label: 'Research' }
   ];
 
   const TITLE_TO_CATEGORY = {
@@ -32,30 +33,41 @@
     'COWFS: Copy-on-Write Filesystem': 'systems-infra',
     'High-Throughput Distributed File Service': 'systems-infra',
 
-    'NativeNote: Offline AI Notepad': 'mobile-edge'
+    'NativeNote: Offline AI Notepad': 'mobile-edge',
+
+    'Federated Learning with Differential Privacy': 'research',
+    'Anomaly-Aware Probabilistic Forecasting for Multivariate Time Series': 'research',
+    'Cross-Chain AI Provenance Verification': 'research'
   };
 
   const AdditionalProjectTabs = {
     section: null,
     tabsMount: null,
+    mobileFiltersMount: null,
     sourceGrid: null,
     mq: null,
+    mobileMq: null,
     cards: [],
     panels: {},
     tabButtons: {},
+    mobileFilterButtons: {},
     activeKey: CATEGORY_ORDER[0].key,
+    activeMobileKey: CATEGORY_ORDER[0].key,
     initialized: false,
+    mobileFiltersInitialized: false,
 
     init() {
       this.section = document.getElementById('projects');
       if (!this.section) return;
 
       this.tabsMount = this.section.querySelector('[data-project-tabs]');
+      this.mobileFiltersMount = this.section.querySelector('[data-project-mobile-filters]');
       this.sourceGrid = this.section.querySelector('[data-project-additional-grid]');
       if (!this.tabsMount || !this.sourceGrid) return;
 
       this.cards = Array.from(this.sourceGrid.querySelectorAll('.project-card'));
       this.mq = window.matchMedia(DESKTOP_QUERY);
+      this.mobileMq = window.matchMedia('(max-width: 767px)');
 
       this.applyViewportState();
       this.bindViewportListener();
@@ -108,6 +120,43 @@
       this.initialized = true;
     },
 
+    buildMobileFilters() {
+      if (this.mobileFiltersInitialized || !this.mobileFiltersMount) return;
+
+      this.mobileFiltersMount.innerHTML = '';
+
+      const list = document.createElement('div');
+      list.className = 'projects-mobile-filters__list';
+      list.setAttribute('role', 'group');
+      list.setAttribute('aria-label', 'Project categories');
+
+      CATEGORY_ORDER.forEach((category, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'projects-mobile-filter';
+        button.dataset.projectMobileFilter = category.key;
+        button.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+
+        const check = document.createElement('span');
+        check.className = 'projects-mobile-filter__check';
+        check.setAttribute('aria-hidden', 'true');
+
+        const label = document.createElement('span');
+        label.className = 'projects-mobile-filter__label';
+        label.textContent = category.label;
+
+        button.appendChild(check);
+        button.appendChild(label);
+        button.addEventListener('click', () => this.setMobileCategory(category.key));
+
+        list.appendChild(button);
+        this.mobileFilterButtons[category.key] = button;
+      });
+
+      this.mobileFiltersMount.appendChild(list);
+      this.mobileFiltersInitialized = true;
+    },
+
     getCategoryForCard(card) {
       const title = card.querySelector('.project-card__title')?.textContent?.trim() || '';
       return TITLE_TO_CATEGORY[title] || 'developer-tools';
@@ -148,12 +197,33 @@
       });
     },
 
+    setMobileCategory(categoryKey) {
+      this.activeMobileKey = categoryKey;
+
+      Object.keys(this.mobileFilterButtons).forEach((key) => {
+        this.mobileFilterButtons[key].setAttribute(
+          'aria-pressed',
+          key === categoryKey ? 'true' : 'false'
+        );
+      });
+
+      this.cards.forEach((card) => {
+        card.hidden = this.getCategoryForCard(card) !== categoryKey;
+      });
+    },
+
     enableDesktopTabs() {
       this.buildTabs();
       this.moveCardsToPanels();
       this.tabsMount.classList.add('is-enhanced');
       this.tabsMount.hidden = false;
       this.sourceGrid.hidden = true;
+      if (this.mobileFiltersMount) {
+        this.mobileFiltersMount.hidden = true;
+      }
+      this.cards.forEach((card) => {
+        card.hidden = false;
+      });
       this.setActiveTab(this.activeKey);
     },
 
@@ -162,6 +232,21 @@
       this.tabsMount.classList.remove('is-enhanced');
       this.tabsMount.hidden = true;
       this.sourceGrid.hidden = false;
+
+      if (this.mobileMq?.matches) {
+        this.buildMobileFilters();
+        if (this.mobileFiltersMount) {
+          this.mobileFiltersMount.hidden = !this.section.classList.contains('projects--mobile-expanded');
+        }
+        this.setMobileCategory(this.activeMobileKey);
+      } else {
+        if (this.mobileFiltersMount) {
+          this.mobileFiltersMount.hidden = true;
+        }
+        this.cards.forEach((card) => {
+          card.hidden = false;
+        });
+      }
     },
 
     applyViewportState() {
