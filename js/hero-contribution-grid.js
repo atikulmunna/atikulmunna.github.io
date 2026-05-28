@@ -15,6 +15,7 @@ const HeroContributionGrid = {
   lastFrameTs: 0,
   scrollThrottleUntil: 0,
   reduceMotion: false,
+  performanceLite: false,
   width: 0,
   height: 0,
   dpr: 1,
@@ -37,8 +38,9 @@ const HeroContributionGrid = {
 
     this.reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.performanceLite = this.isPerformanceLite();
     this.isEdge = typeof navigator !== 'undefined' && /Edg\//.test(navigator.userAgent || '');
-    this.frameIntervalMs = this.isEdge ? 30 : 16.7;
+    this.frameIntervalMs = this.performanceLite ? 66 : (this.isEdge ? 30 : 16.7);
 
     this.setupCanvas();
     this.setupVisibilityObserver();
@@ -50,6 +52,18 @@ const HeroContributionGrid = {
     }
 
     this.animate();
+  },
+
+  isPerformanceLite() {
+    const rootLite = document.documentElement &&
+      document.documentElement.classList.contains('perf-lite');
+    const mobileCoarse = window.matchMedia &&
+      window.matchMedia('(max-width: 767px) and (pointer: coarse)').matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const memory = Number(navigator.deviceMemory || 0);
+    const lowMemory = memory > 0 && memory <= 4;
+
+    return Boolean(rootLite || saveData || (mobileCoarse && lowMemory));
   },
 
   setupListeners() {
@@ -95,7 +109,12 @@ const HeroContributionGrid = {
     const rect = this.hero.getBoundingClientRect();
     this.width = Math.max(1, Math.floor(rect.width));
     this.height = Math.max(1, Math.floor(rect.height));
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.dpr = this.performanceLite ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+
+    if (this.performanceLite) {
+      this.cellSize = 18;
+      this.gap = 5;
+    }
 
     this.canvas.width = Math.floor(this.width * this.dpr);
     this.canvas.height = Math.floor(this.height * this.dpr);

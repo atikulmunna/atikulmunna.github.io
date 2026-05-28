@@ -16,6 +16,7 @@ const ContactRain = {
   chars: '01',
   isVisible: true,
   reduceMotion: false,
+  performanceLite: false,
   lastFrameTs: 0,
   frameIntervalMs: 28,
   observer: null,
@@ -32,17 +33,30 @@ const ContactRain = {
 
     this.reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.performanceLite = this.isPerformanceLite();
 
     this.setupCanvas();
     this.setupObserver();
     this.bindEvents();
 
-    if (this.reduceMotion) {
+    if (this.reduceMotion || this.performanceLite) {
       this.renderStatic();
       return;
     }
 
     this.animate();
+  },
+
+  isPerformanceLite() {
+    const rootLite = document.documentElement &&
+      document.documentElement.classList.contains('perf-lite');
+    const mobileCoarse = window.matchMedia &&
+      window.matchMedia('(max-width: 767px) and (pointer: coarse)').matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const memory = Number(navigator.deviceMemory || 0);
+    const lowMemory = memory > 0 && memory <= 4;
+
+    return Boolean(rootLite || saveData || (mobileCoarse && lowMemory));
   },
 
   isLightThemeActive() {
@@ -56,7 +70,7 @@ const ContactRain = {
     this.onVisibility = () => {
       if (document.hidden) {
         this.stop();
-      } else if (this.isVisible && !this.reduceMotion) {
+      } else if (this.isVisible && !this.reduceMotion && !this.performanceLite) {
         this.animate();
       }
     };
@@ -68,7 +82,7 @@ const ContactRain = {
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         this.isVisible = entry.isIntersecting;
-        if (this.isVisible && !document.hidden && !this.reduceMotion) {
+        if (this.isVisible && !document.hidden && !this.reduceMotion && !this.performanceLite) {
           this.animate();
         } else {
           this.stop();

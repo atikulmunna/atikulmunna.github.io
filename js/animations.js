@@ -41,7 +41,7 @@ const Animations = {
 
     this.prepareElements(elements);
 
-    if (this.prefersReducedMotion()) {
+    if (this.prefersReducedMotion() || this.isPerformanceLite()) {
       this.revealAll(elements);
       this.state.initialized = true;
       return;
@@ -183,6 +183,18 @@ const Animations = {
         target.style.setProperty('--liquid-pointer-o', '0');
       });
     });
+  },
+
+  isPerformanceLite() {
+    const rootLite = document.documentElement &&
+      document.documentElement.classList.contains('perf-lite');
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const memory = Number(navigator.deviceMemory || 0);
+    const lowMemory = memory > 0 && memory <= 4;
+    const mobileCoarse = typeof window.matchMedia === 'function' &&
+      window.matchMedia('(max-width: 767px) and (pointer: coarse)').matches;
+
+    return Boolean(rootLite || saveData || (mobileCoarse && lowMemory));
   },
 
   supportsDesktopViewport() {

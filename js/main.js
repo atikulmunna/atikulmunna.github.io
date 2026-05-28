@@ -31,6 +31,7 @@ const App = {
     try {
       // Detect browser feature support
       this.detectFeatureSupport();
+      this.detectPerformanceProfile();
       
       // Initialize modules with error boundary
       this.initializeModules();
@@ -64,6 +65,31 @@ const App = {
     // Add browser class hooks for targeted perf tuning.
     if (this.isEdgeBrowser()) {
       document.documentElement.classList.add('is-edge');
+    }
+  },
+
+  /**
+   * Detect constrained devices and expose a CSS/JS hook for cheaper effects.
+   * This is intentionally conservative: visual identity stays intact, while
+   * expensive blur/canvas work is reduced on low-memory phones and Save-Data.
+   */
+  detectPerformanceProfile() {
+    const nav = typeof navigator !== 'undefined' ? navigator : {};
+    const deviceMemory = Number(nav.deviceMemory || 0);
+    const hardwareConcurrency = Number(nav.hardwareConcurrency || 0);
+    const saveData = Boolean(nav.connection && nav.connection.saveData);
+    const coarsePointer = typeof window.matchMedia === 'function' &&
+      window.matchMedia('(pointer: coarse)').matches;
+    const smallViewport = typeof window.matchMedia === 'function' &&
+      window.matchMedia('(max-width: 767px)').matches;
+
+    const constrainedMemory = deviceMemory > 0 && deviceMemory <= 4;
+    const constrainedCpu = hardwareConcurrency > 0 && hardwareConcurrency <= 4;
+    const constrainedMobile = smallViewport && coarsePointer;
+
+    if (saveData || constrainedMemory || (constrainedMobile && constrainedCpu)) {
+      document.documentElement.classList.add('perf-lite');
+      this.log('Performance-lite mode enabled');
     }
   },
 
