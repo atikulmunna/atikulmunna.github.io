@@ -32,6 +32,7 @@ const App = {
       // Detect browser feature support
       this.detectFeatureSupport();
       this.detectPerformanceProfile();
+      this.setupPerformanceNotice();
       
       // Initialize modules with error boundary
       this.initializeModules();
@@ -74,6 +75,20 @@ const App = {
    * expensive blur/canvas work is reduced on low-memory phones and Save-Data.
    */
   detectPerformanceProfile() {
+    const forcedProfile = this.getForcedPerformanceProfile();
+
+    if (forcedProfile === 'lite') {
+      document.documentElement.classList.add('perf-lite');
+      this.log('Performance-lite mode forced by URL');
+      return;
+    }
+
+    if (forcedProfile === 'full') {
+      document.documentElement.classList.remove('perf-lite');
+      this.log('Full performance mode forced by URL');
+      return;
+    }
+
     const nav = typeof navigator !== 'undefined' ? navigator : {};
     const deviceMemory = Number(nav.deviceMemory || 0);
     const hardwareConcurrency = Number(nav.hardwareConcurrency || 0);
@@ -91,6 +106,65 @@ const App = {
       document.documentElement.classList.add('perf-lite');
       this.log('Performance-lite mode enabled');
     }
+  },
+
+  getForcedPerformanceProfile() {
+    if (typeof window === 'undefined' || !window.location) {
+      return '';
+    }
+
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const value = (params.get('perf') || '').toLowerCase();
+      return value === 'lite' || value === 'full' ? value : '';
+    } catch (error) {
+      return '';
+    }
+  },
+
+  setupPerformanceNotice() {
+    const root = document.documentElement;
+    const notice = document.querySelector('[data-perf-lite-notice]');
+
+    if (!root || !notice || !root.classList.contains('perf-lite')) {
+      return;
+    }
+
+    const storageKey = 'portfolio.perfLiteNoticeDismissed';
+
+    try {
+      if (window.localStorage && window.localStorage.getItem(storageKey) === 'true') {
+        return;
+      }
+    } catch (error) {
+      // Storage may be unavailable in private browsing; the notice still works.
+    }
+
+    notice.hidden = false;
+    requestAnimationFrame(() => {
+      notice.classList.add('perf-lite-notice--visible');
+    });
+
+    const dismissButton = notice.querySelector('[data-perf-lite-notice-dismiss]');
+    if (!dismissButton) {
+      return;
+    }
+
+    dismissButton.addEventListener('click', () => {
+      notice.classList.remove('perf-lite-notice--visible');
+
+      try {
+        if (window.localStorage) {
+          window.localStorage.setItem(storageKey, 'true');
+        }
+      } catch (error) {
+        // Ignore storage failures; visual dismissal still applies.
+      }
+
+      window.setTimeout(() => {
+        notice.hidden = true;
+      }, 220);
+    });
   },
 
   /**
