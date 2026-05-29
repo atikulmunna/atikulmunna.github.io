@@ -146,11 +146,13 @@ const App = {
     });
 
     const dismissButton = notice.querySelector('[data-perf-lite-notice-dismiss]');
-    if (!dismissButton) {
-      return;
-    }
+    let dismissTimer = 0;
+    const dismissNotice = () => {
+      if (dismissTimer) {
+        window.clearTimeout(dismissTimer);
+        dismissTimer = 0;
+      }
 
-    dismissButton.addEventListener('click', () => {
       notice.classList.remove('perf-lite-notice--visible');
 
       try {
@@ -164,7 +166,13 @@ const App = {
       window.setTimeout(() => {
         notice.hidden = true;
       }, 220);
-    });
+    };
+
+    dismissTimer = window.setTimeout(dismissNotice, 5000);
+
+    if (dismissButton) {
+      dismissButton.addEventListener('click', dismissNotice);
+    }
   },
 
   /**

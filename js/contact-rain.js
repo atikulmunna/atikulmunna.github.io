@@ -17,6 +17,7 @@ const ContactRain = {
   isVisible: true,
   reduceMotion: false,
   performanceLite: false,
+  isEdge: false,
   lastFrameTs: 0,
   frameIntervalMs: 28,
   observer: null,
@@ -34,6 +35,8 @@ const ContactRain = {
     this.reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.performanceLite = this.isPerformanceLite();
+    this.isEdge = typeof navigator !== 'undefined' && /Edg\//.test(navigator.userAgent || '');
+    this.frameIntervalMs = this.isEdge ? 42 : 28;
 
     this.setupCanvas();
     this.setupObserver();

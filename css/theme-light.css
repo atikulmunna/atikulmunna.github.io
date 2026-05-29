@@ -719,6 +719,33 @@ body.theme-light .project-card__links .btn:hover {
   border-color: rgba(245, 245, 245, 0.28);
 }
 
+body.theme-light .hero__content::before {
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(245, 245, 245, 0.5) 0%,
+      rgba(245, 245, 245, 0.28) 38%,
+      rgba(255, 255, 255, 0.1) 64%,
+      rgba(255, 255, 255, 0) 100%
+    );
+}
+
+html.is-edge:not(.perf-lite) body.theme-light .card--glass::before,
+html.is-edge:not(.perf-lite) body.theme-light .btn--glass::before {
+  background:
+    radial-gradient(
+      circle at var(--liquid-pointer-x) var(--liquid-pointer-y),
+      rgba(17, 17, 17, calc(var(--liquid-pointer-o) * 0.44)) 0%,
+      rgba(17, 17, 17, calc(var(--liquid-pointer-o) * 0.16)) 25%,
+      rgba(17, 17, 17, 0) 58%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(17, 17, 17, 0.06) 0%,
+      rgba(17, 17, 17, 0) 42%
+    );
+}
+
 body.theme-light .research-thread__item {
   border-color: rgba(17, 17, 17, 0.1);
   background: linear-gradient(
@@ -782,17 +809,26 @@ html.perf-lite body.theme-light .education-item {
 }
 
 html.perf-lite body.theme-light .research-thread__item {
+  background: transparent;
+  box-shadow: none;
+}
+
+html.perf-lite body.theme-light .research-thread__list {
   border-color: rgba(17, 17, 17, 0.1);
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.74) 0%,
-      rgba(245, 245, 245, 0.56) 46%,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(245, 245, 245, 0.54) 46%,
       rgba(168, 168, 168, 0.18) 100%
     );
   box-shadow:
-    inset 3px 0 0 rgba(17, 17, 17, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+    inset 3px 0 0 rgba(17, 17, 17, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+html.perf-lite body.theme-light .research-thread__item + .research-thread__item {
+  border-top-color: rgba(17, 17, 17, 0.1);
 }
 
 html.perf-lite body.theme-light .timeline-item.card--glass {
@@ -828,14 +864,13 @@ body.theme-light .perf-lite-notice__text {
 }
 
 body.theme-light .perf-lite-notice__dismiss {
-  border-color: rgba(17, 17, 17, 0.12);
-  background: rgba(17, 17, 17, 0.05);
+  background: transparent;
   color: var(--color-primary-dark);
 }
 
 body.theme-light .perf-lite-notice__dismiss:hover,
 body.theme-light .perf-lite-notice__dismiss:focus-visible {
-  background: rgba(17, 17, 17, 0.09);
+  background: transparent;
 }
 
 body.theme-light .perf-lite-notice__dismiss:focus-visible {
