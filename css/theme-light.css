@@ -747,6 +747,20 @@ body.theme-light .research-thread__node {
     0 0 12px rgba(17, 17, 17, 0.12);
 }
 
+html.perf-lite body.theme-light .research-thread__node {
+  border-color: rgba(17, 17, 17, 0.32);
+  background: radial-gradient(
+    circle,
+    rgba(17, 17, 17, 0.44) 0%,
+    rgba(17, 17, 17, 0.18) 42%,
+    rgba(168, 168, 168, 0.08) 72%,
+    rgba(17, 17, 17, 0) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(17, 17, 17, 0.08),
+    0 0 10px rgba(17, 17, 17, 0.08);
+}
+
 body.theme-light .contact-icon-link span {
   color: var(--color-primary-dark);
 }
@@ -817,6 +831,21 @@ body.theme-light #contact::after {
         rgba(245, 245, 245, 0.72) 56%,
         rgba(168, 168, 168, 0.3) 100%
       );
+  }
+
+  html.perf-lite body.theme-light .nav,
+  html.perf-lite body.theme-light .nav--scrolled {
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(245, 245, 245, 0.96) 54%,
+        rgba(168, 168, 168, 0.46) 100%
+      );
+    box-shadow:
+      0 12px 28px rgba(17, 17, 17, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.94),
+      inset 0 -1px 0 rgba(17, 17, 17, 0.08);
   }
 
   body.theme-light .nav__menu {

@@ -5819,72 +5819,90 @@ body {
   font-size: var(--font-size-sm);
 }
 
-/* Performance-lite mode for low-memory phones and coarse-pointer browsers.
+/* Performance-lite mode for constrained devices.
    Keep the visual language, but avoid costly live blur/shadow/animation work. */
 @media (max-width: 767px), (pointer: coarse) {
-  .nav,
-  .nav--scrolled,
-  .nav__menu,
-  .card--glass,
-  .project-card.card--glass,
-  .timeline-item.card--glass,
-  .research-item.card--glass,
-  .research-thread.card--glass,
-  .btn--glass,
-  .projects-tabs.is-enhanced .projects-tabs__rail,
-  .projects-mobile-filters__list,
-  .about__text,
-  .skill-category.card--glass,
-  .contact-icon-link {
+  html.perf-lite .nav,
+  html.perf-lite .nav--scrolled,
+  html.perf-lite .nav__menu,
+  html.perf-lite .card--glass,
+  html.perf-lite .project-card.card--glass,
+  html.perf-lite .timeline-item.card--glass,
+  html.perf-lite .research-item.card--glass,
+  html.perf-lite .research-thread.card--glass,
+  html.perf-lite .btn--glass,
+  html.perf-lite .projects-tabs.is-enhanced .projects-tabs__rail,
+  html.perf-lite .projects-mobile-filters__list,
+  html.perf-lite .about__text,
+  html.perf-lite .skill-category.card--glass,
+  html.perf-lite .contact-icon-link {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
 
-  .nav__progress::after,
-  .hero__name,
-  .hero__name::after,
-  .nav__logo-orbit,
-  .nav__logo-orbit-star,
-  .nav__logo-icon,
-  #about::before,
-  #skills::before,
-  #projects::before,
-  #research::before,
-  #experience::before,
-  #contact::before,
-  .projects-tier__marker,
-  .projects-tier__marker::after,
-  .timeline::before,
-  .research-thread__node {
+  html.perf-lite .nav__progress::after,
+  html.perf-lite .hero__name,
+  html.perf-lite .hero__name::after,
+  html.perf-lite #about::before,
+  html.perf-lite #skills::before,
+  html.perf-lite #projects::before,
+  html.perf-lite #research::before,
+  html.perf-lite #experience::before,
+  html.perf-lite #contact::before,
+  html.perf-lite .projects-tier__marker,
+  html.perf-lite .projects-tier__marker::after,
+  html.perf-lite .timeline::before,
+  html.perf-lite .research-thread__node {
     animation: none;
   }
 
-  .hero__contrib-grid {
+  html.perf-lite .hero__contrib-grid {
     opacity: 0.38;
     filter: none;
   }
 
-  .hero::before,
-  .hero::after {
+  html.perf-lite .hero::before,
+  html.perf-lite .hero::after {
     filter: blur(var(--blur-md));
   }
 
-  .project-card.card--glass,
-  .timeline-item.card--glass,
-  .research-item.card--glass,
-  .research-thread.card--glass,
-  .about__text,
-  .education-item {
+  html.perf-lite .project-card.card--glass,
+  html.perf-lite .timeline-item.card--glass,
+  html.perf-lite .research-item.card--glass,
+  html.perf-lite .research-thread.card--glass,
+  html.perf-lite .about__text,
+  html.perf-lite .education-item {
     box-shadow:
       0 8px 18px rgba(17, 17, 17, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
-  .contact__rain {
+  html.perf-lite .contact__rain {
     opacity: 0.22;
   }
 
-  .animate-on-scroll {
+  html.perf-lite .research-thread__list {
+    padding-left: 0;
+  }
+
+  html.perf-lite .research-thread__node,
+  html.perf-lite .timeline-marker {
+    display: none;
+  }
+
+  html.perf-lite .timeline::before {
+    display: none;
+  }
+
+  html.perf-lite .timeline-item:hover .timeline-marker {
+    transform: none;
+  }
+
+  html.perf-lite .timeline-content {
+    padding-left: 0;
+  }
+
+  html.perf-lite .animate-on-scroll {
     opacity: 1;
     transform: none;
     transition: none;
@@ -5907,9 +5925,6 @@ html.perf-lite .contact-icon-link {
 }
 
 html.perf-lite .nav__progress::after,
-html.perf-lite .nav__logo-orbit,
-html.perf-lite .nav__logo-orbit-star,
-html.perf-lite .nav__logo-icon,
 html.perf-lite .hero__name,
 html.perf-lite .hero__name::after,
 html.perf-lite #about::before,
@@ -5934,6 +5949,38 @@ html.perf-lite .research-thumb__relay {
 html.perf-lite .hero__contrib-grid {
   opacity: 0.34;
   filter: none;
+}
+
+html.perf-lite .nav,
+html.perf-lite .nav--scrolled {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(38, 38, 38, 0.96) 0%,
+      rgba(17, 17, 17, 0.99) 52%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html.perf-lite .research-thread__node {
+  animation: none;
+  border-color: rgba(168, 168, 168, 0.76);
+  border-top-color: rgba(168, 168, 168, 0.76);
+  border-right-color: rgba(168, 168, 168, 0.76);
+  background: radial-gradient(
+    circle,
+    rgba(245, 245, 245, 0.78) 0%,
+    rgba(245, 245, 245, 0.3) 42%,
+    rgba(168, 168, 168, 0.08) 70%,
+    rgba(17, 17, 17, 0) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(245, 245, 245, 0.12),
+    0 0 10px rgba(245, 245, 245, 0.12);
 }
 
 /* ===== Scroll Animations ===== */
