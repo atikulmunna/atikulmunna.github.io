@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="css/layout.css?v=582c62e">
   <link rel="stylesheet" href="css/components.css?v=582c62e">
   <link rel="stylesheet" href="css/glassmorphism.css?v=582c62e">
-  <link rel="stylesheet" href="css/sections.css?v=20260530b">
+  <link rel="stylesheet" href="css/sections.css?v=20260530e">
   <link rel="stylesheet" href="css/theme-light.css?v=20260530b">
 </head>
 <body>
@@ -901,19 +901,64 @@
   </main>
 
   <!-- JavaScript Files -->
+  <script>
+    (function () {
+      function forcedProfile() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var value = (params.get('perf') || '').toLowerCase();
+          return value === 'lite' || value === 'full' ? value : '';
+        } catch (error) {
+          return '';
+        }
+      }
+
+      function shouldUseLite() {
+        var forced = forcedProfile();
+        if (forced) return forced === 'lite';
+
+        var nav = typeof navigator !== 'undefined' ? navigator : {};
+        var memory = Number(nav.deviceMemory || 0);
+        var cores = Number(nav.hardwareConcurrency || 0);
+        var saveData = Boolean(nav.connection && nav.connection.saveData);
+        var smallViewport = typeof window.matchMedia === 'function' &&
+          window.matchMedia('(max-width: 767px)').matches;
+        var coarsePointer = typeof window.matchMedia === 'function' &&
+          window.matchMedia('(pointer: coarse)').matches;
+        var severelyLowMemory = memory > 0 && memory <= 2;
+        var confirmedConstrainedMobile = smallViewport &&
+          coarsePointer &&
+          memory > 0 &&
+          memory <= 4 &&
+          cores > 0 &&
+          cores <= 4;
+
+        return saveData || severelyLowMemory || confirmedConstrainedMobile;
+      }
+
+      var lite = shouldUseLite();
+      window.__portfolioPerfMode = lite ? 'lite' : 'full';
+      window.__portfolioIsPerfLite = function () {
+        return window.__portfolioPerfMode === 'lite' ||
+          document.documentElement.classList.contains('perf-lite');
+      };
+
+      document.documentElement.classList.toggle('perf-lite', lite);
+    }());
+  </script>
   <script src="js/navigation.js?v=582c62e"></script>
   <script src="js/theme-toggle.js?v=582c62e"></script>
-  <script src="js/animations.js?v=20260528a"></script>
+  <script src="js/animations.js?v=20260530d"></script>
   <script src="js/image-loader.js?v=582c62e"></script>
   <script src="js/experience-toggle.js?v=582c62e"></script>
-  <script src="js/hero-contribution-grid.js?v=20260528a"></script>
+  <script src="js/hero-contribution-grid.js?v=20260530d"></script>
   <script src="js/hero-typing.js?v=582c62e"></script>
   <script src="js/skills-marquee.js?v=20260516b"></script>
   <script src="js/mobile-project-cards.js?v=582c62e"></script>
   <script src="js/project-archive-toggle.js?v=20260526a"></script>
   <script src="js/additional-project-tabs.js?v=20260526a"></script>
-  <script src="js/contact-rain.js?v=20260530b"></script>
-  <script src="js/main.js?v=20260530b"></script>
+  <script src="js/contact-rain.js?v=20260530d"></script>
+  <script src="js/main.js?v=20260530e"></script>
 </body>
 </html>
 

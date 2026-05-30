@@ -1107,6 +1107,44 @@ html.is-edge:not(.perf-lite) .contact__rain {
   opacity: 0.42;
 }
 
+html.is-edge.edge-scroll-active:not(.perf-lite) .nav,
+html.is-edge.edge-scroll-active:not(.perf-lite) .nav--scrolled,
+html.is-edge.edge-scroll-active:not(.perf-lite) .nav__menu,
+html.is-edge.edge-scroll-active:not(.perf-lite) .card--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .project-card.card--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .timeline-item.card--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .research-item.card--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .research-thread.card--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .btn--glass,
+html.is-edge.edge-scroll-active:not(.perf-lite) .projects-tabs.is-enhanced .projects-tabs__rail,
+html.is-edge.edge-scroll-active:not(.perf-lite) .projects-mobile-filters__list,
+html.is-edge.edge-scroll-active:not(.perf-lite) .about__text,
+html.is-edge.edge-scroll-active:not(.perf-lite) .contact-icon-link {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html.is-edge.edge-scroll-active:not(.perf-lite) .hero__contrib-grid {
+  opacity: 0.48;
+  filter: none;
+}
+
+html.is-edge.edge-scroll-active:not(.perf-lite) .hero::before,
+html.is-edge.edge-scroll-active:not(.perf-lite) .hero::after {
+  filter: blur(var(--blur-md));
+  opacity: 0.36;
+}
+
+html.is-edge.edge-scroll-active:not(.perf-lite) .card--glass::before,
+html.is-edge.edge-scroll-active:not(.perf-lite) .btn--glass::before,
+html.is-edge.edge-scroll-active:not(.perf-lite) .nav::before {
+  opacity: 0;
+}
+
+html.is-edge.edge-scroll-active:not(.perf-lite) .contact__rain {
+  opacity: 0.18;
+}
+
 /* ===== Body Padding for Fixed Navigation ===== */
 
 /**

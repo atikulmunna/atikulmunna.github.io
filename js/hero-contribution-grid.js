@@ -55,15 +55,11 @@ const HeroContributionGrid = {
   },
 
   isPerformanceLite() {
-    const rootLite = document.documentElement &&
-      document.documentElement.classList.contains('perf-lite');
-    const mobileCoarse = window.matchMedia &&
-      window.matchMedia('(max-width: 767px) and (pointer: coarse)').matches;
-    const saveData = navigator.connection && navigator.connection.saveData;
-    const memory = Number(navigator.deviceMemory || 0);
-    const lowMemory = memory > 0 && memory <= 4;
-
-    return Boolean(rootLite || saveData || (mobileCoarse && lowMemory));
+    return Boolean(
+      typeof window !== 'undefined' &&
+      typeof window.__portfolioIsPerfLite === 'function' &&
+      window.__portfolioIsPerfLite()
+    );
   },
 
   setupListeners() {

@@ -32,6 +32,7 @@ const App = {
       // Detect browser feature support
       this.detectFeatureSupport();
       this.detectPerformanceProfile();
+      this.setupEdgeScrollRelief();
       this.setupPerformanceNotice();
       
       // Initialize modules with error boundary
@@ -75,6 +76,18 @@ const App = {
    * expensive blur/canvas work is reduced on low-memory phones and Save-Data.
    */
   detectPerformanceProfile() {
+    if (typeof window !== 'undefined' && window.__portfolioPerfMode === 'lite') {
+      document.documentElement.classList.add('perf-lite');
+      this.log('Performance-lite mode enabled');
+      return;
+    }
+
+    if (typeof window !== 'undefined' && window.__portfolioPerfMode === 'full') {
+      document.documentElement.classList.remove('perf-lite');
+      this.log('Full performance mode enabled');
+      return;
+    }
+
     const forcedProfile = this.getForcedPerformanceProfile();
 
     if (forcedProfile === 'lite') {
@@ -98,11 +111,15 @@ const App = {
     const smallViewport = typeof window.matchMedia === 'function' &&
       window.matchMedia('(max-width: 767px)').matches;
 
-    const constrainedMemory = deviceMemory > 0 && deviceMemory <= 4;
+    const severelyConstrainedMemory = deviceMemory > 0 && deviceMemory <= 2;
     const constrainedCpu = hardwareConcurrency > 0 && hardwareConcurrency <= 4;
     const constrainedMobile = smallViewport && coarsePointer;
+    const confirmedConstrainedMobile = constrainedMobile &&
+      deviceMemory > 0 &&
+      deviceMemory <= 4 &&
+      constrainedCpu;
 
-    if (saveData || constrainedMemory || (constrainedMobile && constrainedCpu)) {
+    if (saveData || severelyConstrainedMemory || confirmedConstrainedMobile) {
       document.documentElement.classList.add('perf-lite');
       this.log('Performance-lite mode enabled');
     }
@@ -173,6 +190,40 @@ const App = {
     if (dismissButton) {
       dismissButton.addEventListener('click', dismissNotice);
     }
+  },
+
+  setupEdgeScrollRelief() {
+    const root = document.documentElement;
+
+    if (!root || !root.classList.contains('is-edge') || root.classList.contains('perf-lite')) {
+      return;
+    }
+
+    let scrollTimer = 0;
+    let rafPending = false;
+
+    const setScrolling = () => {
+      rafPending = false;
+      root.classList.add('edge-scroll-active');
+
+      if (scrollTimer) {
+        window.clearTimeout(scrollTimer);
+      }
+
+      scrollTimer = window.setTimeout(() => {
+        root.classList.remove('edge-scroll-active');
+        scrollTimer = 0;
+      }, 180);
+    };
+
+    window.addEventListener('scroll', () => {
+      if (rafPending) {
+        return;
+      }
+
+      rafPending = true;
+      window.requestAnimationFrame(setScrolling);
+    }, { passive: true });
   },
 
   /**
