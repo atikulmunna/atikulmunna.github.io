@@ -1,71 +1,94 @@
-## Technical Overview
+# Atikul Islam Munna Portfolio
 
-- Semantic HTML5 structure with ARIA-aware navigation, disclosures and interactive controls
-- Mobile-first CSS architecture split into tokens, base, layout, components, glass effects and section-specific composition
-- Vanilla JavaScript modules for navigation, hero behavior, image loading, experience disclosures, theme toggling and mobile project-card interactions
-- Progressive enhancement for `backdrop-filter`, reduced-motion handling and browser-specific fallback hooks
-- Static deployment to GitHub Pages from the `main` branch
+Personal portfolio for [aimunna.me](https://aimunna.me), built as a static GitHub Pages site with a monochrome liquid-glass design language, responsive project browsing, research highlights and device-aware performance tuning.
+
+## Highlights
+
+- Animated GitHub-style contribution grid and typing sequence in the hero section
+- Dark and light themes with persistent theme selection
+- Responsive liquid-glass navigation with active-section tracking and mobile menu support
+- Featured projects plus categorized project browsing for AI Systems, Backend & Systems, Mobile & Edge, Developer Tools and Research
+- Desktop project tabs and mobile checkable category filters
+- CSS-animated geometric thumbnails for research projects
+- Research publications and a consolidated Works in Progress panel
+- Expandable experience disclosures and compact mobile project cards
+- Tools-and-technologies marquee and animated contact background
+- Semantic HTML, ARIA-aware controls and reduced-motion support
+
+## Performance Profiles
+
+The site has two visual profiles:
+
+- **Full mode** keeps the atmospheric liquid-glass presentation, blur layers and ambient motion.
+- **Optimized mode** uses sharper solid-glass surfaces, fewer live blur layers, simplified decorative effects and lighter canvas rendering.
+
+The optimized profile is selected conservatively. Privacy-preserving browsers that hide or round hardware information default to the full experience unless a strong low-resource signal is available.
+
+Automatic optimized-mode signals:
+
+- Save-Data enabled
+- reported device memory of `2GB` or less
+- mobile coarse-pointer device with reported memory of `4GB` or less and `4` CPU threads or fewer
+
+The mode is decided once during startup and shared by all animation modules. This keeps behavior consistent across Chrome, Brave, Firefox, Safari and other privacy-focused browsers.
+
+### Preview Flags
+
+Force either profile locally or in production:
+
+```txt
+?perf=lite
+?perf=full
+```
+
+Examples:
+
+```txt
+https://aimunna.me/?perf=lite
+https://aimunna.me/?perf=full
+```
+
+Optimized mode shows a one-time dismissible notice and automatically hides it after five seconds.
+
+### Edge Scroll Relief
+
+Microsoft Edge receives a separate scroll-relief path rather than the optimized visual profile. During active scrolling, expensive live blur layers temporarily flatten and restore shortly after scrolling stops. This preserves the full design while reducing compositor pressure.
 
 ## Frontend Architecture
 
-### HTML entrypoint
+### HTML Entrypoint
 
 - `index.html`
-  - Owns all portfolio content sections: hero, about, education, experience, tools, projects, research and contact
-  - Wires versioned CSS and JS assets
-  - Keeps the content model simple so updates remain low-friction
+  - Owns the portfolio content and section structure
+  - Wires versioned CSS and JavaScript assets
+  - Bootstraps the shared performance-profile decision before animation modules initialize
 
-### CSS layers
+### CSS Layers
 
-- `css/variables.css`
-  - Design tokens for palette, spacing, radius, typography, shadows and transitions
-- `css/reset.css`
-  - Baseline reset and normalization
-- `css/base.css`
-  - Global typography, body defaults and base element styling
-- `css/layout.css`
-  - Containers, section spacing and responsive layout primitives
-- `css/components.css`
-  - Shared UI primitives such as buttons, cards and tags
-- `css/glassmorphism.css`
-  - Frosted-glass utilities and fallback behavior
-- `css/sections.css`
-  - Section-specific implementation for navigation, hero, experience, projects, research, contact and mobile adaptations
-- `css/theme-light.css`
-  - Light-mode overrides layered on top of the default dark presentation
+- `css/variables.css`: palette, spacing, radius, typography, shadow and transition tokens
+- `css/reset.css`: normalization
+- `css/base.css`: global typography and base element rules
+- `css/layout.css`: containers and responsive primitives
+- `css/components.css`: reusable cards, buttons and tags
+- `css/glassmorphism.css`: glass utilities and graceful fallbacks
+- `css/sections.css`: navigation, hero, projects, research, experience, contact and performance-profile styling
+- `css/theme-light.css`: light-theme overrides
 
-### JavaScript modules
+### JavaScript Modules
 
-- `js/main.js`
-  - Bootstraps the app, performs feature detection and initializes modules with graceful failure handling
-- `js/navigation.js`
-  - Sticky navigation, active-section tracking, smooth scrolling and mobile menu behavior
-- `js/animations.js`
-  - Scroll-triggered reveal logic, reduced-motion fallback and liquid pointer-reactive effects
-- `js/hero-contribution-grid.js`
-  - Hero background animation logic
-- `js/hero-typing.js`
-  - Hero text sequencing and typing effects
-- `js/image-loader.js`
-  - Lazy-loading support and image fallback handling
-- `js/experience-toggle.js`
-  - Expand/collapse logic for experience details with ARIA sync
-- `js/skills-marquee.js`
-  - Infinite motion behavior for the tools-and-technologies section
-- `js/theme-toggle.js`
-  - Light/dark theme switching
-- `js/mobile-project-cards.js`
-  - Compact mobile project cards with expandable details
-
-## Quality Pipeline
-
-This repo treats a static portfolio like a software project rather than a single page mockup.
-
-- Jest unit tests cover navigation, hero behavior, card/button systems, accessibility hooks and module behavior
-- Property tests validate palette constraints, responsive rules, contrast, animation limits, semantic structure and glassmorphism consistency
-- Playwright is configured for browser-level E2E coverage
-- HTML and CSS validators run as standalone checks
-- Production asset generation includes JS/CSS minification and image optimization with WebP variants
+- `js/main.js`: feature detection, performance-profile sync, Edge scroll relief and app initialization
+- `js/navigation.js`: sticky navigation, active-section tracking, smooth scrolling and mobile menu behavior
+- `js/animations.js`: reveal effects, pointer-reactive glass and reduced-motion handling
+- `js/hero-contribution-grid.js`: animated hero contribution grid
+- `js/hero-typing.js`: hero text sequence
+- `js/skills-marquee.js`: tools-and-technologies marquee
+- `js/additional-project-tabs.js`: desktop tabs and mobile project-category filters
+- `js/mobile-project-cards.js`: expandable compact project cards on mobile
+- `js/project-archive-toggle.js`: additional-project reveal behavior
+- `js/experience-toggle.js`: ARIA-synced experience disclosures
+- `js/contact-rain.js`: theme-aware contact background animation
+- `js/image-loader.js`: lazy-loading and image fallback handling
+- `js/theme-toggle.js`: persistent light/dark mode switching
 
 ## Local Development
 
@@ -81,7 +104,11 @@ Run a local static server:
 npx http-server . -p 4173 -c-1 -s
 ```
 
-Open `http://127.0.0.1:4173`.
+Open:
+
+```txt
+http://127.0.0.1:4173
+```
 
 ## Useful Commands
 
@@ -91,28 +118,16 @@ Validate markup and styles:
 npm run validate
 ```
 
-Run the full Jest suite:
+Run the Jest suite:
 
 ```bash
 npm test -- --runInBand
 ```
 
-Run cross-browser E2E:
+Run browser-level E2E coverage:
 
 ```bash
 npm run test:e2e
-```
-
-Generate optimized production assets:
-
-```bash
-npm run build:prod
-```
-
-Refresh asset version query strings after frontend changes:
-
-```bash
-npm run version:assets
 ```
 
 Run the performance audit helper:
@@ -121,25 +136,48 @@ Run the performance audit helper:
 npm run audit:performance
 ```
 
+Generate optimized production assets:
+
+```bash
+npm run build:prod
+```
+
+Refresh asset query-string versions:
+
+```bash
+npm run version:assets
+```
+
+## Quality Pipeline
+
+- Jest unit and property tests for navigation, accessibility hooks, responsive rules, palette constraints and animation behavior
+- HTML and CSS validation scripts
+- Playwright cross-browser E2E configuration
+- Minification and image-optimization checks
+- Performance audit helper
+
 ## Production Output
 
-`npm run build:prod` produces:
+`npm run build:prod` generates:
 
 - `dist/index.html`
 - `dist/css/*.min.css`
 - `dist/js/*.min.js`
-- optimized images in `dist/assets/images`
-- generated `.webp` variants for PNG/JPG assets
+- optimized images under `dist/assets/images`
+- WebP variants for PNG and JPG assets
 
 ## Deployment
 
-- GitHub Pages user-site repository: `atikulmunna/atikulmunna.github.io`
-- Deployment target: `main` branch, repository root
-- Live URL: `https://atikulmunna.github.io/`
+- GitHub Pages repository: `atikulmunna/atikulmunna.github.io`
+- Deployment branch: `main`
+- Custom domain: [aimunna.me](https://aimunna.me)
+- GitHub Pages fallback: [atikulmunna.github.io](https://atikulmunna.github.io)
+- Domain configuration: `CNAME`
 
 ## Updating Content
 
-- Portfolio content changes usually happen in `index.html`
-- Project screenshots and icons live under `assets/images` and `assets/icons`
-- Visual refinements are usually in `css/sections.css` and `css/components.css`
-- Local editing notes are kept in `LOCAL_EDITING_GUIDE.md` and should remain uncommitted
+- Portfolio copy and project entries live in `index.html`
+- Screenshots and icons live under `assets/images` and `assets/icons`
+- Visual refinements usually belong in `css/sections.css` or `css/components.css`
+- Theme-specific refinements belong in `css/theme-light.css`
+- Local editing notes live in `LOCAL_EDITING_GUIDE.md` and should remain uncommitted
