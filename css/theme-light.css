@@ -723,9 +723,20 @@ body.theme-light .hero__content::before {
   background:
     radial-gradient(
       ellipse at center,
-      rgba(245, 245, 245, 0.5) 0%,
-      rgba(245, 245, 245, 0.28) 38%,
-      rgba(255, 255, 255, 0.1) 64%,
+      rgba(255, 255, 255, 0.68) 0%,
+      rgba(245, 245, 245, 0.4) 36%,
+      rgba(255, 255, 255, 0.12) 66%,
+      rgba(255, 255, 255, 0) 100%
+    );
+}
+
+html.perf-lite body.theme-light .hero__content::before {
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(245, 245, 245, 0.34) 36%,
+      rgba(255, 255, 255, 0.1) 66%,
       rgba(255, 255, 255, 0) 100%
     );
 }
