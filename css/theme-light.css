@@ -653,6 +653,47 @@ body.theme-light .contact-icon-link:hover {
   color: var(--color-primary-dark);
 }
 
+body.theme-light .research-item__link {
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.66) 0%,
+    rgba(245, 245, 245, 0.48) 58%,
+    rgba(168, 168, 168, 0.22) 100%
+  );
+  color: rgba(17, 17, 17, 0.72);
+  border-color: transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+body.theme-light .research-item__link::before {
+  background: linear-gradient(
+    180deg,
+    rgba(55, 55, 55, 0.84) 0%,
+    rgba(17, 17, 17, 0.72) 58%,
+    rgba(92, 92, 92, 0.64) 100%
+  );
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.32),
+    0 3px 8px rgba(17, 17, 17, 0.14);
+}
+
+body.theme-light .research-item__link::after {
+  border-top-color: rgba(35, 35, 35, 0.82);
+  border-right-color: rgba(17, 17, 17, 0.72);
+  filter: drop-shadow(0 3px 4px rgba(17, 17, 17, 0.14));
+}
+
+body.theme-light .research-item__link:hover {
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(245, 245, 245, 0.56) 58%,
+    rgba(168, 168, 168, 0.26) 100%
+  );
+  color: rgba(17, 17, 17, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.66);
+}
+
 body.theme-light .experience-disclosure {
   background: linear-gradient(
     150deg,
