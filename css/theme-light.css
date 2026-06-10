@@ -507,6 +507,41 @@ body.theme-light .projects-tabs__tab[aria-selected="true"] {
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
+body.theme-light .about__text {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(245, 245, 245, 0.72) 42%,
+    rgba(168, 168, 168, 0.22) 100%
+  );
+  border-color: rgba(17, 17, 17, 0.14);
+  box-shadow:
+    0 10px 22px rgba(17, 17, 17, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+body.theme-light .about__text::before {
+  background: conic-gradient(
+    from var(--liquid-rim-angle),
+    rgba(17, 17, 17, 0) 0deg,
+    rgba(17, 17, 17, 0) 68deg,
+    rgba(17, 17, 17, 0.34) 86deg,
+    rgba(92, 92, 92, 0.28) 108deg,
+    rgba(17, 17, 17, 0) 132deg,
+    rgba(17, 17, 17, 0) 360deg
+  );
+}
+
+body.theme-light .about__text:hover,
+body.theme-light .about__text:focus-within {
+  border-color: rgba(17, 17, 17, 0.18);
+  box-shadow:
+    -18px -10px 34px rgba(255, 255, 255, 0.72),
+    18px 10px 34px rgba(92, 92, 92, 0.12),
+    0 12px 26px rgba(17, 17, 17, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
 body.theme-light .about__link {
   color: inherit;
   text-decoration-color: rgba(17, 17, 17, 0.42);
@@ -519,16 +554,37 @@ body.theme-light .about__link:focus-visible {
 }
 
 body.theme-light #about .education-item {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+body.theme-light #about .education-item:hover,
+body.theme-light #about .education-item:focus-within {
+  box-shadow: none;
+}
+
+body.theme-light #about .education-flow::before {
   background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(245, 245, 245, 0.74) 34%,
-    rgba(168, 168, 168, 0.24) 100%
+    180deg,
+    rgba(17, 17, 17, 0),
+    rgba(17, 17, 17, 0.28),
+    rgba(92, 92, 92, 0.14),
+    rgba(17, 17, 17, 0)
   );
-  border: 1px solid rgba(17, 17, 17, 0.14);
+  box-shadow: 0 0 12px rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light #about .education-item::before {
+  border-color: rgba(17, 17, 17, 0.28);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(17, 17, 17, 0.48) 0 24%,
+    rgba(17, 17, 17, 0.08) 27% 100%
+  );
   box-shadow:
-    0 10px 22px rgba(17, 17, 17, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    0 0 0 3px rgba(245, 245, 245, 0.68),
+    0 0 10px rgba(17, 17, 17, 0.08);
 }
 
 body.theme-light #about .education-item h4,
@@ -588,15 +644,19 @@ body.theme-light #skills .skill-category.card--glass {
 }
 
 body.theme-light #skills .skill-category::after {
-  background: linear-gradient(
-    90deg,
-    rgba(17, 17, 17, 0.78) 0%,
-    rgba(17, 17, 17, 0.62) 11%,
-    rgba(17, 17, 17, 0.16) 24%,
-    rgba(17, 17, 17, 0.16) 76%,
-    rgba(17, 17, 17, 0.62) 89%,
-    rgba(17, 17, 17, 0.78) 100%
-  );
+  display: none;
+}
+
+body.theme-light #skills .skill-category:hover,
+body.theme-light #skills .skill-category:focus-within {
+  box-shadow: none;
+}
+
+body.theme-light #skills .skill-category::before {
+  color: rgba(17, 17, 17, 0.76);
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
 }
 
 body.theme-light .skill-item {
@@ -609,7 +669,7 @@ body.theme-light .skill-item {
   );
   border: 1px solid rgba(245, 245, 245, 0.24);
   box-shadow:
-    0 8px 18px rgba(17, 17, 17, 0.26),
+    0 4px 10px rgba(17, 17, 17, 0.18),
     inset 0 1px 0 rgba(245, 245, 245, 0.12);
 }
 
@@ -799,16 +859,12 @@ html.is-edge:not(.perf-lite) body.theme-light .btn--glass::before {
 }
 
 body.theme-light .research-thread__item {
-  border-color: rgba(17, 17, 17, 0.1);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(245, 245, 245, 0.5) 42%,
-    rgba(168, 168, 168, 0.16) 100%
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.84),
-    0 8px 18px rgba(17, 17, 17, 0.08);
+  background: transparent;
+  box-shadow: none;
+}
+
+body.theme-light .research-thread__item + .research-thread__item {
+  border-top-color: rgba(17, 17, 17, 0.1);
 }
 
 body.theme-light .research-thread__node {
@@ -844,8 +900,7 @@ html.perf-lite body.theme-light .project-card.card--glass,
 html.perf-lite body.theme-light .timeline-item.card--glass,
 html.perf-lite body.theme-light .research-item.card--glass,
 html.perf-lite body.theme-light .research-thread.card--glass,
-html.perf-lite body.theme-light .about__text,
-html.perf-lite body.theme-light .education-item {
+html.perf-lite body.theme-light .about__text {
   background:
     linear-gradient(
       150deg,
@@ -858,6 +913,12 @@ html.perf-lite body.theme-light .education-item {
     0 10px 22px rgba(17, 17, 17, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
     inset 0 -1px 0 rgba(17, 17, 17, 0.06);
+}
+
+html.perf-lite body.theme-light .education-item {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 html.perf-lite body.theme-light .research-thread__item {
