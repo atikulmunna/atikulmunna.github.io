@@ -728,7 +728,7 @@ body.theme-light .research-item__link {
 body.theme-light .research-item__link::before {
   background: linear-gradient(
     180deg,
-    rgba(55, 55, 55, 0.84) 0%,
+    rgba(38, 38, 38, 0.84) 0%,
     rgba(17, 17, 17, 0.72) 58%,
     rgba(92, 92, 92, 0.64) 100%
   );
@@ -738,7 +738,7 @@ body.theme-light .research-item__link::before {
 }
 
 body.theme-light .research-item__link::after {
-  border-top-color: rgba(35, 35, 35, 0.82);
+  border-top-color: rgba(38, 38, 38, 0.82);
   border-right-color: rgba(17, 17, 17, 0.72);
   filter: drop-shadow(0 3px 4px rgba(17, 17, 17, 0.14));
 }
