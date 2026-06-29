@@ -26,6 +26,25 @@ function updateIndexAssetVersion(version) {
   }
 }
 
+function updateSitemapLastmod() {
+  const sitemapPath = path.join(__dirname, '..', 'sitemap.xml');
+  if (!fs.existsSync(sitemapPath)) {
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const xml = fs.readFileSync(sitemapPath, 'utf8');
+  const updated = xml.replace(/<lastmod>[^<]*<\/lastmod>/g, `<lastmod>${today}</lastmod>`);
+
+  if (updated !== xml) {
+    fs.writeFileSync(sitemapPath, updated);
+    console.log(`Updated sitemap lastmod to "${today}".`);
+  } else {
+    console.log('No sitemap lastmod references to update.');
+  }
+}
+
 const version = process.argv[2] || resolveVersion();
 updateIndexAssetVersion(version);
+updateSitemapLastmod();
 
