@@ -6705,6 +6705,33 @@ html.perf-lite body.theme-light .hero__avatar-core {
     justify-content: center;
   }
 
+  .hero--split .hero__content::before {
+    left: 50%;
+  }
+
+  /* Restore the classic centered subtitle stage on mobile: the spark spins in
+     place at center, the subtitle and typing line center, and the type-on
+     reveal grows from the middle again. */
+  .hero--split .hero__subtitle-stage {
+    justify-items: center;
+  }
+
+  .hero--split .hero__spark {
+    inset: 0;
+  }
+
+  .hero--split .hero__subtitle {
+    text-align: center;
+    filter: blur(1px);
+    animation-name: hero-subtitle-flash;
+  }
+
+  .hero--split .hero__subtitle-stage .hero__description {
+    justify-self: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
   .hero--split .hero__visual {
     order: -1;
   }
