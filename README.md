@@ -4,7 +4,7 @@ Personal portfolio for [aimunna.me](https://aimunna.me), built as a static GitHu
 
 ## Highlights
 
-- Animated GitHub-style contribution grid and typing sequence in the hero section
+- Split hero with left-aligned intro and a glass hexagon housing an animated neural network, over a GitHub-style contribution grid and typing sequence
 - Dark and light themes with persistent theme selection
 - Responsive liquid-glass navigation with active-section tracking and mobile menu support
 - Featured projects plus categorized project browsing for AI Systems, Backend & Systems, Mobile & Edge, Developer Tools and Research
@@ -49,6 +49,12 @@ https://aimunna.me/?perf=full
 ```
 
 Optimized mode shows a one-time dismissible notice and automatically hides it after five seconds.
+
+The hero defaults to the split layout. Opt back to the classic centered hero with:
+
+```txt
+?hero=classic
+```
 
 ### Edge Scroll Relief
 

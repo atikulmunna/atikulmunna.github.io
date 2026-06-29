@@ -6504,5 +6504,215 @@ html.perf-lite .research-thread__node {
   }
 }
 
+/* ===========================================================================
+   Hero split layout (preview, opt-in via ?hero=split)
+   Left-aligns the copy and renders a glass-framed particle avatar at right.
+   The visual is hidden unless the .hero--split class is present, so the
+   default hero is completely unaffected.
+   =========================================================================== */
+.hero__visual {
+  display: none;
+}
+
+.hero--split .hero__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  max-width: var(--container-xl);
+}
+
+.hero--split .hero__content {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero--split .hero__content::before {
+  left: 38%;
+}
+
+.hero--split .hero__cta {
+  justify-content: flex-start;
+}
+
+/* Left-align the subtitle stage so the spark, subtitle and typing line all
+   sit against the left edge and the type-on reveal grows left-to-right. */
+.hero--split .hero__subtitle-stage {
+  justify-items: start;
+}
+
+.hero--split .hero__spark {
+  /* Pin to the left edge and shrink to the glyph so the ✦ keeps spinning
+     in place (its transform-origin) instead of orbiting the stage center. */
+  inset: 0 auto 0 0;
+  place-items: center;
+}
+
+.hero--split .hero__subtitle {
+  text-align: left;
+  filter: none;
+  animation-name: hero-subtitle-split;
+}
+
+/* Calmer, left-anchored slide-fade in place of the centered flash. Inherits
+   duration/delay/fill from the base .hero__subtitle shorthand. */
+@keyframes hero-subtitle-split {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  22% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+}
+
+.hero--split .hero__subtitle-stage .hero__description {
+  margin: 0;
+  justify-self: start;
+  text-align: left;
+}
+
+.hero--split .hero__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__avatar {
+  /* Regular hexagon, flat left/right sides, points top and bottom. */
+  --hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  position: relative;
+  width: clamp(220px, 28vw, 360px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.3));
+}
+
+.hero__avatar-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero__avatar-glow {
+  position: absolute;
+  inset: -8%;
+  z-index: 0;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(168, 168, 168, 0.28) 0%,
+    rgba(168, 168, 168, 0.08) 48%,
+    rgba(168, 168, 168, 0) 72%
+  );
+  filter: blur(var(--blur-lg));
+  pointer-events: none;
+}
+
+/* Frame hexagon: a filled glass-border shape sitting behind the core so its
+   outer band reads as a clean rim along the angled edges. */
+.hero__avatar-ring {
+  position: absolute;
+  inset: 9%;
+  z-index: 1;
+  background: var(--glass-border);
+  clip-path: var(--hex);
+  pointer-events: none;
+}
+
+.hero__avatar-core {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 72%;
+  aspect-ratio: 1;
+  background: var(--glass-bg-dark);
+  clip-path: var(--hex);
+  overflow: hidden;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .hero__avatar-core {
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+.hero__avatar-net {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Lighten the halo/glow so the avatar reads on the light-theme hero. */
+body.theme-light .hero__avatar-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(92, 92, 92, 0.22) 0%,
+    rgba(92, 92, 92, 0.07) 48%,
+    rgba(92, 92, 92, 0) 72%
+  );
+}
+
+body.theme-light .hero__avatar-ring {
+  background: rgba(17, 17, 17, 0.16);
+}
+
+body.theme-light .hero__avatar-core {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+/* Optimized profile: drop the live backdrop-blur on the avatar core and use a
+   solid-glass fill instead, matching the site's lite-mode treatment. */
+html.perf-lite .hero__avatar-core {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: rgba(17, 17, 17, 0.9);
+}
+
+html.perf-lite body.theme-light .hero__avatar-core {
+  background: rgba(245, 245, 245, 0.92);
+}
+
+/* Stack on narrower screens: avatar above the copy, both centered. */
+@media (max-width: 900px) {
+  .hero--split .hero__container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .hero--split .hero__content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero--split .hero__cta {
+    justify-content: center;
+  }
+
+  .hero--split .hero__visual {
+    order: -1;
+  }
+
+  .hero__avatar {
+    width: clamp(180px, 56vw, 260px);
+  }
+}
+
 
 
