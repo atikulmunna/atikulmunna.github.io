@@ -6505,10 +6505,10 @@ html.perf-lite .research-thread__node {
 }
 
 /* ===========================================================================
-   Hero split layout (preview, opt-in via ?hero=split)
-   Left-aligns the copy and renders a glass-framed particle avatar at right.
+   Hero split layout (default; opt back to classic with ?hero=classic)
+   Left-aligns the copy and renders a glass "status" terminal at right.
    The visual is hidden unless the .hero--split class is present, so the
-   default hero is completely unaffected.
+   classic centered hero is completely unaffected.
    =========================================================================== */
 .hero__visual {
   display: none;
@@ -6541,38 +6541,16 @@ html.perf-lite .research-thread__node {
   justify-items: start;
 }
 
+/* The spark was an intro flourish leading into the subtitle; with the subtitle
+   moved to the terminal, drop it so the typing line shows immediately. */
 .hero--split .hero__spark {
-  /* Pin to the left edge and shrink to the glyph so the ✦ keeps spinning
-     in place (its transform-origin) instead of orbiting the stage center. */
-  inset: 0 auto 0 0;
-  place-items: center;
+  display: none;
 }
 
+/* The "AI-Driven Software Engineer" tagline now lives in the status terminal's
+   whoami output, so hide the left-side subtitle in the split layout. */
 .hero--split .hero__subtitle {
-  text-align: left;
-  filter: none;
-  animation-name: hero-subtitle-split;
-}
-
-/* Calmer, left-anchored slide-fade in place of the centered flash. Inherits
-   duration/delay/fill from the base .hero__subtitle shorthand. */
-@keyframes hero-subtitle-split {
-  from {
-    opacity: 0;
-    transform: translateX(-16px);
-  }
-  22% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(6px);
-  }
+  display: none;
 }
 
 .hero--split .hero__subtitle-stage .hero__description {
@@ -6587,143 +6565,226 @@ html.perf-lite .research-thread__node {
   align-items: center;
 }
 
-.hero__avatar {
-  /* Regular hexagon, flat left/right sides, points top and bottom. */
-  --hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+/* Glass terminal status panel: a translucent "now" window typed out on view,
+   replacing the avatar. Respects the liquid-glass language with a backdrop
+   blur, soft rim and an animated caret. */
+.hero__terminal {
   position: relative;
-  width: clamp(220px, 28vw, 360px);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.3));
-}
-
-.hero__avatar-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero__avatar-glow {
-  position: absolute;
-  inset: -8%;
-  z-index: 0;
-  border-radius: var(--radius-full);
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(168, 168, 168, 0.28) 0%,
-    rgba(168, 168, 168, 0.08) 48%,
-    rgba(168, 168, 168, 0) 72%
-  );
-  filter: blur(var(--blur-lg));
-  pointer-events: none;
-}
-
-/* Frame hexagon: a filled glass-border shape sitting behind the core so its
-   outer band reads as a clean rim along the angled edges. */
-.hero__avatar-ring {
-  position: absolute;
-  inset: 9%;
-  z-index: 1;
-  background: var(--glass-border);
-  clip-path: var(--hex);
-  pointer-events: none;
-}
-
-.hero__avatar-core {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 72%;
-  aspect-ratio: 1;
-  background: var(--glass-bg-dark);
-  clip-path: var(--hex);
+  width: min(100%, 440px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: rgba(17, 17, 17, 0.55);
+  box-shadow: var(--liquid-shadow-deep);
   overflow: hidden;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .hero__avatar-core {
-    -webkit-backdrop-filter: blur(var(--blur-md));
-    backdrop-filter: blur(var(--blur-md));
+  .hero__terminal {
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    backdrop-filter: blur(var(--blur-lg));
   }
 }
 
-.hero__avatar-net {
-  width: 100%;
-  height: 100%;
-  display: block;
+.hero__terminal-glow {
+  position: absolute;
+  inset: -40% -20% auto -20%;
+  height: 70%;
+  z-index: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(168, 168, 168, 0.2) 0%,
+    rgba(168, 168, 168, 0) 70%
+  );
   pointer-events: none;
 }
 
-/* Lighten the halo/glow so the avatar reads on the light-theme hero. */
-body.theme-light .hero__avatar-glow {
+.hero__terminal-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0.7rem 0.95rem;
+  border-bottom: 1px solid var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hero__terminal-dots {
+  display: inline-flex;
+  gap: 0.42rem;
+}
+
+.hero__terminal-dots i {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.hero__terminal-name {
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-light-accent);
+}
+
+.hero__terminal-body {
+  position: relative;
+  z-index: 1;
+  padding: 1.1rem 1.15rem 1.25rem;
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: var(--color-primary-light);
+}
+
+.hero__terminal-line {
+  margin: 0;
+  display: flex;
+  gap: 0.55ch;
+  /* Lines reserve their space (opacity only) so typing causes no layout shift. */
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity var(--transition-base) var(--easing-out),
+              transform var(--transition-base) var(--easing-out);
+}
+
+.hero__terminal-line.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.hero__terminal-line--spaced {
+  margin-top: 0.7rem;
+}
+
+.hero__terminal-prompt,
+.hero__terminal-marker {
+  flex: none;
+  color: var(--color-light-accent);
+}
+
+.hero__terminal-tx {
+  position: relative;
+  min-width: 0;
+  /* Preserve the spacing in directory listings (e.g. `ls ~/focus`) while still
+     allowing long lines to wrap. */
+  white-space: pre-wrap;
+}
+
+.hero__terminal-line--out .hero__terminal-tx {
+  color: rgba(245, 245, 245, 0.78);
+}
+
+/* Blinking caret on the line currently being typed (and the final prompt). */
+.hero__terminal-line.is-active .hero__terminal-tx::after {
+  content: '';
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.12ch;
+  transform: translateY(0.16em);
+  background: var(--color-primary-light);
+  animation: hero-terminal-caret 1s steps(1) infinite;
+}
+
+@keyframes hero-terminal-caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* Lighten the glass for the light theme. */
+body.theme-light .hero__terminal {
+  background: rgba(245, 245, 245, 0.6);
+  border-color: rgba(17, 17, 17, 0.12);
+}
+
+body.theme-light .hero__terminal-bar {
+  background: rgba(17, 17, 17, 0.04);
+  border-bottom-color: rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light .hero__terminal-dots i {
+  background: rgba(17, 17, 17, 0.24);
+}
+
+body.theme-light .hero__terminal-name,
+body.theme-light .hero__terminal-prompt,
+body.theme-light .hero__terminal-marker {
+  color: var(--color-mid-tone);
+}
+
+body.theme-light .hero__terminal-body {
+  color: var(--color-primary-dark);
+}
+
+body.theme-light .hero__terminal-line--out .hero__terminal-tx {
+  color: rgba(17, 17, 17, 0.7);
+}
+
+body.theme-light .hero__terminal-line.is-active .hero__terminal-tx::after {
+  background: var(--color-primary-dark);
+}
+
+body.theme-light .hero__terminal-glow {
   background: radial-gradient(
-    circle at 50% 50%,
-    rgba(92, 92, 92, 0.22) 0%,
-    rgba(92, 92, 92, 0.07) 48%,
-    rgba(92, 92, 92, 0) 72%
+    circle at 50% 0%,
+    rgba(92, 92, 92, 0.16) 0%,
+    rgba(92, 92, 92, 0) 70%
   );
 }
 
-body.theme-light .hero__avatar-ring {
-  background: rgba(17, 17, 17, 0.16);
-}
-
-body.theme-light .hero__avatar-core {
-  background: rgba(255, 255, 255, 0.62);
-}
-
-/* Optimized profile: drop the live backdrop-blur on the avatar core and use a
-   solid-glass fill instead, matching the site's lite-mode treatment. */
-html.perf-lite .hero__avatar-core {
+/* Optimized profile: drop the live backdrop-blur for a solid-glass fill,
+   matching the site's lite-mode treatment elsewhere. */
+html.perf-lite .hero__terminal {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  background: rgba(17, 17, 17, 0.9);
+  background: rgba(17, 17, 17, 0.92);
 }
 
-html.perf-lite body.theme-light .hero__avatar-core {
-  background: rgba(245, 245, 245, 0.92);
+html.perf-lite body.theme-light .hero__terminal {
+  background: rgba(245, 245, 245, 0.95);
 }
 
-/* Stack on narrower screens: avatar above the copy, both centered. */
+/* Stack on narrower screens: copy first, then the terminal, both centered. */
 @media (max-width: 900px) {
   .hero--split .hero__container {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-  }
-
-  .hero--split .hero__content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: var(--spacing-lg);
     text-align: center;
   }
 
+  /* Expose the copy's children to the container so the terminal can be ordered
+     between the typing line and the buttons: name -> typing -> terminal -> CTA.
+     text-align must be set here (not just on the flex container): inheritance
+     follows the DOM tree, so the children read text-align from .hero__content. */
+  .hero--split .hero__content {
+    display: contents;
+    text-align: center;
+  }
+
+  .hero--split .hero__title { order: 1; }
+  .hero--split .hero__subtitle-stage { order: 2; }
+  .hero--split .hero__visual { order: 3; }
+  .hero--split .hero__cta { order: 4; }
+
+  /* Keep the buttons side by side (overrides the stacked mobile default). */
   .hero--split .hero__cta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
     justify-content: center;
+    margin-top: 0;
   }
 
-  .hero--split .hero__content::before {
-    left: 50%;
+  .hero--split .hero__cta .btn--large {
+    padding: 0.55rem var(--spacing-md);
   }
 
-  /* Restore the classic centered subtitle stage on mobile: the spark spins in
-     place at center, the subtitle and typing line center, and the type-on
-     reveal grows from the middle again. */
+  /* Center the typing line on mobile so it reads under the centered copy. */
   .hero--split .hero__subtitle-stage {
     justify-items: center;
-  }
-
-  .hero--split .hero__spark {
-    inset: 0;
-  }
-
-  .hero--split .hero__subtitle {
-    text-align: center;
-    filter: blur(1px);
-    animation-name: hero-subtitle-flash;
   }
 
   .hero--split .hero__subtitle-stage .hero__description {
@@ -6732,12 +6793,24 @@ html.perf-lite body.theme-light .hero__avatar-core {
     margin: 0 auto;
   }
 
-  .hero--split .hero__visual {
-    order: -1;
+  /* Tighten the terminal so it reads as a neat card, not a wall of text. */
+  .hero__terminal {
+    width: min(100%, 380px);
   }
 
-  .hero__avatar {
-    width: clamp(180px, 56vw, 260px);
+  .hero__terminal-bar {
+    padding: 0.6rem 0.85rem;
+  }
+
+  .hero__terminal-body {
+    padding: 0.95rem 1rem 1.05rem;
+    font-size: 0.76rem;
+    line-height: 1.7;
+  }
+
+  /* Collapse the wide `ls` gaps to single spaces so the listing wraps cleanly. */
+  .hero__terminal-tx {
+    white-space: normal;
   }
 }
 
