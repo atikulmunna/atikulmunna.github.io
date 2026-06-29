@@ -5,7 +5,10 @@
 const HeroTyping = {
   speedMs: 95,
   pauseAfterMs: 250,
+  // Classic hero waits for the spark + subtitle intro to play; the split hero
+  // has no subtitle flourish, so it types almost immediately on load.
   startDelayMs: 4350,
+  splitStartDelayMs: 350,
 
   init() {
     const target = document.querySelector('[data-hero-typing]');
@@ -20,9 +23,20 @@ const HeroTyping = {
     }
 
     target.classList.add('hero__description--queued');
+    const delay = this.isSplitHero() ? this.splitStartDelayMs : this.startDelayMs;
     window.setTimeout(() => {
       this.runTyping(target, fullText);
-    }, this.startDelayMs);
+    }, delay);
+  },
+
+  isSplitHero() {
+    // Split is the default layout; opt back to classic with ?hero=classic.
+    try {
+      const hero = new URLSearchParams(window.location.search).get('hero');
+      return hero !== 'classic' && hero !== 'full';
+    } catch {
+      return true;
+    }
   },
 
   prefersReducedMotion() {
