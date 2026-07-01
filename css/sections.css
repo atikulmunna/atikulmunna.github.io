@@ -6622,6 +6622,19 @@ html.perf-lite .research-thread__node {
   background: rgba(255, 255, 255, 0.24);
 }
 
+/* Distinct monochrome gradients so the three "window" dots read apart. */
+.hero__terminal-dots i:nth-child(1) {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.32));
+}
+
+.hero__terminal-dots i:nth-child(2) {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.18));
+}
+
+.hero__terminal-dots i:nth-child(3) {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.07));
+}
+
 .hero__terminal-name {
   font-size: var(--font-size-xs);
   letter-spacing: 0.04em;
@@ -6705,6 +6718,18 @@ body.theme-light .hero__terminal-bar {
 
 body.theme-light .hero__terminal-dots i {
   background: rgba(17, 17, 17, 0.24);
+}
+
+body.theme-light .hero__terminal-dots i:nth-child(1) {
+  background: linear-gradient(145deg, rgba(17, 17, 17, 0.58), rgba(17, 17, 17, 0.32));
+}
+
+body.theme-light .hero__terminal-dots i:nth-child(2) {
+  background: linear-gradient(145deg, rgba(17, 17, 17, 0.4), rgba(17, 17, 17, 0.2));
+}
+
+body.theme-light .hero__terminal-dots i:nth-child(3) {
+  background: linear-gradient(145deg, rgba(17, 17, 17, 0.22), rgba(17, 17, 17, 0.08));
 }
 
 body.theme-light .hero__terminal-name,
