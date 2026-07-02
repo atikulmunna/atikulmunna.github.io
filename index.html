@@ -1018,20 +1018,35 @@
   <!-- JavaScript Files -->
   <script>
     (function () {
+      var STORAGE_KEY = 'portfolio-perf-mode';
+
+      function readStore(store) {
+        try {
+          var v = window[store] && window[store].getItem(STORAGE_KEY);
+          return v === 'lite' || v === 'full' ? v : '';
+        } catch (error) {
+          return '';
+        }
+      }
+
+      function writeStore(store, mode) {
+        try {
+          if (window[store]) window[store].setItem(STORAGE_KEY, mode);
+        } catch (error) {
+          /* storage blocked (private mode) — ignore */
+        }
+      }
+
       function forcedProfile() {
         try {
-          var params = new URLSearchParams(window.location.search);
-          var value = (params.get('perf') || '').toLowerCase();
+          var value = (new URLSearchParams(window.location.search).get('perf') || '').toLowerCase();
           return value === 'lite' || value === 'full' ? value : '';
         } catch (error) {
           return '';
         }
       }
 
-      function shouldUseLite() {
-        var forced = forcedProfile();
-        if (forced) return forced === 'lite';
-
+      function autoLite() {
         var nav = typeof navigator !== 'undefined' ? navigator : {};
         var memory = Number(nav.deviceMemory || 0);
         var cores = Number(nav.hardwareConcurrency || 0);
@@ -1051,14 +1066,31 @@
         return saveData || severelyLowMemory || confirmedConstrainedMobile;
       }
 
-      var lite = shouldUseLite();
-      window.__portfolioPerfMode = lite ? 'lite' : 'full';
+      // Precedence: an explicit ?perf= choice (persisted permanently) > a
+      // remembered explicit choice > a per-session cached auto decision > a
+      // fresh auto decision. Caching the auto decision per session keeps mobile
+      // reloads from flipping when the device reports different core counts.
+      var mode;
+      var forced = forcedProfile();
+      if (forced) {
+        mode = forced;
+        writeStore('localStorage', forced);
+      } else if (readStore('localStorage')) {
+        mode = readStore('localStorage');
+      } else if (readStore('sessionStorage')) {
+        mode = readStore('sessionStorage');
+      } else {
+        mode = autoLite() ? 'lite' : 'full';
+        writeStore('sessionStorage', mode);
+      }
+
+      window.__portfolioPerfMode = mode;
       window.__portfolioIsPerfLite = function () {
         return window.__portfolioPerfMode === 'lite' ||
           document.documentElement.classList.contains('perf-lite');
       };
 
-      document.documentElement.classList.toggle('perf-lite', lite);
+      document.documentElement.classList.toggle('perf-lite', mode === 'lite');
     }());
   </script>
   <script src="js/navigation.js?v=36cfad7"></script>
