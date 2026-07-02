@@ -20,6 +20,7 @@
     'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Decision Archaeology': 'ai-systems',
     'Multi-Step Research Assistant Platform': 'ai-systems',
+    'SourceCast: Evidence-Grounded Media Research Workspace': 'ai-systems',
     'Predictive Maintenance MLOps Platform': 'ai-systems',
     'Realtime Fraud Detection Pipeline': 'ai-systems',
 
@@ -31,6 +32,7 @@
     'VaultCLI': 'systems-infra',
     'WebTorrent P2P Stream App': 'systems-infra',
     'COWFS: Copy-on-Write Filesystem': 'systems-infra',
+    'TraceBack: Explainable Backup & Restore Tool': 'systems-infra',
     'High-Throughput Distributed File Service': 'systems-infra',
 
     'NativeNote: Offline AI Notepad': 'mobile-edge',
