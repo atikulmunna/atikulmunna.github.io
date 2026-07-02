@@ -42,7 +42,7 @@ async function fetchCoreStats() {
     query($login: String!, $prQuery: String!) {
       user(login: $login) {
         repositories(ownerAffiliations: OWNER, privacy: PUBLIC) { totalCount }
-        contributionsCollection { totalCommitContributions }
+        contributionsCollection { contributionCalendar { totalContributions } }
       }
       prs: search(query: $prQuery, type: ISSUE) { issueCount }
     }`;
@@ -52,7 +52,8 @@ async function fetchCoreStats() {
   });
   return {
     repos: data.user.repositories.totalCount,
-    commits: data.user.contributionsCollection.totalCommitContributions,
+    // All contribution types in the last year (matches the profile headline).
+    contributions: data.user.contributionsCollection.contributionCalendar.totalContributions,
     prs: data.prs.issueCount
   };
 }
@@ -96,11 +97,11 @@ function inject(html, key, value) {
 
 (async () => {
   const [core, stars] = await Promise.all([fetchCoreStats(), fetchStars()]);
-  const stats = { ...core, stars };
+  const stats = { repos: core.repos, contributions: core.contributions, prs: core.prs, stars };
   console.log('Fetched GitHub stats:', stats);
 
   let html = fs.readFileSync(HTML_PATH, 'utf8');
-  for (const key of ['repos', 'commits', 'prs', 'stars']) {
+  for (const key of ['repos', 'contributions', 'prs', 'stars']) {
     html = inject(html, key, stats[key]);
   }
   fs.writeFileSync(HTML_PATH, html);
