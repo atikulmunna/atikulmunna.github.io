@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Project detail page: top bar, header and rendered README (markdown-body).
+   Monochrome / liquid-glass to match the portfolio, with light-theme overrides.
+   ========================================================================== */
+
+.project-detail-page {
+  min-height: 100vh;
+  background: var(--color-primary-dark);
+  color: var(--color-primary-light);
+}
+
+body.theme-light.project-detail-page {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+/* ----- Top bar ----- */
+.project-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(17, 17, 17, 0.55);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .project-topbar {
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    backdrop-filter: blur(var(--blur-md));
+  }
+}
+
+.project-topbar__inner {
+  max-width: var(--container-lg, 960px);
+  margin: 0 auto;
+  padding: 0.7rem clamp(1rem, 4vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-topbar__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-primary-light);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+.project-topbar__home img {
+  border-radius: var(--radius-full);
+}
+
+.project-topbar__home:hover {
+  opacity: 0.82;
+}
+
+/* ----- Layout ----- */
+.project-detail {
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem) 5rem;
+}
+
+.project-detail__container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.project-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: var(--spacing-lg);
+  color: rgba(245, 245, 245, 0.72);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast, 0.2s) var(--easing-default, ease);
+}
+
+.project-detail__back:hover {
+  color: var(--color-primary-light);
+}
+
+.project-detail__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.project-detail__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  line-height: var(--line-height-tight, 1.2);
+  color: var(--color-primary-light);
+}
+
+.project-detail__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* ----- Rendered README ----- */
+.readme {
+  color: rgba(245, 245, 245, 0.85);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed, 1.7);
+  word-wrap: break-word;
+}
+
+.readme__empty {
+  color: rgba(245, 245, 245, 0.6);
+}
+
+body.theme-light .readme__empty {
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.readme h1,
+.readme h2,
+.readme h3,
+.readme h4,
+.readme h5,
+.readme h6 {
+  font-family: var(--font-heading);
+  color: var(--color-primary-light);
+  line-height: var(--line-height-tight, 1.25);
+  margin: 2em 0 0.7em;
+}
+
+.readme h1 { font-size: 1.8em; }
+.readme h2 {
+  font-size: 1.45em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--glass-border);
+}
+.readme h3 { font-size: 1.2em; }
+.readme h4 { font-size: 1.05em; }
+
+.readme > :first-child {
+  margin-top: 0;
+}
+
+/* Hide GitHub's per-heading permalink octicons in the rendered README. */
+.readme .anchor {
+  display: none;
+}
+
+.readme p,
+.readme ul,
+.readme ol,
+.readme blockquote,
+.readme table,
+.readme pre {
+  margin: 0 0 1.1em;
+}
+
+.readme a {
+  color: var(--color-light-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.readme a:hover {
+  color: var(--color-primary-light);
+}
+
+.readme ul,
+.readme ol {
+  padding-left: 1.6em;
+}
+
+.readme li + li {
+  margin-top: 0.3em;
+}
+
+.readme img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.readme blockquote {
+  padding: 0.2em 0 0.2em 1em;
+  border-left: 3px solid rgba(168, 168, 168, 0.45);
+  color: rgba(245, 245, 245, 0.7);
+}
+
+.readme hr {
+  border: 0;
+  height: 1px;
+  background: var(--glass-border);
+  margin: 2em 0;
+}
+
+/* Code */
+.readme code {
+  font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 245, 245, 0.08);
+}
+
+.readme pre {
+  padding: 1em 1.15em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  background: rgba(0, 0, 0, 0.32);
+  overflow-x: auto;
+}
+
+.readme pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.86em;
+  line-height: 1.6;
+}
+
+/* Tables scroll rather than overflow the page */
+.readme table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.readme th,
+.readme td {
+  padding: 0.5em 0.85em;
+  border: 1px solid var(--glass-border);
+}
+
+.readme th {
+  background: rgba(245, 245, 245, 0.06);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Badges/shields sit inline without odd baselines */
+.readme p img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ----- Light theme ----- */
+body.theme-light .project-topbar {
+  background: rgba(245, 245, 245, 0.7);
+  border-bottom-color: rgba(17, 17, 17, 0.1);
+}
+
+body.theme-light .project-topbar__home,
+body.theme-light .project-detail__title,
+body.theme-light .readme h1,
+body.theme-light .readme h2,
+body.theme-light .readme h3,
+body.theme-light .readme h4,
+body.theme-light .readme h5,
+body.theme-light .readme h6 {
+  color: var(--color-primary-dark);
+}
+
+body.theme-light .project-detail__back {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+body.theme-light .project-detail__back:hover,
+body.theme-light .readme a:hover {
+  color: var(--color-primary-dark);
+}
+
+body.theme-light .readme {
+  color: rgba(17, 17, 17, 0.82);
+}
+
+body.theme-light .readme a {
+  color: var(--color-secondary-dark);
+}
+
+body.theme-light .readme blockquote {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+body.theme-light .readme code {
+  background: rgba(17, 17, 17, 0.06);
+}
+
+body.theme-light .readme pre {
+  background: rgba(17, 17, 17, 0.05);
+}
+
+body.theme-light .readme th {
+  background: rgba(17, 17, 17, 0.05);
+}

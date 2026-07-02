@@ -1,0 +1,50 @@
+name: Update GitHub stats
+
+on:
+  schedule:
+    # Daily at 03:17 UTC (off the hour to dodge peak scheduling delays).
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-stats
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Refresh hero GitHub stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_STATS_LOGIN: atikulmunna
+        run: node scripts/update-github-stats.js
+
+      - name: Refresh project READMEs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_README_OWNER: atikulmunna
+        run: node scripts/fetch-readmes.js
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- index.html assets/readmes; then
+            echo "No stat or README changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/readmes
+          git commit -m "Refresh hero GitHub stats and project READMEs [skip ci]"
+          git push
