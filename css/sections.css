@@ -1596,6 +1596,26 @@ body {
   display: none;
 }
 
+/* Icon-only GitHub link: a glass circle matching the CTA button height. */
+.hero__cta-github {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  color: var(--color-primary-light);
+}
+
+.hero__cta-github svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+body.theme-light .hero__cta-github {
+  color: var(--color-primary-dark);
+}
+
 .hero__cta .btn--primary,
 .hero__cta .btn--secondary {
   background: var(--color-secondary-dark);
@@ -4712,6 +4732,51 @@ html.perf-lite .education-flow::before {
   font-style: italic;
 }
 
+/* Publication status chip: monochrome text, a single colored status dot. */
+.research-item__status {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: max-content;
+  max-width: calc(100% - 3.4rem);
+  padding: 0.24rem 0.72rem 0.24rem 0.62rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(245, 245, 245, 0.16);
+  background: rgba(245, 245, 245, 0.06);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.82);
+}
+
+.research-item__status::before {
+  content: '';
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: var(--radius-full);
+  background: var(--status-dot, rgba(245, 245, 245, 0.7));
+  box-shadow: 0 0 0 3px var(--status-halo, rgba(245, 245, 245, 0.14));
+}
+
+.research-item__status--review {
+  --status-dot: rgba(240, 190, 96, 0.95);
+  --status-halo: rgba(240, 190, 96, 0.2);
+}
+
+.research-item__status--published {
+  --status-dot: rgba(120, 210, 150, 0.95);
+  --status-halo: rgba(120, 210, 150, 0.2);
+}
+
+body.theme-light .research-item__status {
+  border-color: rgba(17, 17, 17, 0.14);
+  background: rgba(17, 17, 17, 0.05);
+  color: rgba(17, 17, 17, 0.72);
+}
+
 .research-item__link {
   position: absolute;
   top: var(--spacing-lg);
@@ -6561,8 +6626,52 @@ html.perf-lite .research-thread__node {
 
 .hero--split .hero__visual {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* GitHub stats: bare monochrome icon + number pairs in one row, no containers. */
+.hero__ghstats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: min(100%, 440px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 1.6rem);
+}
+
+.hero__ghstat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: rgba(245, 245, 245, 0.84);
+}
+
+.hero__ghstat-icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: rgba(245, 245, 245, 0.58);
+}
+
+.hero__ghstat-num {
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+}
+
+body.theme-light .hero__ghstat {
+  color: rgba(17, 17, 17, 0.82);
+}
+
+body.theme-light .hero__ghstat-icon {
+  color: rgba(17, 17, 17, 0.52);
 }
 
 /* Glass terminal status panel: a translucent "now" window typed out on view,
