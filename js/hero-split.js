@@ -41,7 +41,11 @@ const HeroSplit = {
 
     this.reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.lines = Array.from(this.body.querySelectorAll('.hero__terminal-line'));
+    // The `whoami` identity block is CSS-hidden on desktop (the hero heading
+    // carries the name there) and shown on mobile. Skip hidden lines so the
+    // typing sequence never stalls "typing" an invisible line.
+    this.lines = Array.from(this.body.querySelectorAll('.hero__terminal-line'))
+      .filter((line) => this.isVisible(line));
 
     // Capture each line's text, then clear the animated targets so they can be
     // typed back in. The HTML keeps the real text for no-JS and crawlers.
@@ -58,6 +62,14 @@ const HeroSplit = {
       return;
     }
     this.observe();
+  },
+
+  isVisible(el) {
+    try {
+      return window.getComputedStyle(el).display !== 'none';
+    } catch {
+      return true;
+    }
   },
 
   revealAll() {
@@ -101,8 +113,12 @@ const HeroSplit = {
 
       if (isCmd && full) {
         // Commands type character by character.
+        const isLast = i === this.lines.length - 1;
         line.classList.add('is-active');
         this.type(tx, full, () => {
+          // The final line (e.g. the mobile tagline sign-off) keeps its caret
+          // blinking instead of clearing it and ending the sequence.
+          if (isLast) return;
           line.classList.remove('is-active');
           this.after(240, proceed);
         });
