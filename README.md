@@ -48,6 +48,8 @@ https://aimunna.me/?perf=lite
 https://aimunna.me/?perf=full
 ```
 
+An explicit `?perf=` choice is remembered (persisted in `localStorage`), so visiting `?perf=full` once keeps the full experience on that device across future visits. When no explicit choice is set, the automatic decision is cached per browser session so mobile reloads stay consistent instead of flipping when the device reports a different core count.
+
 Optimized mode shows a one-time dismissible notice and automatically hides it after five seconds.
 
 The hero defaults to the split layout. Opt back to the classic centered hero with:
