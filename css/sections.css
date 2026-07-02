@@ -6763,6 +6763,8 @@ body.theme-light .hero__ghstat-icon {
   margin: 0;
   display: flex;
   gap: 0.55ch;
+  /* Override the global justified `p` so wrapped output lines don't stretch. */
+  text-align: left;
   /* Lines reserve their space (opacity only) so typing causes no layout shift. */
   opacity: 0;
   transform: translateY(2px);
@@ -6881,6 +6883,14 @@ html.perf-lite body.theme-light .hero__terminal {
 
 /* Stack on narrower screens: copy first, then the terminal, both centered. */
 @media (max-width: 900px) {
+  /* The stacked mobile hero (title + typing + terminal + CTA) is taller than the
+     viewport, so vertical-centering pushed the top under the fixed nav. Top-align
+     and pad the top so "Hi, I'm" always clears the nav bar. */
+  .hero--split {
+    align-items: flex-start;
+    padding-top: calc(5.25rem + env(safe-area-inset-top, 0px));
+  }
+
   .hero--split .hero__container {
     display: flex;
     flex-direction: column;
