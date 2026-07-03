@@ -8,6 +8,23 @@
  */
 (function () {
   const OWNER = 'atikulmunna';
+  const RAW_BASE = 'https://raw.githubusercontent.com';
+  const BLOB_BASE = 'https://github.com';
+  const MERMAID_SRC = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+
+  // A URL that already points somewhere (absolute, protocol-relative, data:,
+  // mailto:) or is an in-page anchor — anything we should NOT treat as a
+  // repo-relative path.
+  function isExternal(url) {
+    return /^([a-z][a-z0-9+.-]*:)?\/\//i.test(url) ||
+      url.startsWith('data:') ||
+      url.startsWith('mailto:') ||
+      url.startsWith('#');
+  }
+
+  function repoPath(url) {
+    return url.replace(/^\.?\//, '');
+  }
 
   function getRepo() {
     try {
@@ -29,6 +46,97 @@
   function setText(selector, text) {
     const el = document.querySelector(selector);
     if (el) el.textContent = text;
+  }
+
+  // README HTML from the GitHub API uses repo-relative URLs for images and
+  // links (e.g. src="assets/demo.png", href="docs/architecture.md"). Those
+  // 404 on this site, so point images at raw.githubusercontent.com and links
+  // at the repo's blob view. In-page anchors (#…) and already-absolute URLs
+  // are left alone.
+  function rewriteAssets(mount, repo) {
+    mount.querySelectorAll('img[src]').forEach((img) => {
+      const src = img.getAttribute('src') || '';
+      if (src && !isExternal(src)) {
+        img.setAttribute('src', `${RAW_BASE}/${OWNER}/${repo}/HEAD/${repoPath(src)}`);
+      }
+      img.setAttribute('loading', 'lazy');
+    });
+
+    mount.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.startsWith('#')) return; // in-page anchor stays local
+      if (!isExternal(href)) {
+        a.setAttribute('href', `${BLOB_BASE}/${OWNER}/${repo}/blob/HEAD/${repoPath(href)}`);
+      }
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
+  }
+
+  // GitHub ships mermaid diagrams as "needs enrichment" placeholders that only
+  // its own frontend renders. Swap each for a real .mermaid node carrying the
+  // diagram source (kept verbatim in the placeholder's data-plain attribute),
+  // then let mermaid render them. The source stays visible as a code block
+  // until (and unless) mermaid processes it, so a failed/blocked load degrades
+  // to readable text instead of an endless spinner.
+  function prepareMermaid(mount) {
+    const sections = mount.querySelectorAll(
+      'section.js-render-needs-enrichment[data-type="mermaid"]'
+    );
+    const nodes = [];
+    sections.forEach((section) => {
+      const target = section.querySelector('.js-render-enrichment-target');
+      const pre = section.querySelector('pre');
+      const code = (
+        (target && target.getAttribute('data-plain')) ||
+        (pre && pre.textContent) ||
+        ''
+      ).trim();
+      if (!code) return;
+
+      const holder = document.createElement('div');
+      holder.className = 'readme-mermaid';
+      const graph = document.createElement('div');
+      graph.className = 'mermaid';
+      graph.textContent = code;
+      holder.appendChild(graph);
+      section.replaceWith(holder);
+      nodes.push(graph);
+    });
+    return nodes;
+  }
+
+  function loadMermaid() {
+    return new Promise((resolve, reject) => {
+      if (window.mermaid) {
+        resolve(window.mermaid);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = MERMAID_SRC;
+      script.onload = () =>
+        window.mermaid ? resolve(window.mermaid) : reject(new Error('mermaid missing'));
+      script.onerror = () => reject(new Error('mermaid failed to load'));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function renderMermaid(nodes) {
+    if (!nodes.length) return;
+    try {
+      const mermaid = await loadMermaid();
+      const light = document.body.classList.contains('theme-light');
+      // Per-diagram frontmatter (e.g. `theme: redux`) overrides this default.
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: light ? 'default' : 'dark'
+      });
+      await mermaid.run({ nodes });
+    } catch (_err) {
+      // Leave the raw source visible (it already renders as a code block via
+      // the :not([data-processed]) styling) — better than a hidden diagram.
+    }
   }
 
   function loadReadme(repo) {
@@ -83,14 +191,12 @@
         document.title = `${title} — Atikul Islam Munna`;
       }
 
-      // Open README links in a new tab; keep in-page anchors local.
-      mount.querySelectorAll('a[href]').forEach((a) => {
-        const href = a.getAttribute('href') || '';
-        if (!href.startsWith('#')) {
-          a.setAttribute('target', '_blank');
-          a.setAttribute('rel', 'noopener');
-        }
-      });
+      // Repoint repo-relative images/links and open external links in a new
+      // tab (keeping in-page anchors local).
+      rewriteAssets(mount, repo);
+
+      // Turn GitHub's mermaid placeholders into real, rendered diagrams.
+      renderMermaid(prepareMermaid(mount));
     } catch (error) {
       mount.innerHTML =
         '<p class="readme__empty">This project’s README couldn’t be loaded. ' +

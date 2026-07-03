@@ -252,6 +252,44 @@ body.theme-light .readme__empty {
   vertical-align: middle;
 }
 
+/* Mermaid diagrams (rendered client-side from GitHub's placeholders) */
+.readme-mermaid {
+  margin: 0 0 1.4em;
+  display: flex;
+  justify-content: center;
+}
+
+.readme-mermaid .mermaid {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.readme-mermaid .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Until (or unless) mermaid renders it, show the source as a readable code
+   block instead of an endless spinner. */
+.readme-mermaid .mermaid:not([data-processed="true"]) {
+  display: block;
+  width: 100%;
+  white-space: pre;
+  text-align: left;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.8em;
+  line-height: 1.55;
+  padding: 1em 1.15em;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.32);
+  overflow-x: auto;
+}
+
+body.theme-light .readme-mermaid .mermaid:not([data-processed="true"]) {
+  background: rgba(17, 17, 17, 0.05);
+}
+
 /* ----- Light theme ----- */
 body.theme-light .project-topbar {
   background: rgba(245, 245, 245, 0.7);
