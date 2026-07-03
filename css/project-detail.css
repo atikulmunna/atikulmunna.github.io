@@ -155,6 +155,18 @@ body.theme-light .readme__empty {
   display: none;
 }
 
+/* When a table-of-contents link jumps to a heading, keep it clear of the
+   sticky top bar instead of tucking it underneath. */
+.readme .markdown-heading,
+.readme h1,
+.readme h2,
+.readme h3,
+.readme h4,
+.readme h5,
+.readme h6 {
+  scroll-margin-top: 5rem;
+}
+
 .readme p,
 .readme ul,
 .readme ol,

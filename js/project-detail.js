@@ -73,6 +73,23 @@
     });
   }
 
+  // GitHub prefixes every heading's anchor id with `user-content-` (e.g.
+  // id="user-content-install") and hangs it on a hidden permalink <a>, while
+  // table-of-contents links point at the bare `#install`. Nothing bridges that
+  // gap off github.com, so the links go nowhere. Copy the de-prefixed id onto
+  // the visible heading wrapper so native fragment navigation resolves.
+  function fixHeadingAnchors(mount) {
+    const used = new Set();
+    mount.querySelectorAll('.markdown-heading').forEach((heading) => {
+      const anchor = heading.querySelector('a.anchor[id^="user-content-"]');
+      if (!anchor) return;
+      const id = anchor.id.replace(/^user-content-/, '');
+      if (!id || used.has(id)) return;
+      used.add(id);
+      heading.id = id;
+    });
+  }
+
   // GitHub ships mermaid diagrams as "needs enrichment" placeholders that only
   // its own frontend renders. Swap each for a real .mermaid node carrying the
   // diagram source (kept verbatim in the placeholder's data-plain attribute),
@@ -194,6 +211,9 @@
       // Repoint repo-relative images/links and open external links in a new
       // tab (keeping in-page anchors local).
       rewriteAssets(mount, repo);
+
+      // Make table-of-contents / in-page anchor links actually jump.
+      fixHeadingAnchors(mount);
 
       // Turn GitHub's mermaid placeholders into real, rendered diagrams.
       renderMermaid(prepareMermaid(mount));
