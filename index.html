@@ -27,14 +27,138 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="css/variables.css?v=36cfad7">
-  <link rel="stylesheet" href="css/reset.css?v=36cfad7">
-  <link rel="stylesheet" href="css/base.css?v=36cfad7">
-  <link rel="stylesheet" href="css/layout.css?v=36cfad7">
-  <link rel="stylesheet" href="css/components.css?v=36cfad7">
-  <link rel="stylesheet" href="css/glassmorphism.css?v=36cfad7">
-  <link rel="stylesheet" href="css/sections.css?v=36cfad7">
-  <link rel="stylesheet" href="css/theme-light.css?v=36cfad7">
+  <link rel="stylesheet" href="css/variables.css?v=42d4e85">
+  <link rel="stylesheet" href="css/reset.css?v=42d4e85">
+  <link rel="stylesheet" href="css/base.css?v=42d4e85">
+  <link rel="stylesheet" href="css/layout.css?v=42d4e85">
+  <link rel="stylesheet" href="css/components.css?v=42d4e85">
+  <link rel="stylesheet" href="css/glassmorphism.css?v=42d4e85">
+  <link rel="stylesheet" href="css/sections.css?v=42d4e85">
+  <link rel="stylesheet" href="css/theme-light.css?v=42d4e85">
+
+  <!-- Instant scroll restoration for Back navigation. Inlined in <head> so it
+       runs before first paint and is never served from a stale cache. Keeps the
+       page hidden (only when actually restoring) until it is positioned, so the
+       hero never flashes and nothing smooth-scrolls. -->
+  <style>
+    html.js-scroll-restoring { scroll-behavior: auto !important; background-color: #111111; }
+    html.js-scroll-restoring.js-scroll-restoring--light { background-color: #f5f5f5; }
+    html.js-scroll-restoring body { visibility: hidden !important; }
+  </style>
+  <script>
+  (function () {
+    if (!('sessionStorage' in window)) return;
+    var KEY = 'portfolio:scrollY';
+    var root = document.documentElement;
+
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    function save() {
+      try { sessionStorage.setItem(KEY, String(window.scrollY || window.pageYOffset || 0)); } catch (e) {}
+    }
+    window.addEventListener('pagehide', save);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') save();
+    });
+
+    function navType() {
+      try {
+        var entry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+        if (entry && entry.type) return entry.type;
+        if (performance.navigation) {
+          if (performance.navigation.type === 2) return 'back_forward';
+          if (performance.navigation.type === 1) return 'reload';
+        }
+      } catch (e) {}
+      return 'navigate';
+    }
+
+    var savedY = parseInt(sessionStorage.getItem(KEY) || '', 10);
+    if (!(savedY > 0)) savedY = 0;
+    var type = navType();
+    var hasHash = !!(location.hash && location.hash.length > 1);
+
+    // Restore on real back/forward and reloads, and also when arriving at an
+    // in-page anchor: the detail page's "Back to projects" link points to
+    // index.html#projects, which is a fresh navigation the browser would
+    // otherwise smooth-scroll down to from the hero.
+    if (!(type === 'back_forward' || type === 'reload' || hasHash)) return;
+    if (savedY <= 0 && !hasHash) return;
+
+    function computeTarget() {
+      if (savedY > 0) return savedY;
+      if (hasHash) {
+        var el = document.getElementById(location.hash.slice(1));
+        if (el) {
+          return Math.max(0, Math.round(
+            el.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0)
+          ));
+        }
+      }
+      return 0;
+    }
+
+    // Hide + disable smooth immediately, before the body paints. Paint the
+    // root the theme's page colour so the hidden window doesn't flash white
+    // (the visible page is dark from its sections, but the body element's own
+    // background is light).
+    var restoreLight = false;
+    try { restoreLight = localStorage.getItem('portfolio-theme') === 'light'; } catch (e) {}
+    root.classList.add('js-scroll-restoring');
+    if (restoreLight) root.classList.add('js-scroll-restoring--light');
+
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      root.classList.remove('js-scroll-restoring');
+      root.classList.remove('js-scroll-restoring--light');
+    }
+
+    var cancelled = false;
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (evt) {
+      window.addEventListener(evt, function () { cancelled = true; reveal(); }, { passive: true, once: true });
+    });
+
+    // Re-apply across frames: the document may still be growing (or the project
+    // tabs may still be rebuilding and shrinking it), so a single scrollTo can
+    // land short. Reveal as soon as we actually reach the saved position.
+    function pin(durationMs) {
+      var start = performance.now();
+      (function loop() {
+        if (cancelled) return;
+        var target = computeTarget();
+        if (target <= 0) { reveal(); return; }
+        window.scrollTo(0, target);
+        if (Math.abs((window.scrollY || window.pageYOffset || 0) - target) <= 1) {
+          reveal();
+          return;
+        }
+        if (performance.now() - start < durationMs) {
+          requestAnimationFrame(loop);
+        } else {
+          reveal();
+        }
+      })();
+    }
+
+    function begin() {
+      // rAF so we run after the other DOMContentLoaded handlers (the project
+      // tabs rebuild the grid) and land on the settled height.
+      requestAnimationFrame(function () { pin(1500); });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', begin);
+    } else {
+      begin();
+    }
+
+    window.addEventListener('load', function () { pin(800); });
+    // Absolute safety: never leave the page hidden.
+    setTimeout(reveal, 2500);
+  })();
+  </script>
 
   <script type="application/ld+json">
   {
@@ -277,7 +401,6 @@
                 <li class="skill-item">Bash</li>
                 <li class="skill-item">C</li>
                 <li class="skill-item">Rust</li>
-                <li class="skill-item">Kotlin</li>
               </ul>
             </div>
             <div class="skill-category card card--glass" data-category="LLM/NLP">
@@ -339,6 +462,13 @@
                 <li class="skill-item">Grafana</li>
               </ul>
             </div>
+            <div class="skill-category card card--glass" data-category="Mobile">
+              <h3 class="skill-category__title sr-only">Mobile</h3>
+              <ul class="skill-list">
+                <li class="skill-item">Flutter</li>
+                <li class="skill-item">Kotlin</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -359,6 +489,7 @@
               <article class="project-card project-card--featured project-card--featured-primary card card--glass">
                 <div class="project-card__image">
                   <img src="assets/images/workspace-management.png" alt="Townhall API workspace management interface preview" loading="lazy" decoding="async" width="1280" height="720">
+                  <span class="project-card__badge"><span class="project-card__badge-icon" aria-hidden="true">&#10022;</span><span class="sr-only">Featured</span></span>
                 </div>
                 <div class="project-card__content">
                   <h3 class="project-card__title">Townhall API</h3>
@@ -386,6 +517,7 @@
               <article class="project-card project-card--featured card card--glass">
                 <div class="project-card__image">
                   <img src="assets/images/smartform.jpg" alt="SmartForm app exercise tracking interface preview" loading="lazy" decoding="async" width="1280" height="720">
+                  <span class="project-card__badge"><span class="project-card__badge-icon" aria-hidden="true">&#10022;</span><span class="sr-only">Featured</span></span>
                 </div>
                 <div class="project-card__content">
                   <h3 class="project-card__title">SmartForm: AI-Based Exercise Form &amp; Rep Tracking</h3>
@@ -405,6 +537,7 @@
               <article class="project-card project-card--featured card card--glass">
                 <div class="project-card__image">
                   <img src="assets/images/sagrag-ui.png" alt="SAG-RAG platform UI preview" loading="lazy" decoding="async" width="2543" height="1326">
+                  <span class="project-card__badge"><span class="project-card__badge-icon" aria-hidden="true">&#10022;</span><span class="sr-only">Featured</span></span>
                 </div>
                 <div class="project-card__content">
                   <h3 class="project-card__title">SAG-RAG: Speculative Agentic Graph RAG Platform</h3>
@@ -477,7 +610,7 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">VaultCLI</h3>
-                <p class="project-card__description">Built a security-focused Python CLI for encrypted file vaults with outer and hidden-volume workflows, including authenticated encryption, passphrase-based key derivation, integrity verification and streaming file handling. Implemented end-to-end validation, CI/release automation and a tested developer UX with one-command smoke and release checks.</p>
+                <p class="project-card__description">Built a security-focused Python CLI for encrypted file vaults with outer and hidden-volume workflows, including authenticated encryption, passphrase-based key derivation, integrity verification and streaming file handling.</p>
                 <div class="project-card__tags">
                   <span class="tag">Python</span>
                   <span class="tag">Typer</span>
@@ -572,6 +705,29 @@
                 </div>
               </div>
             </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image">
+                <img src="assets/images/civicfix.png" alt="CivicFix community issue reporting platform interface preview" loading="lazy" decoding="async" width="991" height="909">
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">CivicFix: Community Issue Reporting Platform</h3>
+                <p class="project-card__description">Built a full-stack civic-issue reporting platform with map-based reporting, community verification and a role-gated admin workflow that tracks each report from submission to resolution.</p>
+                <div class="project-card__tags">
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">Node.js</span>
+                  <span class="tag">Next.js</span>
+                  <span class="tag">React</span>
+                  <span class="tag">Tailwind CSS</span>
+                  <span class="tag">Express</span>
+                  <span class="tag">PostgreSQL</span>
+                  <span class="tag">PostGIS</span>
+                  <span class="tag">Docker</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/civicfix" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open CivicFix Community Issue Reporting Platform GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
             <article class="project-card card card--glass" id="project-research-assistant" data-project-archive-item>
               <div class="project-card__image">
                 <img src="assets/images/research-assistant.png" alt="Multi-Step Research Assistant Platform dashboard preview" loading="lazy" decoding="async" width="1280" height="720">
@@ -627,7 +783,7 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">WebTorrent P2P Stream App</h3>
-                <p class="project-card__description">Built a browser-based P2P watch-party streaming app with WebTorrent/WebRTC that supports room signaling, synchronized playback, chat, reconnect recovery, tracker failover, subtitle upload (.vtt/.srt) and validation reporting. Implemented milestone-driven quality gates with automated smoke tests, security controls and observability endpoints.</p>
+                <p class="project-card__description">Built a browser-based P2P watch-party streaming app with WebTorrent/WebRTC that supports room signaling, synchronized playback, chat, reconnect recovery, tracker failover, subtitle upload (.vtt/.srt) and validation reporting.</p>
                 <div class="project-card__tags">
                   <span class="tag">React</span>
                   <span class="tag">Vite</span>
@@ -786,7 +942,7 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">dgvis: Dependency Graph Visualizer</h3>
-                <p class="project-card__description">Built a Python CLI tool that parses dependency files across 7 ecosystems (npm, pip, Go, Rust, Ruby, Maven and YAML), constructs directed graphs from scratch, detects circular dependencies using Tarjan's and DFS algorithms and visualizes them as interactive D3.js force-directed graphs with live-reload watch mode, CI integration, plugin architecture and 132 unit tests.</p>
+                <p class="project-card__description">Built a Python CLI tool that parses dependency files across 7 ecosystems (npm, pip, Go, Rust, Ruby, Maven and YAML), constructs directed graphs from scratch, detects circular dependencies, visualizes them as interactive D3.js force-directed graphs.</p>
                 <div class="project-card__tags">
                   <span class="tag">Python</span>
                   <span class="tag">Click</span>
@@ -819,6 +975,23 @@
                 </div>
                 <div class="project-card__links">
                   <a href="https://github.com/atikulmunna/offline-ai-notepad" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open NativeNote Offline AI Notepad GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass">
+              <div class="project-card__image">
+                <img src="assets/images/resolve.jpg" alt="Resolve habit streak timer Android app preview" loading="lazy" decoding="async" width="1080" height="1242">
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">Resolve: Habit Streak Timer</h3>
+                <p class="project-card__description">Built an offline Android app in Flutter to track habit streaks with a panic mode, relapse insights, milestone notifications and a native Kotlin home-screen widget.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Flutter</span>
+                  <span class="tag">Dart</span>
+                  <span class="tag">Kotlin</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/resolve" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Resolve Habit Streak Timer GitHub repository">GitHub</a>
                 </div>
               </div>
             </article>
@@ -1096,21 +1269,22 @@
       document.documentElement.classList.toggle('perf-lite', mode === 'lite');
     }());
   </script>
-  <script src="js/navigation.js?v=36cfad7"></script>
-  <script src="js/theme-toggle.js?v=36cfad7"></script>
-  <script src="js/animations.js?v=36cfad7"></script>
-  <script src="js/image-loader.js?v=36cfad7"></script>
-  <script src="js/experience-toggle.js?v=36cfad7"></script>
-  <script src="js/hero-contribution-grid.js?v=36cfad7"></script>
-  <script src="js/hero-split.js?v=36cfad7"></script>
-  <script src="js/hero-typing.js?v=36cfad7"></script>
-  <script src="js/skills-marquee.js?v=36cfad7"></script>
-  <script src="js/mobile-project-cards.js?v=36cfad7"></script>
-  <script src="js/project-card-links.js?v=36cfad7"></script>
-  <script src="js/project-archive-toggle.js?v=36cfad7"></script>
-  <script src="js/additional-project-tabs.js?v=36cfad7"></script>
-  <script src="js/contact-rain.js?v=36cfad7"></script>
-  <script src="js/main.js?v=36cfad7"></script>
+  <script src="js/navigation.js?v=42d4e85"></script>
+  <script src="js/theme-toggle.js?v=42d4e85"></script>
+  <script src="js/animations.js?v=42d4e85"></script>
+  <script src="js/image-loader.js?v=42d4e85"></script>
+  <script src="js/experience-toggle.js?v=42d4e85"></script>
+  <script src="js/hero-contribution-grid.js?v=42d4e85"></script>
+  <script src="js/hero-split.js?v=42d4e85"></script>
+  <script src="js/hero-typing.js?v=42d4e85"></script>
+  <script src="js/skills-marquee.js?v=42d4e85"></script>
+  <script src="js/mobile-project-cards.js?v=42d4e85"></script>
+  <script src="js/project-card-links.js?v=42d4e85"></script>
+  <script src="js/project-card-tags.js?v=42d4e85"></script>
+  <script src="js/project-archive-toggle.js?v=42d4e85"></script>
+  <script src="js/additional-project-tabs.js?v=42d4e85"></script>
+  <script src="js/contact-rain.js?v=42d4e85"></script>
+  <script src="js/main.js?v=42d4e85"></script>
 </body>
 </html>
 
