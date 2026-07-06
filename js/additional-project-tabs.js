@@ -10,6 +10,7 @@
     { key: 'ai-systems', label: 'AI Systems' },
     { key: 'developer-tools', label: 'Developer Tools' },
     { key: 'systems-infra', label: 'Systems & Infra' },
+    { key: 'full-stack', label: 'Full-Stack' },
     { key: 'mobile-edge', label: 'Mobile & Edge' },
     { key: 'research', label: 'Research' }
   ];
@@ -18,7 +19,6 @@
     'Receipt2Ledger: Visual Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
     'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
-    'Decision Archaeology': 'ai-systems',
     'Multi-Step Research Assistant Platform': 'ai-systems',
     'SourceCast: Evidence-Grounded Media Research Workspace': 'ai-systems',
     'Predictive Maintenance MLOps Platform': 'ai-systems',
@@ -35,7 +35,11 @@
     'TraceBack: Explainable Backup & Restore Tool': 'systems-infra',
     'High-Throughput Distributed File Service': 'systems-infra',
 
+    'CivicFix: Community Issue Reporting Platform': 'full-stack',
+    'Decision Archaeology': 'full-stack',
+
     'NativeNote: Offline AI Notepad': 'mobile-edge',
+    'Resolve: Habit Streak Timer': 'mobile-edge',
 
     'Federated Learning with Differential Privacy': 'research',
     'Anomaly-Aware Probabilistic Forecasting for Multivariate Time Series': 'research',
