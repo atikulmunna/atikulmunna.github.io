@@ -2610,7 +2610,7 @@ html.perf-lite .education-flow::before {
   justify-content: flex-start;
   width: 100%;
   min-height: 0;
-  padding: 0;
+  padding: 0 0 0 0.95rem;
   font-family: var(--font-heading);
   font-size: clamp(0.78rem, 0.25vw + 0.72rem, 0.95rem);
   font-weight: var(--font-weight-semibold);
@@ -2621,7 +2621,8 @@ html.perf-lite .education-flow::before {
   overflow: hidden;
   border: none;
   border-radius: 0;
-  background: none;
+  /* Small rotated-diamond marker echoing the section/project markers. */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect x='2.5' y='2.5' width='5' height='5' rx='1' transform='rotate(45 5 5)' fill='%23a8a8a8'/%3E%3C/svg%3E") left center / 0.46rem 0.46rem no-repeat;
   box-shadow: none;
   /* Subtle luminous halo behind the category name. */
   text-shadow: 0 0 14px rgba(245, 245, 245, 0.22);
@@ -2631,6 +2632,7 @@ html.perf-lite .education-flow::before {
 
 body.theme-light .skill-category::before {
   text-shadow: 0 0 14px rgba(17, 17, 17, 0.12);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect x='2.5' y='2.5' width='5' height='5' rx='1' transform='rotate(45 5 5)' fill='%235c5c5c'/%3E%3C/svg%3E");
 }
 
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
@@ -2719,7 +2721,44 @@ body.theme-light .skill-category::before {
   background: rgba(168, 168, 168, 0.28);
   box-shadow:
     0 10px 22px rgba(17, 17, 17, 0.18),
+    0 0 16px rgba(245, 245, 245, 0.1),
     inset 0 1px 0 rgba(245, 245, 245, 0.16);
+}
+
+/* Emphasis tier: core skills read brighter with a soft inner ring. */
+.skill-item--primary {
+  font-weight: var(--font-weight-semibold);
+  background: rgba(245, 245, 245, 0.17);
+  box-shadow:
+    0 8px 20px rgba(17, 17, 17, 0.2),
+    inset 0 0 0 1px rgba(245, 245, 245, 0.3),
+    inset 0 1px 0 rgba(245, 245, 245, 0.2);
+}
+
+.skill-item--primary:hover {
+  background: rgba(245, 245, 245, 0.24);
+  box-shadow:
+    0 10px 24px rgba(17, 17, 17, 0.24),
+    0 0 18px rgba(245, 245, 245, 0.14),
+    inset 0 0 0 1px rgba(245, 245, 245, 0.38),
+    inset 0 1px 0 rgba(245, 245, 245, 0.24);
+}
+
+/* Light theme keeps the dark chip; the emphasis is a bright inner ring.
+   Double class beats theme-light's own .skill-item rule. */
+body.theme-light .skill-item.skill-item--primary {
+  box-shadow:
+    0 8px 20px rgba(17, 17, 17, 0.18),
+    inset 0 0 0 1px rgba(245, 245, 245, 0.5),
+    inset 0 1px 0 rgba(245, 245, 245, 0.2);
+}
+
+body.theme-light .skill-item.skill-item--primary:hover {
+  box-shadow:
+    0 10px 24px rgba(17, 17, 17, 0.24),
+    0 0 16px rgba(17, 17, 17, 0.12),
+    inset 0 0 0 1px rgba(245, 245, 245, 0.65),
+    inset 0 1px 0 rgba(245, 245, 245, 0.26);
 }
 
 /* Alternating radii gives a more organic layout */
