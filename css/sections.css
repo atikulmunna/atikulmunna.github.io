@@ -3668,41 +3668,6 @@ body.theme-light .project-card--featured.card--glass:hover {
   font-size: clamp(1.35rem, 1.1rem + 0.7vw, 1.8rem);
 }
 
-/* ----- "Featured" badge on each featured thumbnail ----- */
-.project-card__badge {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.36rem;
-  color: rgba(245, 245, 245, 0.95);
-  background: rgba(17, 17, 17, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.3);
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .project-card__badge {
-    -webkit-backdrop-filter: blur(var(--blur-md));
-    backdrop-filter: blur(var(--blur-md));
-  }
-}
-
-.project-card__badge-icon {
-  font-size: 0.95rem;
-  line-height: 1;
-}
-
-body.theme-light .project-card__badge {
-  color: rgba(17, 17, 17, 0.92);
-  background: rgba(245, 245, 245, 0.72);
-  border-color: rgba(17, 17, 17, 0.18);
-}
-
 /* Project card image container */
 .project-card__image {
   position: relative;
