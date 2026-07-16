@@ -459,8 +459,14 @@
   margin-right: var(--spacing-sm);
 }
 
+/* On desktop the toggle sits inline with the text links, so drop the glass
+   pill and let it read as a plain icon control that matches the nav links. */
 .theme-toggle--desktop {
-  margin-left: var(--spacing-xs);
+  border: none;
+  background: none;
+  box-shadow: none;
+  border-radius: var(--radius-base);
+  color: var(--color-primary-light);
 }
 
 .theme-toggle:hover {
@@ -471,6 +477,21 @@
     rgba(255, 255, 255, 0.2) 0%,
     rgba(255, 255, 255, 0.08) 100%
   );
+}
+
+/* Match the nav-link hover: subtle wash + accent colour, no lift or pill. */
+.theme-toggle--desktop:hover {
+  transform: none;
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-light-accent);
+}
+
+/* Group the toggle as a utility control, set off from the links by a hairline. */
+.nav__item--theme {
+  margin-left: var(--spacing-xs);
+  padding-left: var(--spacing-sm);
+  border-left: 1px solid rgba(245, 245, 245, 0.14);
 }
 
 .theme-toggle:focus-visible {
@@ -726,6 +747,12 @@ body.theme-light .theme-toggle__glyph--moon {
   }
 
   .theme-toggle--desktop {
+    display: none;
+  }
+
+  /* The desktop toggle's list item is empty on mobile (the mobile toggle lives
+     in the header), so hide it to avoid a stray divider in the dropdown. */
+  .nav__item--theme {
     display: none;
   }
 

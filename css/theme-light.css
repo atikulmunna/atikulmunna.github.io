@@ -81,6 +81,16 @@ body.theme-light .nav__link:hover {
   background: rgba(17, 17, 17, 0.1);
 }
 
+/* Desktop toggle blends with the light nav links (hairline + hover wash). */
+body.theme-light .nav__item--theme {
+  border-left-color: rgba(17, 17, 17, 0.12);
+}
+
+body.theme-light .theme-toggle--desktop:hover {
+  color: var(--color-primary-dark);
+  background: rgba(17, 17, 17, 0.1);
+}
+
 body.theme-light .nav__link--active {
   color: var(--color-primary-dark);
   background: rgba(17, 17, 17, 0.14);
