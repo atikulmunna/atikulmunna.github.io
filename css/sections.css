@@ -457,6 +457,21 @@
   display: none;
   margin-left: auto;
   margin-right: var(--spacing-sm);
+  border: none;
+  background: none;
+  box-shadow: none;
+  border-radius: var(--radius-base);
+}
+
+/* No lift or glass wash on the bare mobile icon; a light press is enough. */
+.theme-toggle--mobile:hover {
+  transform: none;
+  border-color: transparent;
+  background: none;
+}
+
+.theme-toggle--mobile:active {
+  transform: scale(0.94);
 }
 
 /* On desktop the toggle sits inline with the text links, so drop the glass
@@ -538,30 +553,19 @@ body.theme-light .theme-toggle__glyph--moon {
   width: var(--touch-target-min);
   height: var(--touch-target-min);
   padding: var(--spacing-sm);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
-  border: 1px solid rgba(245, 245, 245, 0.24);
-  border-radius: var(--radius-full);
-  box-shadow:
-    0 8px 18px rgba(17, 17, 17, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  /* Bare icon to match the mobile theme toggle: no glass pill behind it. */
+  background: none;
+  border: none;
+  border-radius: var(--radius-base);
+  box-shadow: none;
   cursor: pointer;
   z-index: calc(var(--z-index-fixed) + 1);
   transition:
-    transform var(--transition-fast) var(--easing-default),
-    box-shadow var(--transition-fast) var(--easing-default),
-    border-color var(--transition-fast) var(--easing-default);
+    transform var(--transition-fast) var(--easing-default);
 }
 
 .nav__toggle:hover {
-  transform: translateY(-1px) scale(1.03);
-  border-color: rgba(245, 245, 245, 0.34);
-  box-shadow:
-    0 10px 22px rgba(17, 17, 17, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: none;
 }
 
 .nav__toggle:focus {
