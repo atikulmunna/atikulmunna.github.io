@@ -11,7 +11,8 @@ const Navigation = {
     activeSection: 'hero',
     isScrolled: false,
     scrollThreshold: 50,
-    scrollAnimationFrame: null
+    scrollAnimationFrame: null,
+    settleTimer: null
   },
 
   // DOM elements
@@ -101,20 +102,26 @@ const Navigation = {
    * @param {HTMLElement} section - The section to scroll to
    */
   scrollToSection(section) {
-    // Calculate offset for fixed navigation
-    const navHeight = this.elements.nav?.offsetHeight || 72;
-    const targetPosition = Math.max(0, section.offsetTop - navHeight);
+    // Read the target live each time it is needed. Lazy-loaded images and
+    // deferred content above the target keep growing the document while the
+    // page scrolls, so a value captured once lands short (the old "click twice"
+    // bug). A function that recomputes on demand tracks that layout shift.
+    const getTarget = () => {
+      const navHeight = this.elements.nav?.offsetHeight || 72;
+      return Math.max(0, section.offsetTop - navHeight);
+    };
 
     if (this.prefersReducedMotion()) {
       this.cancelManagedScroll();
-      window.scrollTo(0, targetPosition);
+      window.scrollTo(0, getTarget());
+      this.settleScroll(getTarget);
       return;
     }
 
     // Keep the simple native path for tests and older browsers.
     if (this.isTestEnvironment()) {
       window.scrollTo({
-        top: targetPosition,
+        top: getTarget(),
         behavior: 'smooth'
       });
       return;
@@ -124,29 +131,31 @@ const Navigation = {
     // short jumps feel crisp and long jumps feel more controlled.
     if ('scrollBehavior' in document.documentElement.style &&
         typeof window.requestAnimationFrame === 'function') {
-      this.performManagedScroll(targetPosition);
+      this.performManagedScroll(getTarget);
     } else {
       // Fallback: instant scroll for older browsers
-      window.scrollTo(0, targetPosition);
+      window.scrollTo(0, getTarget());
+      this.settleScroll(getTarget);
     }
   },
 
   /**
    * Scroll with distance-aware timing for a tighter, less floaty feel.
-   * @param {number} targetPosition - Y position to scroll to
+   * @param {Function} getTarget - Returns the current Y position to scroll to.
    */
-  performManagedScroll(targetPosition) {
+  performManagedScroll(getTarget) {
     this.cancelManagedScroll();
 
     const startY = window.scrollY || window.pageYOffset || 0;
-    const distance = targetPosition - startY;
 
-    if (Math.abs(distance) < 4) {
-      window.scrollTo(0, targetPosition);
+    if (Math.abs(getTarget() - startY) < 4) {
+      window.scrollTo({ top: getTarget(), behavior: 'auto' });
+      this.settleScroll(getTarget);
       return;
     }
 
-    const duration = Math.max(90, Math.min(220, 95 + (Math.abs(distance) * 0.05)));
+    // Base the timing on the initial distance so the feel stays consistent.
+    const duration = Math.max(90, Math.min(220, 95 + (Math.abs(getTarget() - startY) * 0.05)));
     const startTime = performance.now();
 
     const easeOutCubic = (t) => {
@@ -157,24 +166,94 @@ const Navigation = {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / duration);
       const eased = easeOutCubic(progress);
-      const nextY = startY + (distance * eased);
+      // Recompute the target every frame so late layout shifts are absorbed
+      // while scrolling instead of leaving us short at the end.
+      const nextY = startY + ((getTarget() - startY) * eased);
 
-      window.scrollTo(0, Math.round(nextY));
+      // behavior:'auto' forces an instant write, overriding the global
+      // `scroll-behavior: smooth` (reset.css) that would otherwise re-smooth
+      // each frame and fight this animation, stalling it partway.
+      window.scrollTo({ top: Math.round(nextY), behavior: 'auto' });
 
       if (progress < 1) {
         this.state.scrollAnimationFrame = window.requestAnimationFrame(step);
       } else {
         this.state.scrollAnimationFrame = null;
+        this.settleScroll(getTarget);
       }
     };
 
     this.state.scrollAnimationFrame = window.requestAnimationFrame(step);
   },
 
+  /**
+   * After the animation ends, images below may still be decoding and can push
+   * the target a few more pixels. Re-check a handful of times and snap to the
+   * final resting position so the user never has to click a second time.
+   * @param {Function} getTarget - Returns the current Y position to scroll to.
+   */
+  settleScroll(getTarget) {
+    if (this.state.settleTimer !== null) {
+      window.clearTimeout(this.state.settleTimer);
+      this.state.settleTimer = null;
+    }
+
+    // If the user starts scrolling on their own during the settle window, stop
+    // correcting so we never yank them back to the section.
+    let cancelled = false;
+    const stop = () => { cancelled = true; cleanup(); };
+    const cleanup = () => {
+      window.removeEventListener('wheel', stop, { passive: true });
+      window.removeEventListener('touchstart', stop, { passive: true });
+      window.removeEventListener('keydown', stop);
+    };
+    window.addEventListener('wheel', stop, { passive: true });
+    window.addEventListener('touchstart', stop, { passive: true });
+    window.addEventListener('keydown', stop);
+
+    // Poll until the target stops moving. Deferred content (injected tags,
+    // README panels, fonts) can keep shifting layout for up to ~1s after the
+    // click, so correct on each poll and only stop once the target has held
+    // steady twice in a row, or the overall time budget runs out.
+    const startTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+    const maxDuration = 1500;
+    let stableStreak = 0;
+    let lastTarget = null;
+
+    const correct = () => {
+      if (cancelled) { this.state.settleTimer = null; return; }
+
+      const target = getTarget();
+      const current = window.scrollY || window.pageYOffset || 0;
+      if (Math.abs(current - target) > 2) {
+        window.scrollTo({ top: target, behavior: 'auto' });
+      }
+
+      stableStreak = (lastTarget !== null && Math.abs(target - lastTarget) <= 1)
+        ? stableStreak + 1
+        : 0;
+      lastTarget = target;
+
+      const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      if (stableStreak < 2 && (now - startTime) < maxDuration) {
+        this.state.settleTimer = window.setTimeout(correct, 100);
+      } else {
+        this.state.settleTimer = null;
+        cleanup();
+      }
+    };
+
+    this.state.settleTimer = window.setTimeout(correct, 60);
+  },
+
   cancelManagedScroll() {
     if (this.state.scrollAnimationFrame !== null) {
       window.cancelAnimationFrame(this.state.scrollAnimationFrame);
       this.state.scrollAnimationFrame = null;
+    }
+    if (this.state.settleTimer !== null) {
+      window.clearTimeout(this.state.settleTimer);
+      this.state.settleTimer = null;
     }
   },
 
