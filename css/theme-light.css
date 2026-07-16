@@ -700,6 +700,16 @@ body.theme-light .contact-icon-link {
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
+/* Icon-only social marks stay container-less in light theme too: just the
+   floating logo, no panel, border, or shadow behind it. */
+body.theme-light .contact-icon-link--icon-only,
+body.theme-light .contact-icon-link--icon-only:hover,
+body.theme-light .contact-icon-link--icon-only:focus-visible {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
 body.theme-light .btn--primary.btn--glass:hover,
 body.theme-light .btn--secondary.btn--glass:hover,
 body.theme-light .research-item__link:hover,

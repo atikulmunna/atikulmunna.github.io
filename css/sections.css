@@ -6138,10 +6138,80 @@ body.theme-light .research-item__status {
   z-index: 1;
 }
 
-.contact-icon-link img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+/* Themed monochrome glyph rendered as a floating liquid-glass logo (no container).
+   The PNG silhouette is both the visible mark and the mask for a glassy sheen. */
+.contact-icon-link__glyph {
+  --glyph: var(--glyph-dark);
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  background-image: var(--glyph);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter:
+    drop-shadow(0 8px 14px rgba(17, 17, 17, 0.28))
+    drop-shadow(0 1px 2px rgba(17, 17, 17, 0.35));
+  transition: transform var(--transition-fast) var(--easing-default),
+              filter var(--transition-fast) var(--easing-default);
+}
+
+/* Per-icon source pair: dark theme uses the white mark, light theme the black mark. */
+.contact-icon-link__glyph--email {
+  --glyph-dark: url('../assets/icons/dark-mode-white/email.png');
+  --glyph-light: url('../assets/icons/light-mode-black/email.png');
+}
+.contact-icon-link__glyph--linkedin {
+  --glyph-dark: url('../assets/icons/dark-mode-white/linkedin.png');
+  --glyph-light: url('../assets/icons/light-mode-black/linkedin.png');
+}
+.contact-icon-link__glyph--scholar {
+  --glyph-dark: url('../assets/icons/dark-mode-white/scholar.png');
+  --glyph-light: url('../assets/icons/light-mode-black/scholar.png');
+}
+.contact-icon-link__glyph--researchgate {
+  --glyph-dark: url('../assets/icons/dark-mode-white/researchgate.png');
+  --glyph-light: url('../assets/icons/light-mode-black/researchgate.png');
+}
+.contact-icon-link__glyph--github {
+  --glyph-dark: url('../assets/icons/dark-mode-white/github.png');
+  --glyph-light: url('../assets/icons/light-mode-black/github.png');
+}
+.contact-icon-link__glyph--discord {
+  --glyph-dark: url('../assets/icons/dark-mode-white/discord.png');
+  --glyph-light: url('../assets/icons/light-mode-black/discord.png');
+}
+
+/* Glass sheen painted only on the logo silhouette. Dark theme = white logo, so
+   the sheen shades the lower body to give volume; light theme = black logo, so a
+   bright specular highlight streaks the top-left. */
+.contact-icon-link__glyph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  -webkit-mask: var(--glyph) center / contain no-repeat;
+  mask: var(--glyph) center / contain no-repeat;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(17, 17, 17, 0.34) 100%
+  );
+  pointer-events: none;
+}
+
+body.theme-light .contact-icon-link__glyph {
+  --glyph: var(--glyph-light);
+}
+
+body.theme-light .contact-icon-link__glyph::after {
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.2) 34%,
+    rgba(255, 255, 255, 0) 58%
+  );
 }
 
 .contact-icon-link span {
@@ -6189,14 +6259,12 @@ body.theme-light .research-item__status {
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  overflow: visible;
 }
 
-.contact-icon-link--icon-only img {
-  width: 32px;
-  height: 32px;
-  filter:
-    drop-shadow(0 10px 16px rgba(17, 17, 17, 0.22))
-    drop-shadow(0 0 12px rgba(245, 245, 245, 0.06));
+.contact-icon-link--icon-only .contact-icon-link__glyph {
+  width: 34px;
+  height: 34px;
 }
 
 .contact-icon-link:hover {
@@ -6218,11 +6286,12 @@ body.theme-light .research-item__status {
   box-shadow: none;
 }
 
-.contact-icon-link--icon-only:hover img,
-.contact-icon-link--icon-only:focus-visible img {
+.contact-icon-link--icon-only:hover .contact-icon-link__glyph,
+.contact-icon-link--icon-only:focus-visible .contact-icon-link__glyph {
+  transform: translateY(-1px);
   filter:
-    drop-shadow(0 14px 20px rgba(17, 17, 17, 0.28))
-    drop-shadow(0 0 16px rgba(245, 245, 245, 0.1));
+    drop-shadow(0 14px 22px rgba(17, 17, 17, 0.32))
+    drop-shadow(0 2px 3px rgba(17, 17, 17, 0.4));
 }
 
 .contact-icon-link:focus {
@@ -6332,7 +6401,8 @@ body.theme-light .research-item__status {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-icon-link {
+  .contact-icon-link,
+  .contact-icon-link__glyph {
     transition: none;
   }
 }
