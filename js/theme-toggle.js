@@ -51,10 +51,8 @@ const ThemeToggle = {
       button.setAttribute('aria-pressed', isLight ? 'true' : 'false');
       button.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
       button.setAttribute('title', isLight ? 'Switch to dark mode' : 'Switch to light mode');
-      const iconEl = button.querySelector('[data-theme-icon]');
-      if (iconEl) {
-        iconEl.textContent = isLight ? '☾' : '☀';
-      }
+      // The sun/moon glyphs are inline SVGs toggled by CSS on body.theme-light,
+      // so no icon text needs to be swapped here.
     });
   }
 };

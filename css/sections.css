@@ -479,8 +479,31 @@
 }
 
 .theme-toggle__icon {
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+}
+
+.theme-toggle__glyph {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+/* Show the sun in dark mode, the moon in light mode. Using inline SVG (not the
+   ☀/☾ emoji characters) keeps them monochrome; iOS forces those characters to
+   render as colour emoji, which is why the moon showed up yellow. */
+.theme-toggle__glyph--moon {
+  display: none;
+}
+
+body.theme-light .theme-toggle__glyph--sun {
+  display: none;
+}
+
+body.theme-light .theme-toggle__glyph--moon {
+  display: block;
 }
 
 /* Mobile menu toggle button */
