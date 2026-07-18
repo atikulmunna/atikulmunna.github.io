@@ -16,7 +16,7 @@
   ];
 
   const TITLE_TO_CATEGORY = {
-    'Receipt2Ledger: Visual Invoice Processor': 'ai-systems',
+    'Ledgerly Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
     'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Multi-Step Research Assistant Platform': 'ai-systems',

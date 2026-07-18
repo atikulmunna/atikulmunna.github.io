@@ -596,24 +596,22 @@
           <div class="projects-grid" data-project-additional-grid>
             <article class="project-card card card--glass">
               <div class="project-card__image">
-                <img src="assets/images/invoice_operations.png" alt="Receipt2Ledger invoice operations workflow preview" loading="lazy" decoding="async" width="1280" height="720">
+                <img src="assets/images/invoice_operations.png" alt="Ledgerly Invoice Processor workflow preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">Receipt2Ledger: Visual Invoice Processor</h3>
-                <p class="project-card__description">Built an end-to-end AI invoice processing pipeline that ingests PDFs from Cloudflare R2, extracts structured data with Mistral OCR/LLM, validates it and stores audit-ready records in PostgreSQL with retry, review and monitoring workflows.</p>
+                <h3 class="project-card__title">Ledgerly Invoice Processor</h3>
+                <p class="project-card__description">Built a serverless AI invoice processing platform with direct uploads, structured extraction, validation, human review and monitoring.</p>
                 <div class="project-card__tags">
-                  <span class="tag">Cloudflare R2</span>
-                  <span class="tag">PostgreSQL</span>
-                  <span class="tag">Mistral API</span>
+                  <span class="tag">AWS (Lambda, S3)</span>
                   <span class="tag">FastAPI</span>
+                  <span class="tag">PostgreSQL</span>
                   <span class="tag">Pydantic</span>
                   <span class="tag">Boto3</span>
-                  <span class="tag">Psycopg</span>
-                  <span class="tag">Pytest</span>
-                  <span class="tag">Git/GitHub</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">GitHub Actions</span>
                 </div>
                 <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/visual-invoice-processor" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Receipt2Ledger Visual Invoice Processor GitHub repository">GitHub</a>
+                  <a href="https://github.com/atikulmunna/visual-invoice-processor" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Ledgerly Invoice Processor GitHub repository">GitHub</a>
                 </div>
               </div>
             </article>
@@ -670,21 +668,18 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">Common Ground: AI-Mediated Deliberation Platform</h3>
-                <p class="project-card__description">Built a full-stack AI debate platform that structures multi-user discussions into shared ground and key disagreements, with secure auth, moderation, exports and email notifications.</p>
+                <p class="project-card__description">Built and deployed a full-stack AI-assisted deliberation platform that transforms multi-participant positions into grounded steelmans, shared foundations, and clearly classified disagreements. Implemented secure authentication, moderation, privacy-aware exports, email notifications, automated quality benchmarks, and AWS backups and monitoring.</p>
                 <div class="project-card__tags">
                   <span class="tag">TypeScript</span>
                   <span class="tag">Next.js</span>
                   <span class="tag">React</span>
                   <span class="tag">Express.js</span>
-                  <span class="tag">Prisma ORM</span>
                   <span class="tag">PostgreSQL</span>
+                  <span class="tag">Prisma ORM</span>
                   <span class="tag">NextAuth</span>
-                  <span class="tag">BullMQ</span>
-                  <span class="tag">Redis</span>
-                  <span class="tag">Resend</span>
-                  <span class="tag">Twilio</span>
                   <span class="tag">Zod</span>
-                  <span class="tag">Turborepo</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">AWS</span>
                 </div>
                 <div class="project-card__links">
                   <a href="https://github.com/atikulmunna/common-ground-faceoff" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Common Ground AI-Mediated Deliberation Platform GitHub repository">GitHub</a>
@@ -861,12 +856,14 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">Dataset Quality Analyzer (DQA)</h3>
-                <p class="project-card__description">Built a CV dataset auditing platform for YOLO/COCO with integrity checks, anomaly detection, leakage analysis, CLI workflows and regression reports.</p>
+                <p class="project-card__description">Built and deployed a secure computer-vision dataset auditing platform for YOLO and COCO, with asynchronous cloud audits, integrity and leakage detection, actionable reports, and automated CI/CD on AWS.</p>
                 <div class="project-card__tags">
                   <span class="tag">Python</span>
-                  <span class="tag">jsonschema</span>
-                  <span class="tag">Pytest</span>
+                  <span class="tag">AWS</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">Terraform</span>
                   <span class="tag">GitHub Actions</span>
+                  <span class="tag">Pytest</span>
                 </div>
                 <div class="project-card__links">
                   <a href="https://github.com/atikulmunna/dataset-quality-analyzer" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Dataset Quality Analyzer GitHub repository">GitHub</a>
@@ -955,7 +952,7 @@
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">dgvis: Dependency Graph Visualizer</h3>
-                <p class="project-card__description">Built a Python CLI tool that parses dependency files across 7 ecosystems (npm, pip, Go, Rust, Ruby, Maven and YAML), constructs directed graphs from scratch, detects circular dependencies, visualizes them as interactive D3.js force-directed graphs.</p>
+                <p class="project-card__description">Built a Python CLI that parses dependencies across 7 ecosystems (npm, pip, Go, Rust, Ruby, Maven, YAML) and builds directed graphs from scratch. Detects cycles, ranks critical packages via PageRank, computes blast-radius impact, and runs offline security (OSV) and license (SPDX) audits, all visualized in an interactive D3.js dashboard.</p>
                 <div class="project-card__tags">
                   <span class="tag">Python</span>
                   <span class="tag">Click</span>
