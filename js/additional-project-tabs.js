@@ -18,7 +18,6 @@
   const TITLE_TO_CATEGORY = {
     'Ledgerly Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
-    'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Multi-Step Research Assistant Platform': 'ai-systems',
     'SourceCast: Evidence-Grounded Media Research Workspace': 'ai-systems',
     'Predictive Maintenance MLOps Platform': 'ai-systems',
