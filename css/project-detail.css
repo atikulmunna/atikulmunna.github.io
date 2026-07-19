@@ -292,6 +292,15 @@ body.theme-light .readme__empty {
   margin-top: 0;
 }
 
+/* One section shown at a time: the rail reveals a single view, the rest hide. */
+.readme-section[hidden] {
+  display: none;
+}
+
+.readme-section > :first-child {
+  margin-top: 0;
+}
+
 /* Hide GitHub's per-heading permalink octicons in the rendered README. */
 .readme .anchor {
   display: none;

@@ -156,6 +156,15 @@
     }
   }
 
+  // Render any not-yet-rendered mermaid diagrams inside a freshly shown view.
+  function revealMermaidIn(view) {
+    if (!view) return;
+    const nodes = Array.from(
+      view.querySelectorAll('.mermaid:not([data-processed="true"])')
+    );
+    if (nodes.length) renderMermaid(nodes);
+  }
+
   // Turn a heading label into a fallback anchor id when GitHub did not leave
   // one behind (e.g. a heading with no permalink).
   function slugify(text) {
@@ -198,17 +207,23 @@
     );
     if (!sections.length) return false;
 
+    const container = wraps[0].parentElement;
+    const primaryWraps = new Set(
+      sections.filter((s) => s.level === baseLevel).map((s) => s.wrap)
+    );
+
     const usedIds = new Set();
     const items = [];
 
-    // Home: jumps to the top of the article (the intro before section one).
+    // Home: the intro content that sits above the first section.
     const homeLink = document.createElement('a');
     homeLink.className = 'project-nav__link project-nav__link--home is-active';
     homeLink.href = '#main-content';
     homeLink.textContent = 'Home';
     list.appendChild(homeLink);
-    items.push({ link: homeLink, target: mount });
+    items.push({ link: homeLink, sectionId: 'home', anchorId: null, isSub: false });
 
+    let currentPrimaryId = 'home';
     sections.forEach((section) => {
       let id = section.wrap.id;
       if (!id || usedIds.has(id)) {
@@ -222,27 +237,109 @@
       }
       usedIds.add(id);
 
+      const isSub = section.level === baseLevel + 1;
+      if (!isSub) currentPrimaryId = id;
+
       const link = document.createElement('a');
       link.className = 'project-nav__link';
-      if (section.level === baseLevel + 1) {
-        link.classList.add('project-nav__link--sub');
-      }
+      if (isSub) link.classList.add('project-nav__link--sub');
       link.href = `#${id}`;
       link.textContent = section.text;
       list.appendChild(link);
-      items.push({ link, target: section.wrap });
+      items.push({
+        link,
+        sectionId: isSub ? currentPrimaryId : id,
+        anchorId: id,
+        isSub
+      });
     });
 
-    wireSideNav(aside, items);
+    // Split the flat README into one view per primary section (plus the intro
+    // "home" view) so a click can reveal just that section instead of scrolling
+    // through the whole document.
+    const sectionEls = {};
+    const groups = [{ id: 'home', nodes: [] }];
+    Array.from(container.children).forEach((child) => {
+      if (primaryWraps.has(child)) {
+        groups.push({ id: child.id, nodes: [] });
+      }
+      groups[groups.length - 1].nodes.push(child);
+    });
+    groups.forEach((group) => {
+      const view = document.createElement('div');
+      view.className = 'readme-section';
+      view.dataset.sectionId = group.id;
+      group.nodes.forEach((node) => view.appendChild(node));
+      container.appendChild(view);
+      sectionEls[group.id] = view;
+    });
+
+    wireSideNav(aside, items, sectionEls, mount);
     aside.hidden = false;
     return true;
   }
 
-  function wireSideNav(aside, items) {
+  function wireSideNav(aside, items, sectionEls, mount) {
     const toggle = aside.querySelector('[data-project-nav-toggle]');
+    const toggleLabel = toggle && toggle.querySelector('.project-nav__toggle-label');
     const mq = window.matchMedia('(max-width: 1023px)');
 
-    // Collapsible on narrow viewports; always open on desktop.
+    function showSection(sectionId) {
+      Object.keys(sectionEls).forEach((id) => {
+        sectionEls[id].hidden = id !== sectionId;
+      });
+      // Diagrams cannot be measured while their section is hidden, so render
+      // them the first time the section becomes visible.
+      revealMermaidIn(sectionEls[sectionId]);
+    }
+
+    function setActive(activeItem) {
+      items.forEach((item) => {
+        item.link.classList.toggle('is-active', item === activeItem);
+      });
+      if (toggleLabel) toggleLabel.textContent = activeItem.link.textContent;
+    }
+
+    items.forEach((item) => {
+      item.link.addEventListener('click', (event) => {
+        event.preventDefault();
+        showSection(item.sectionId);
+        setActive(item);
+        // A sub-heading scrolls to its spot inside the now-visible section;
+        // everything else just starts at the top of the page.
+        if (item.isSub) {
+          const anchor = document.getElementById(item.anchorId);
+          if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+        if (mq.matches && aside.classList.contains('is-open')) {
+          aside.classList.remove('is-open');
+          if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // The README's own links (its table of contents, cross-references) target
+    // heading ids that may sit inside a hidden section. Reveal the containing
+    // section before honoring the jump.
+    mount.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link || !mount.contains(link)) return;
+      const id = decodeURIComponent(link.getAttribute('href').slice(1));
+      const target = id && document.getElementById(id);
+      const view = target && target.closest('.readme-section');
+      if (!view) return;
+      event.preventDefault();
+      showSection(view.dataset.sectionId);
+      const match =
+        items.find((item) => item.anchorId === id) ||
+        items.find((item) => item.sectionId === view.dataset.sectionId && !item.isSub) ||
+        items[0];
+      setActive(match);
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     if (toggle) {
       toggle.addEventListener('click', () => {
         const open = aside.classList.toggle('is-open');
@@ -250,53 +347,8 @@
       });
     }
 
-    // Smooth-scroll on click and (on mobile) collapse the panel afterwards.
-    items.forEach(({ link, target }) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        if (link.classList.contains('project-nav__link--home')) {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        if (mq.matches && aside.classList.contains('is-open') && toggle) {
-          aside.classList.remove('is-open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
-    // Scroll-spy: highlight the section currently under the top bar.
-    const OFFSET = 96;
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      let activeIndex = 0;
-      for (let i = 0; i < items.length; i += 1) {
-        if (items[i].target.getBoundingClientRect().top - OFFSET <= 1) {
-          activeIndex = i;
-        } else {
-          break;
-        }
-      }
-      items.forEach((item, i) => {
-        item.link.classList.toggle('is-active', i === activeIndex);
-      });
-      const activeLabel = items[activeIndex].link.textContent;
-      const labelEl = toggle && toggle.querySelector('.project-nav__toggle-label');
-      if (labelEl) labelEl.textContent = activeLabel;
-    };
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!ticking) {
-          ticking = true;
-          window.requestAnimationFrame(update);
-        }
-      },
-      { passive: true }
-    );
-    update();
+    // Start on Home.
+    showSection('home');
   }
 
   function loadReadme(repo) {
@@ -358,11 +410,14 @@
       // Make table-of-contents / in-page anchor links actually jump.
       fixHeadingAnchors(mount);
 
-      // Build the left-hand section rail from the README's headings.
-      buildSideNav(mount, document.querySelector('[data-project-nav]'));
+      // Turn GitHub's mermaid placeholders into real diagram nodes. They render
+      // lazily when their section is first shown (a hidden node cannot be
+      // measured), so only prepare them here.
+      prepareMermaid(mount);
 
-      // Turn GitHub's mermaid placeholders into real, rendered diagrams.
-      renderMermaid(prepareMermaid(mount));
+      // Build the left-hand section rail and split the README into per-section
+      // views. This shows the Home view and renders its diagrams.
+      buildSideNav(mount, document.querySelector('[data-project-nav]'));
     } catch (error) {
       mount.innerHTML =
         '<p class="readme__empty">This project’s README couldn’t be loaded. ' +
