@@ -15,15 +15,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="css/variables.css?v=8538252">
-  <link rel="stylesheet" href="css/reset.css?v=8538252">
-  <link rel="stylesheet" href="css/base.css?v=8538252">
-  <link rel="stylesheet" href="css/layout.css?v=8538252">
-  <link rel="stylesheet" href="css/components.css?v=8538252">
-  <link rel="stylesheet" href="css/glassmorphism.css?v=8538252">
-  <link rel="stylesheet" href="css/sections.css?v=8538252">
-  <link rel="stylesheet" href="css/theme-light.css?v=8538252">
-  <link rel="stylesheet" href="css/project-detail.css?v=8538252">
+  <link rel="stylesheet" href="css/variables.css?v=20260719a">
+  <link rel="stylesheet" href="css/reset.css?v=20260719a">
+  <link rel="stylesheet" href="css/base.css?v=20260719a">
+  <link rel="stylesheet" href="css/layout.css?v=20260719a">
+  <link rel="stylesheet" href="css/components.css?v=20260719a">
+  <link rel="stylesheet" href="css/glassmorphism.css?v=20260719a">
+  <link rel="stylesheet" href="css/sections.css?v=20260719a">
+  <link rel="stylesheet" href="css/theme-light.css?v=20260719a">
+  <link rel="stylesheet" href="css/project-detail.css?v=20260719a">
 </head>
 <body class="project-detail-page">
   <a href="#main-content" class="skip-to-content">Skip to content</a>
@@ -56,13 +56,25 @@
         </div>
       </div>
 
-      <article class="readme markdown-body" data-readme-mount>
-        <p class="readme__empty">Loading README&hellip;</p>
-      </article>
+      <div class="project-detail__layout">
+        <aside class="project-nav" data-project-nav aria-label="On this page" hidden>
+          <div class="project-nav__sticky">
+            <button type="button" class="project-nav__toggle" data-project-nav-toggle aria-expanded="false">
+              <span class="project-nav__toggle-label">On this page</span>
+              <span class="project-nav__toggle-icon" aria-hidden="true"></span>
+            </button>
+            <nav class="project-nav__list" data-project-nav-list></nav>
+          </div>
+        </aside>
+
+        <article class="readme markdown-body" data-readme-mount>
+          <p class="readme__empty">Loading README&hellip;</p>
+        </article>
+      </div>
     </div>
   </main>
 
-  <script src="js/theme-toggle.js?v=8538252"></script>
-  <script src="js/project-detail.js?v=8538252"></script>
+  <script src="js/theme-toggle.js?v=20260719a"></script>
+  <script src="js/project-detail.js?v=20260719a"></script>
 </body>
 </html>

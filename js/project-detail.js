@@ -156,6 +156,149 @@
     }
   }
 
+  // Turn a heading label into a fallback anchor id when GitHub did not leave
+  // one behind (e.g. a heading with no permalink).
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-') || 'section';
+  }
+
+  // Build the left-hand section navigation from the README's own headings.
+  // The first heading is the project title (already shown in the page head), so
+  // the content above the first real section is grouped under a "Home" entry.
+  // Primary sections come from the shallowest heading level present; the next
+  // level down is shown indented. Deeper headings are ignored to keep the rail
+  // scannable. Returns true when a nav was built.
+  function buildSideNav(mount, aside) {
+    if (!aside) return false;
+    const list = aside.querySelector('[data-project-nav-list]');
+    if (!list) return false;
+
+    const wraps = Array.from(mount.querySelectorAll('.markdown-heading')).filter(
+      (wrap) => wrap.querySelector('h1, h2, h3, h4, h5, h6')
+    );
+
+    // Everything after the leading title heading is a candidate section.
+    const rest = wraps.slice(1).map((wrap) => {
+      const heading = wrap.querySelector('h1, h2, h3, h4, h5, h6');
+      return {
+        wrap,
+        level: Number(heading.tagName.charAt(1)),
+        text: heading.textContent.trim()
+      };
+    });
+    if (!rest.length) return false;
+
+    const baseLevel = Math.min(...rest.map((h) => h.level));
+    const sections = rest.filter(
+      (h) => h.level === baseLevel || h.level === baseLevel + 1
+    );
+    if (!sections.length) return false;
+
+    const usedIds = new Set();
+    const items = [];
+
+    // Home: jumps to the top of the article (the intro before section one).
+    const homeLink = document.createElement('a');
+    homeLink.className = 'project-nav__link project-nav__link--home is-active';
+    homeLink.href = '#main-content';
+    homeLink.textContent = 'Home';
+    list.appendChild(homeLink);
+    items.push({ link: homeLink, target: mount });
+
+    sections.forEach((section) => {
+      let id = section.wrap.id;
+      if (!id || usedIds.has(id)) {
+        let candidate = slugify(section.text);
+        let n = 2;
+        while (usedIds.has(candidate) || document.getElementById(candidate)) {
+          candidate = `${slugify(section.text)}-${n++}`;
+        }
+        id = candidate;
+        section.wrap.id = id;
+      }
+      usedIds.add(id);
+
+      const link = document.createElement('a');
+      link.className = 'project-nav__link';
+      if (section.level === baseLevel + 1) {
+        link.classList.add('project-nav__link--sub');
+      }
+      link.href = `#${id}`;
+      link.textContent = section.text;
+      list.appendChild(link);
+      items.push({ link, target: section.wrap });
+    });
+
+    wireSideNav(aside, items);
+    aside.hidden = false;
+    return true;
+  }
+
+  function wireSideNav(aside, items) {
+    const toggle = aside.querySelector('[data-project-nav-toggle]');
+    const mq = window.matchMedia('(max-width: 1023px)');
+
+    // Collapsible on narrow viewports; always open on desktop.
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const open = aside.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    // Smooth-scroll on click and (on mobile) collapse the panel afterwards.
+    items.forEach(({ link, target }) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (link.classList.contains('project-nav__link--home')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (mq.matches && aside.classList.contains('is-open') && toggle) {
+          aside.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Scroll-spy: highlight the section currently under the top bar.
+    const OFFSET = 96;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      let activeIndex = 0;
+      for (let i = 0; i < items.length; i += 1) {
+        if (items[i].target.getBoundingClientRect().top - OFFSET <= 1) {
+          activeIndex = i;
+        } else {
+          break;
+        }
+      }
+      items.forEach((item, i) => {
+        item.link.classList.toggle('is-active', i === activeIndex);
+      });
+      const activeLabel = items[activeIndex].link.textContent;
+      const labelEl = toggle && toggle.querySelector('.project-nav__toggle-label');
+      if (labelEl) labelEl.textContent = activeLabel;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+
   function loadReadme(repo) {
     return new Promise((resolve, reject) => {
       if (window.__READMES && typeof window.__READMES[repo] === 'string') {
@@ -214,6 +357,9 @@
 
       // Make table-of-contents / in-page anchor links actually jump.
       fixHeadingAnchors(mount);
+
+      // Build the left-hand section rail from the README's headings.
+      buildSideNav(mount, document.querySelector('[data-project-nav]'));
 
       // Turn GitHub's mermaid placeholders into real, rendered diagrams.
       renderMermaid(prepareMermaid(mount));
