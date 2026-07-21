@@ -23,6 +23,7 @@
     'Predictive Maintenance MLOps Platform': 'ai-systems',
     'Realtime Fraud Detection Pipeline': 'ai-systems',
 
+    'unuMCP': 'developer-tools',
     'Dataset Quality Analyzer (DQA)': 'developer-tools',
     'Loom: Log-Observer & Monitor': 'developer-tools',
     'dgvis: Dependency Graph Visualizer': 'developer-tools',
