@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/glassmorphism.css?v=20260719b">
   <link rel="stylesheet" href="css/sections.css?v=20260719b">
   <link rel="stylesheet" href="css/theme-light.css?v=20260719b">
-  <link rel="stylesheet" href="css/project-detail.css?v=20260719b">
+  <link rel="stylesheet" href="css/project-detail.css?v=20260729">
 </head>
 <body class="project-detail-page">
   <a href="#main-content" class="skip-to-content">Skip to content</a>
@@ -35,7 +35,15 @@
         <span>Home</span>
       </a>
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">
-        <span class="theme-toggle__icon" data-theme-icon aria-hidden="true">☀</span>
+        <span class="theme-toggle__icon" aria-hidden="true">
+          <svg class="theme-toggle__glyph theme-toggle__glyph--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.4"></circle>
+            <path d="M12 2.6v2.3M12 19.1v2.3M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.6 12h2.3M19.1 12h2.3M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"></path>
+          </svg>
+          <svg class="theme-toggle__glyph theme-toggle__glyph--moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <path d="M20.7 14.4A8.2 8.2 0 0 1 9.6 3.3 8.2 8.2 0 1 0 20.7 14.4z"></path>
+          </svg>
+        </span>
       </button>
     </div>
   </header>

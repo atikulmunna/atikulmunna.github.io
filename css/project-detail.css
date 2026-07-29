@@ -58,6 +58,30 @@ body.theme-light.project-detail-page {
   opacity: 0.82;
 }
 
+/* Theme toggle: match the main nav's minimal sun/moon icon rather than the base
+   glass pill. The nav's --desktop/--mobile variants are each hidden at one
+   breakpoint, but the topbar shows the same control everywhere, so strip the
+   chrome here and let it read at all viewports. The sun/moon crossfade and the
+   light-theme glyph color come from the shared .theme-toggle rules. */
+.project-topbar .theme-toggle {
+  border: none;
+  background: none;
+  box-shadow: none;
+  border-radius: var(--radius-base);
+}
+
+.project-topbar .theme-toggle:hover {
+  transform: none;
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-light-accent);
+}
+
+body.theme-light .project-topbar .theme-toggle:hover {
+  background: rgba(17, 17, 17, 0.08);
+  color: var(--color-primary-dark);
+}
+
 /* ----- Layout ----- */
 .project-detail {
   padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem) 5rem;
