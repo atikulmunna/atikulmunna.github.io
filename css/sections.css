@@ -5053,6 +5053,11 @@ body.theme-light .project-card__info-pop {
   --status-halo: rgba(120, 210, 150, 0.2);
 }
 
+.research-item__status--accepted {
+  --status-dot: rgba(110, 170, 240, 0.95);
+  --status-halo: rgba(110, 170, 240, 0.2);
+}
+
 body.theme-light .research-item__status {
   border-color: rgba(17, 17, 17, 0.14);
   background: rgba(17, 17, 17, 0.05);
