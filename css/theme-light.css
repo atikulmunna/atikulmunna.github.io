@@ -312,6 +312,7 @@ body.theme-light #about,
 body.theme-light #skills,
 body.theme-light #projects,
 body.theme-light #experience,
+body.theme-light #opensource,
 body.theme-light #research,
 body.theme-light #contact,
 body.theme-light .footer {
@@ -331,6 +332,7 @@ body.theme-light .footer {
 body.theme-light .section--dark .section__title,
 body.theme-light #about .section__title,
 body.theme-light #projects .section__title,
+body.theme-light #opensource .section__title,
 body.theme-light #research .section__title,
 body.theme-light #contact .section__title {
   color: var(--color-primary-dark);
@@ -1041,6 +1043,7 @@ body.theme-light .section--dark::before,
 body.theme-light #about::before,
 body.theme-light #skills::before,
 body.theme-light #projects::before,
+body.theme-light #opensource::before,
 body.theme-light #research::before,
 body.theme-light #experience::before,
 body.theme-light #contact::before {

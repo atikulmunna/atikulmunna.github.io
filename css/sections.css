@@ -2111,6 +2111,7 @@ body.theme-light .hero__cta-github {
 #experience,
 #skills,
 #projects,
+#opensource,
 #research,
 #contact {
   content-visibility: auto;
@@ -4763,7 +4764,8 @@ body.theme-light .project-card__info-pop {
 /**
  * Research & Publications section
  */
-#research {
+#research,
+#opensource {
   position: relative;
   background: linear-gradient(
     145deg,
@@ -4774,7 +4776,8 @@ body.theme-light .project-card__info-pop {
   color: var(--color-text-light);
 }
 
-#research::before {
+#research::before,
+#opensource::before {
   content: '';
   position: absolute;
   top: 0;
@@ -4799,7 +4802,8 @@ body.theme-light .project-card__info-pop {
   animation: section-divider-breathe 3.8s ease-in-out infinite;
 }
 
-#research .section__title {
+#research .section__title,
+#opensource .section__title {
   color: var(--color-primary-light);
 }
 
@@ -5261,6 +5265,213 @@ body.theme-light .research-item__status {
   .research-item__authors,
   .research-item__venue,
   .research-item__link {
+    color: var(--color-black);
+  }
+}
+
+/* ===== Open Source Contributions Section ===== */
+/* Entries float directly on the section background (no card container),
+   separated by hairline dividers, to read distinctly from Research. */
+.oss-list {
+  display: grid;
+  gap: 0;
+  width: 100%;
+}
+
+.oss-item {
+  position: relative;
+  padding: var(--spacing-xl) 0;
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.oss-item:first-child {
+  padding-top: var(--spacing-sm);
+}
+
+.oss-item + .oss-item {
+  border-top: 1px solid rgba(245, 245, 245, 0.14);
+}
+
+.oss-item__repo {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: 100%;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  color: var(--color-primary-light);
+  text-decoration: none;
+  transition: color var(--transition-fast) var(--easing-default);
+}
+
+.oss-item__repo-icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  color: rgba(245, 245, 245, 0.82);
+  transition: color var(--transition-fast) var(--easing-default);
+}
+
+.oss-item__repo:hover {
+  color: #ffffff;
+}
+
+.oss-item__repo:hover .oss-item__repo-icon {
+  color: rgba(245, 245, 245, 0.96);
+}
+
+.oss-item__repo:focus-visible {
+  outline: 2px solid var(--color-light-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.oss-item__summary {
+  margin: 0;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: rgba(245, 245, 245, 0.86);
+  max-width: 100%;
+}
+
+.oss-item__summary code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  padding: 0.05em 0.35em;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 245, 245, 0.1);
+}
+
+.oss-item__prs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.oss-pr {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.28rem 0.72rem 0.28rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(245, 245, 245, 0.16);
+  background: rgba(245, 245, 245, 0.06);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.03em;
+  color: rgba(245, 245, 245, 0.86);
+  text-decoration: none;
+  transition:
+    transform var(--transition-fast) var(--easing-default),
+    border-color var(--transition-fast) var(--easing-default),
+    background var(--transition-fast) var(--easing-default),
+    color var(--transition-fast) var(--easing-default);
+}
+
+.oss-pr::before {
+  content: '';
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: var(--radius-full);
+  background: var(--status-dot, rgba(245, 245, 245, 0.7));
+  box-shadow: 0 0 0 3px var(--status-halo, rgba(245, 245, 245, 0.14));
+}
+
+.oss-pr__state {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(245, 245, 245, 0.58);
+}
+
+.oss-pr:hover {
+  transform: translateY(-1px);
+  border-color: rgba(245, 245, 245, 0.3);
+  background: rgba(245, 245, 245, 0.1);
+  color: #ffffff;
+}
+
+.oss-pr:focus-visible {
+  outline: 2px solid var(--color-light-accent);
+  outline-offset: 2px;
+}
+
+.oss-pr--merged {
+  --status-dot: rgba(178, 148, 240, 0.95);
+  --status-halo: rgba(178, 148, 240, 0.2);
+}
+
+.oss-pr--open {
+  --status-dot: rgba(120, 210, 150, 0.95);
+  --status-halo: rgba(120, 210, 150, 0.2);
+}
+
+body.theme-light .oss-item__repo,
+body.theme-light .oss-item__summary {
+  color: var(--color-primary-dark);
+}
+
+body.theme-light .oss-item__repo-icon {
+  color: rgba(17, 17, 17, 0.68);
+}
+
+body.theme-light .oss-item__repo:hover,
+body.theme-light .oss-item__repo:hover .oss-item__repo-icon {
+  color: #111111;
+}
+
+body.theme-light .oss-item__summary code {
+  background: rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light .oss-pr {
+  border-color: rgba(17, 17, 17, 0.14);
+  background: rgba(17, 17, 17, 0.05);
+  color: rgba(17, 17, 17, 0.8);
+}
+
+body.theme-light .oss-pr__state {
+  color: rgba(17, 17, 17, 0.5);
+}
+
+body.theme-light .oss-pr:hover {
+  border-color: rgba(17, 17, 17, 0.24);
+  background: rgba(17, 17, 17, 0.09);
+  color: #111111;
+}
+
+body.theme-light .oss-item + .oss-item {
+  border-top-color: rgba(17, 17, 17, 0.12);
+}
+
+@media (max-width: 767px) {
+  .oss-item {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .oss-item__repo {
+    font-size: var(--font-size-lg);
+  }
+
+  .oss-item__summary {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media print {
+  .oss-item {
+    page-break-inside: avoid;
+  }
+
+  .oss-item__repo,
+  .oss-item__summary,
+  .oss-pr {
     color: var(--color-black);
   }
 }
@@ -6672,6 +6883,7 @@ body.theme-light .contact-icon-link__glyph::after {
   html.perf-lite #about::before,
   html.perf-lite #skills::before,
   html.perf-lite #projects::before,
+  html.perf-lite #opensource::before,
   html.perf-lite #research::before,
   html.perf-lite #experience::before,
   html.perf-lite #contact::before,
@@ -6816,6 +7028,7 @@ html.perf-lite .hero__name::after,
 html.perf-lite #about::before,
 html.perf-lite #skills::before,
 html.perf-lite #projects::before,
+html.perf-lite #opensource::before,
 html.perf-lite #research::before,
 html.perf-lite #experience::before,
 html.perf-lite #contact::before,

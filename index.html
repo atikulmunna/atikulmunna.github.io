@@ -214,6 +214,7 @@
         <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
         <li class="nav__item"><a href="#skills" class="nav__link">Tools</a></li>
         <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+        <li class="nav__item"><a href="#opensource" class="nav__link">FOSS</a></li>
         <li class="nav__item"><a href="#research" class="nav__link">Research</a></li>
         <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
         <li class="nav__item nav__item--theme">
@@ -672,22 +673,20 @@
             </article>
             <article class="project-card card card--glass">
               <div class="project-card__image">
-                <img src="assets/images/invoice_operations.png" alt="Ledgerly Invoice Processor workflow preview" loading="lazy" decoding="async" width="1280" height="720">
+                <img src="assets/images/fraud_detection_dashboard.png" alt="Realtime Fraud Detection Pipeline dashboard preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">Ledgerly Invoice Processor</h3>
-                <p class="project-card__description">Built a serverless AI invoice processing platform with direct uploads, structured extraction, validation, human review and monitoring.</p>
+                <h3 class="project-card__title">Realtime Fraud Detection Pipeline</h3>
+                <p class="project-card__description">Built an end-to-end fraud detection pipeline with offline training, stream-style scoring, analyst feedback ingestion, online model updates and Prometheus/Grafana observability for latency, anomaly flow and update health.</p>
                 <div class="project-card__tags">
-                  <span class="tag">AWS (Lambda, S3)</span>
+                  <span class="tag">Python</span>
                   <span class="tag">FastAPI</span>
-                  <span class="tag">PostgreSQL</span>
-                  <span class="tag">Pydantic</span>
-                  <span class="tag">Boto3</span>
-                  <span class="tag">Docker</span>
-                  <span class="tag">GitHub Actions</span>
+                  <span class="tag">Kafka</span>
+                  <span class="tag">Prometheus</span>
+                  <span class="tag">Grafana</span>
                 </div>
                 <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/visual-invoice-processor" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Ledgerly Invoice Processor GitHub repository">GitHub</a>
+                  <a href="https://github.com/atikulmunna/realtime-fraud-detection-pipeline" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Realtime Fraud Detection Pipeline GitHub repository">GitHub</a>
                 </div>
               </div>
             </article>
@@ -934,20 +933,22 @@
             </article>
             <article class="project-card card card--glass">
               <div class="project-card__image">
-                <img src="assets/images/fraud_detection_dashboard.png" alt="Realtime Fraud Detection Pipeline dashboard preview" loading="lazy" decoding="async" width="1280" height="720">
+                <img src="assets/images/invoice_operations.png" alt="Ledgerly Invoice Processor workflow preview" loading="lazy" decoding="async" width="1280" height="720">
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">Realtime Fraud Detection Pipeline</h3>
-                <p class="project-card__description">Built an end-to-end fraud detection pipeline with offline training, stream-style scoring, analyst feedback ingestion, online model updates and Prometheus/Grafana observability for latency, anomaly flow and update health.</p>
+                <h3 class="project-card__title">Ledgerly Invoice Processor</h3>
+                <p class="project-card__description">Built a serverless AI invoice processing platform with direct uploads, structured extraction, validation, human review and monitoring.</p>
                 <div class="project-card__tags">
-                  <span class="tag">Python</span>
+                  <span class="tag">AWS (Lambda, S3)</span>
                   <span class="tag">FastAPI</span>
-                  <span class="tag">Kafka</span>
-                  <span class="tag">Prometheus</span>
-                  <span class="tag">Grafana</span>
+                  <span class="tag">PostgreSQL</span>
+                  <span class="tag">Pydantic</span>
+                  <span class="tag">Boto3</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">GitHub Actions</span>
                 </div>
                 <div class="project-card__links">
-                  <a href="https://github.com/atikulmunna/realtime-fraud-detection-pipeline" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Realtime Fraud Detection Pipeline GitHub repository">GitHub</a>
+                  <a href="https://github.com/atikulmunna/visual-invoice-processor" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open Ledgerly Invoice Processor GitHub repository">GitHub</a>
                 </div>
               </div>
             </article>
@@ -1140,6 +1141,53 @@
         </div>
       </div>
     </div>
+    </section>
+
+    <!-- Open Source Contributions Section -->
+    <section class="section section--light" id="opensource">
+      <div class="section__container">
+        <h2 class="section__title">FOSS Contributions</h2>
+        <div class="section__content">
+          <div class="oss-list">
+            <article class="oss-item">
+              <a class="oss-item__repo" href="https://github.com/roboflow/rf-detr" target="_blank" rel="noopener" aria-label="Open the roboflow/rf-detr repository on GitHub">
+                <svg class="oss-item__repo-icon" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                <span>roboflow/rf-detr</span>
+              </a>
+              <p class="oss-item__summary">Enabled strict <code>mypy</code> type checking across core modules and fixed a model-context bug that reinitialized the detection head against cleared weights, in this real-time detection transformer library.</p>
+              <ul class="oss-item__prs">
+                <li><a class="oss-pr oss-pr--merged" href="https://github.com/roboflow/rf-detr/pull/1270" target="_blank" rel="noopener" aria-label="roboflow/rf-detr pull request 1270, merged">#1270<span class="oss-pr__state">Merged</span></a></li>
+                <li><a class="oss-pr oss-pr--merged" href="https://github.com/roboflow/rf-detr/pull/1273" target="_blank" rel="noopener" aria-label="roboflow/rf-detr pull request 1273, merged">#1273<span class="oss-pr__state">Merged</span></a></li>
+                <li><a class="oss-pr oss-pr--merged" href="https://github.com/roboflow/rf-detr/pull/1283" target="_blank" rel="noopener" aria-label="roboflow/rf-detr pull request 1283, merged">#1283<span class="oss-pr__state">Merged</span></a></li>
+                <li><a class="oss-pr oss-pr--merged" href="https://github.com/roboflow/rf-detr/pull/1288" target="_blank" rel="noopener" aria-label="roboflow/rf-detr pull request 1288, merged">#1288<span class="oss-pr__state">Merged</span></a></li>
+                <li><a class="oss-pr oss-pr--open" href="https://github.com/roboflow/rf-detr/pull/1299" target="_blank" rel="noopener" aria-label="roboflow/rf-detr pull request 1299, open">#1299<span class="oss-pr__state">Open</span></a></li>
+              </ul>
+            </article>
+
+            <article class="oss-item">
+              <a class="oss-item__repo" href="https://github.com/sktime/sktime" target="_blank" rel="noopener" aria-label="Open the sktime/sktime repository on GitHub">
+                <svg class="oss-item__repo-icon" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                <span>sktime/sktime</span>
+              </a>
+              <p class="oss-item__summary">Added native grid search to the time series classification and regression cross-validators by routing hyperparameter tuning through the shared <code>evaluate</code> pipeline.</p>
+              <ul class="oss-item__prs">
+                <li><a class="oss-pr oss-pr--open" href="https://github.com/sktime/sktime/pull/10760" target="_blank" rel="noopener" aria-label="sktime/sktime pull request 10760, open">#10760<span class="oss-pr__state">Open</span></a></li>
+              </ul>
+            </article>
+
+            <article class="oss-item">
+              <a class="oss-item__repo" href="https://github.com/apache/airflow" target="_blank" rel="noopener" aria-label="Open the apache/airflow repository on GitHub">
+                <svg class="oss-item__repo-icon" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                <span>apache/airflow</span>
+              </a>
+              <p class="oss-item__summary">Fixed the Amazon provider's <code>GCSToS3Operator</code> so <code>match_glob</code> filtering is validated after Jinja template rendering.</p>
+              <ul class="oss-item__prs">
+                <li><a class="oss-pr oss-pr--open" href="https://github.com/apache/airflow/pull/70723" target="_blank" rel="noopener" aria-label="apache/airflow pull request 70723, open">#70723<span class="oss-pr__state">Open</span></a></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Research & Publications Section -->
