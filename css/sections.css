@@ -7201,6 +7201,13 @@ html.perf-lite .research-thread__node {
   animation: none;
 }
 
+/* Light theme puts a 1px blur on the classic subtitle intro; the split hero
+   shows the role as plain static copy, so keep it crisp. This out-specifies the
+   `body.theme-light .hero__subtitle` blur rule in theme-light.css. */
+body.theme-light .hero--split .hero__subtitle {
+  filter: none;
+}
+
 .hero--split .hero__subtitle-stage .hero__description {
   margin: 0;
   justify-self: start;
@@ -7270,8 +7277,11 @@ body.theme-light .hero__ghstat-icon {
   width: min(100%, 540px);
   margin-inline: auto;
   overflow: hidden;
-  -webkit-mask-image: radial-gradient(118% 80% at 50% 43%, #000 40%, rgba(0, 0, 0, 0.55) 62%, transparent 80%);
-          mask-image: radial-gradient(118% 80% at 50% 43%, #000 40%, rgba(0, 0, 0, 0.55) 62%, transparent 80%);
+  /* Feather all four edges into the hero ground. The radii stay under 100% so
+     the gradient actually reaches `transparent` before the top, sides and
+     bottom, otherwise the uniform background rows/columns read as a rectangle. */
+  -webkit-mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
+          mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
 }
 
 .hero__portrait-art {
