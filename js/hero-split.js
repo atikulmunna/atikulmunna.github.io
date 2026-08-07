@@ -43,9 +43,7 @@ const HeroSplit = {
     if (!this.feed) return;
 
     this.items = Array.from(
-      this.feed.querySelectorAll(
-        '.hero__feed-label, .hero__feed-featured, .hero__feed-rows li'
-      )
+      this.feed.querySelectorAll('.hero__feed-label, .hero__feed-rows li')
     );
     if (!this.items.length) return;
 

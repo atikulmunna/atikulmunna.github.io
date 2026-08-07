@@ -7325,36 +7325,6 @@ html.perf-lite .hero__feed-label::before {
   100% { border-radius: 20%; transform: rotate(360deg); }
 }
 
-.hero__feed-featured {
-  margin: 0 0 1.35rem;
-  font-size: clamp(1.1rem, 0.75rem + 1vw, 1.32rem);
-  line-height: 1.5;
-  text-align: left;
-  color: var(--color-primary-light);
-  text-wrap: pretty;
-}
-
-.hero__feed-featured b {
-  font-weight: var(--font-weight-bold);
-}
-
-.hero__feed-featured a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition-fast) var(--easing-out);
-}
-
-.hero__feed-featured a:hover,
-.hero__feed-featured a:focus-visible {
-  border-bottom-color: rgba(245, 245, 245, 0.4);
-}
-
-.hero__feed-arrow {
-  color: var(--feed-arrow);
-  font-weight: var(--font-weight-semibold);
-}
-
 .hero__feed-rows {
   list-style: none;
   margin: 0;
@@ -7402,7 +7372,6 @@ html.perf-lite .hero__feed-label::before {
    inline). The <noscript> block in the markup and the reduced-motion rule below
    keep everything visible without JS or when motion is reduced. */
 .hero__feed-label,
-.hero__feed-featured,
 .hero__feed-rows li {
   opacity: 0;
   transform: translateY(0.6rem);
@@ -7411,7 +7380,6 @@ html.perf-lite .hero__feed-label::before {
 }
 
 .hero__feed.is-revealed .hero__feed-label,
-.hero__feed.is-revealed .hero__feed-featured,
 .hero__feed.is-revealed .hero__feed-rows li {
   opacity: 1;
   transform: none;
@@ -7419,7 +7387,6 @@ html.perf-lite .hero__feed-label::before {
 
 @media (prefers-reduced-motion: reduce) {
   .hero__feed-label,
-  .hero__feed-featured,
   .hero__feed-rows li {
     opacity: 1;
     transform: none;
@@ -7454,15 +7421,6 @@ body.theme-light .hero__feed {
 
 body.theme-light .hero__feed-label {
   color: var(--color-mid-tone);
-}
-
-body.theme-light .hero__feed-featured {
-  color: var(--color-primary-dark);
-}
-
-body.theme-light .hero__feed-featured a:hover,
-body.theme-light .hero__feed-featured a:focus-visible {
-  border-bottom-color: rgba(17, 17, 17, 0.4);
 }
 
 body.theme-light .hero__feed-rows li {
