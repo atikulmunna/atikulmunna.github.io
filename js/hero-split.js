@@ -3,8 +3,10 @@
  * Default layout (opt back to the classic centered hero with ?hero=classic).
  * Left-aligns the hero copy and, on the right, reveals a floating "currently"
  * feed: a label, a featured line, and hairline-divided status rows. The items
- * fade in with a short stagger when the hero scrolls into view. Honors
- * reduced-motion and no-JS by leaving everything visible immediately.
+ * fade in with a short stagger when the hero scrolls into view; then, about a
+ * second later, an arrow bullet arrives on each row one-by-one, pushing its
+ * text to the right. Honors reduced-motion and no-JS by showing the final
+ * state (rows and arrows visible) immediately.
  */
 const HeroSplit = {
   hero: null,
@@ -12,6 +14,9 @@ const HeroSplit = {
   items: [],
   observer: null,
   started: false,
+  timers: [],
+  markerStartMs: 1000,
+  markerStepMs: 400,
 
   isEnabled() {
     // Split layout is the default; opt back to the classic centered hero with
@@ -47,10 +52,12 @@ const HeroSplit = {
     const reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Reduced motion or no IntersectionObserver: reveal at once (the CSS keeps
-    // the items hidden by default so there is no flash before this runs).
+    // Reduced motion or no IntersectionObserver: show the final state at once
+    // (content revealed, arrows in place). The CSS keeps everything hidden by
+    // default so there is no flash before this runs.
     if (reduceMotion || !('IntersectionObserver' in window)) {
-      this.reveal();
+      this.feed.classList.add('is-revealed');
+      this.rows().forEach((li) => li.classList.add('is-marked'));
       return;
     }
 
@@ -61,8 +68,19 @@ const HeroSplit = {
     this.observe();
   },
 
+  rows() {
+    return this.feed ? Array.from(this.feed.querySelectorAll('.hero__feed-rows li')) : [];
+  },
+
   reveal() {
-    if (this.feed) this.feed.classList.add('is-revealed');
+    this.feed.classList.add('is-revealed');
+
+    // After the content has settled, bring in the arrow bullets one-by-one.
+    this.rows().forEach((li, i) => {
+      this.timers.push(window.setTimeout(() => {
+        li.classList.add('is-marked');
+      }, this.markerStartMs + i * this.markerStepMs));
+    });
   },
 
   observe() {

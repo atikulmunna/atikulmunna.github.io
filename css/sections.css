@@ -7330,6 +7330,7 @@ body.theme-light .hero__ghstat-icon {
 }
 
 .hero__feed-rows li {
+  position: relative;
   margin: 0;
   padding: 1rem 0;
   font-size: var(--font-size-base);
@@ -7337,6 +7338,30 @@ body.theme-light .hero__ghstat-icon {
   text-align: left;
   color: rgba(245, 245, 245, 0.72);
   border-top: 1px solid rgba(245, 245, 245, 0.13);
+}
+
+/* Arrow bullet that arrives one-by-one after load (hero-split.js adds
+   `is-marked` per row on a stagger), each pushing its row text to the right.
+   The final resting state keeps the arrows; the sequence is just the reveal. */
+.hero__feed-rows li::before {
+  content: '\2192';
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  color: var(--feed-accent);
+  opacity: 0;
+  transform: translateX(-0.3rem);
+  transition: opacity 0.42s var(--easing-out), transform 0.42s var(--easing-out);
+  pointer-events: none;
+}
+
+.hero__feed-rows li.is-marked {
+  padding-left: 1.55rem;
+}
+
+.hero__feed-rows li.is-marked::before {
+  opacity: 1;
+  transform: none;
 }
 
 /* Quiet staggered reveal when the hero scrolls into view. Items start hidden
@@ -7348,7 +7373,8 @@ body.theme-light .hero__ghstat-icon {
 .hero__feed-rows li {
   opacity: 0;
   transform: translateY(0.6rem);
-  transition: opacity 0.6s var(--easing-out), transform 0.6s var(--easing-out);
+  transition: opacity 0.6s var(--easing-out), transform 0.6s var(--easing-out),
+              padding-left 0.42s var(--easing-out);
 }
 
 .hero__feed.is-revealed .hero__feed-label,
@@ -7362,6 +7388,17 @@ body.theme-light .hero__ghstat-icon {
   .hero__feed-label,
   .hero__feed-featured,
   .hero__feed-rows li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* Show the arrow bullets in their resting state, no sequential reveal. */
+  .hero__feed-rows li {
+    padding-left: 1.55rem;
+  }
+
+  .hero__feed-rows li::before {
     opacity: 1;
     transform: none;
     transition: none;
@@ -7462,6 +7499,10 @@ body.theme-light .hero__feed-rows li {
 
   .hero__feed-rows li {
     padding: 0.85rem 0;
+  }
+
+  .hero__feed-rows li::before {
+    top: 0.85rem;
   }
 }
 
