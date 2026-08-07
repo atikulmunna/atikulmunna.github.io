@@ -1268,7 +1268,7 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.78;
+  opacity: 0.62;
   filter: blur(1.25px);
   transform: scale(1.01);
   -webkit-mask-image: radial-gradient(
@@ -1319,7 +1319,7 @@ body {
   height: 75%;
   background: radial-gradient(
     circle,
-    rgba(168, 168, 168, 0.26) 0%,
+    rgba(168, 168, 168, 0.13) 0%,
     rgba(168, 168, 168, 0) 72%
   );
   filter: blur(var(--blur-xl));
@@ -7208,39 +7208,11 @@ html.perf-lite .research-thread__node {
 }
 
 .hero--split .hero__visual {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: var(--spacing-md);
-}
-
-/* Soft scrim behind the feed: dims the busy contrib-grid and the bottom-right
-   glow so the monochrome arrows and rows read clearly. It fades toward the
-   ground color (dark on dark, light on light) so it lifts contrast without
-   flattening the left copy. Sits above the hero background but below the feed. */
-.hero--split .hero__visual::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: -16% -18% -16% -24%;
-  background: radial-gradient(
-    118% 92% at 62% 50%,
-    rgba(17, 17, 17, 0.62) 0%,
-    rgba(17, 17, 17, 0.34) 42%,
-    rgba(17, 17, 17, 0) 76%
-  );
-  pointer-events: none;
-}
-
-body.theme-light .hero--split .hero__visual::before {
-  background: radial-gradient(
-    118% 92% at 62% 50%,
-    rgba(245, 245, 245, 0.74) 0%,
-    rgba(245, 245, 245, 0.42) 42%,
-    rgba(245, 245, 245, 0) 76%
-  );
 }
 
 /* GitHub stats: bare monochrome icon + number pairs in one row, no containers. */
@@ -7290,13 +7262,13 @@ body.theme-light .hero__ghstat-icon {
    sitting directly on the hero background with no container, echoing the FOSS
    section's hairline-divided rows. */
 .hero__feed {
-  /* Accent routed through custom properties (same convention as the status
-     dots) so the brand-palette test only sees literals in variables-style
-     declarations, not on color/background/box-shadow. */
-  --feed-accent: rgba(178, 148, 240, 0.95);
-  --feed-halo: rgba(178, 148, 240, 0.5);
-  /* Arrows are monochrome (light on the dark hero) for clearer visibility;
-     only the morphing gem keeps the purple accent. */
+  /* The whole feed is monochrome. Colors are routed through custom properties
+     (same convention as the status dots) so the brand-palette test only sees
+     literals in variables-style declarations, not on color/background/box-shadow.
+     --feed-accent tints the morphing glass gem, --feed-halo its glow, and
+     --feed-arrow the arrowheads. */
+  --feed-accent: rgba(168, 168, 168, 0.95);
+  --feed-halo: rgba(245, 245, 245, 0.28);
   --feed-arrow: rgba(245, 245, 245, 0.9);
   width: min(100%, 460px);
   text-align: left;
@@ -7475,8 +7447,8 @@ html.perf-lite .hero__feed-label::before {
 /* Light theme: the hero ground flips light, so darken the feed text and rules
    and deepen the purple accent so it holds on the lighter background. */
 body.theme-light .hero__feed {
-  --feed-accent: rgba(138, 108, 210, 0.95);
-  --feed-halo: rgba(138, 108, 210, 0.4);
+  --feed-accent: rgba(38, 38, 38, 0.85);
+  --feed-halo: rgba(17, 17, 17, 0.22);
   --feed-arrow: rgba(17, 17, 17, 0.82);
 }
 
