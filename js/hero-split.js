@@ -1,13 +1,23 @@
 /**
- * Hero Split Layout.
+ * Hero Split Layout + robot head-turn (plays once).
  * Default layout (opt back to the classic centered hero with ?hero=classic).
  * Left-aligns the hero copy; on the right (and, on mobile, between the name and
- * the role) sits a static ASCII portrait where the status feed used to be. This
- * module only enables the split layout and fades the portrait in once, there is
- * no ongoing animation.
+ * the role) sits an ASCII robot. When the frame set (window.HERO_ROBOT_FRAMES)
+ * is present it plays the frames once the first time the hero is on-screen: from
+ * the default pose the robot looks up at you, then settles back to the default
+ * pose and holds (a single up-then-down gesture). Under reduced-motion / no-JS
+ * it just holds the default frame.
  */
 const HeroSplit = {
   hero: null,
+  wrap: null,
+  art: null,
+  frames: null,
+  seq: [1, 2, 3, 4], // play the frames once: default -> look up at you -> settle back to default, and hold
+                     // (frames 1 and 5 are identical, so this is a single up-then-down gesture)
+  i: -1,
+  hold: 460, // ms per frame
+  played: false,
 
   isEnabled() {
     // Split layout is the default; opt back to the classic centered hero with
@@ -30,10 +40,48 @@ const HeroSplit = {
     }
     this.hero.classList.add('hero--split');
 
-    // Fade the static portrait in on the next frame. CSS handles the transition;
-    // reduced-motion and no-JS both leave it visible.
-    const wrap = this.hero.querySelector('.hero__portrait');
-    if (wrap) requestAnimationFrame(() => wrap.classList.add('is-revealed'));
+    this.art = this.hero.querySelector('[data-hero-portrait]');
+    if (!this.art) return;
+    this.wrap = this.art.closest('.hero__portrait') || this.art.parentNode;
+
+    // Fade in on the next frame. CSS handles the transition; reduced-motion and
+    // no-JS both leave the default frame visible.
+    requestAnimationFrame(() => this.wrap.classList.add('is-revealed'));
+
+    const frames = typeof window !== 'undefined' && window.HERO_ROBOT_FRAMES;
+    const reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // No frames, reduced motion, or no timers: hold the embedded default frame.
+    if (!frames || !frames.length || reduceMotion || !('setTimeout' in window)) return;
+    this.frames = frames;
+
+    // Play the gesture once, the first time the hero scrolls into view.
+    if ('IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          this.observer.disconnect();
+          this.play();
+        }
+      }, { threshold: 0.2 });
+      this.observer.observe(this.hero);
+    } else {
+      this.play();
+    }
+  },
+
+  play() {
+    if (this.played) return;
+    this.played = true;
+    // Hold the default pose briefly, then run the single cycle.
+    window.setTimeout(() => this.step(), this.hold);
+  },
+
+  step() {
+    this.i++;
+    if (this.i >= this.seq.length) return; // done: rests on the default frame (index 0)
+    this.art.textContent = this.frames[this.seq[this.i]];
+    window.setTimeout(() => this.step(), this.hold);
   }
 };
 

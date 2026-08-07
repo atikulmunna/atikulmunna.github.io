@@ -7264,22 +7264,21 @@ body.theme-light .hero__ghstat-icon {
   color: rgba(17, 17, 17, 0.52);
 }
 
-/* Hero portrait: an ASCII rendering of me that sits where the "currently" feed
-   used to. It is decorative (aria-hidden); hero-split.js reveals it and runs a
-   subtle monochrome "shimmer" (a few glyphs per frame nudged to a neighbour on
-   the density ramp) so the portrait stays quietly alive. The ink and glow route
-   through custom properties so only monochrome literals appear (brand-palette
-   test), and a radial mask feathers every edge so the portrait melts into the
-   hero ground instead of reading as a rectangle of characters. */
+/* Hero robot: an ASCII mascot that sits where the "currently" feed used to. It
+   is decorative (aria-hidden); hero-split.js plays a single slow head-turn the
+   first time the hero is on-screen, then rests on the default frame. Rendered
+   with the exact static-portrait treatment (no backing): ink routes through a
+   custom property so only monochrome literals appear (brand-palette test), and a
+   radial mask feathers every edge so it melts into the hero ground instead of
+   reading as a rectangle. */
 .hero__portrait {
   --portrait-ink: rgba(245, 245, 245, 0.46);
   --portrait-glow: rgba(245, 245, 245, 0.10);
   width: min(100%, 540px);
   margin-inline: auto;
   overflow: hidden;
-  /* Feather all four edges into the hero ground. The radii stay under 100% so
-     the gradient actually reaches `transparent` before the top, sides and
-     bottom, otherwise the uniform background rows/columns read as a rectangle. */
+  display: flex;
+  justify-content: center;
   -webkit-mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
           mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
 }
@@ -7384,12 +7383,11 @@ body.theme-light .hero__portrait {
     margin: 0 auto;
   }
 
-  /* Show the portrait between the name and the role, sized for the narrow
-     column. The edge mask keeps it feathering into the background. */
+  /* Show the robot between the name and the role, full column width so its
+     flex-centred <pre> stays centred (the edge mask feathers into the ground). */
   .hero__portrait {
-    display: block;
-    width: min(92%, 320px);
-    margin: 0.2rem auto;
+    width: 100%;
+    margin: 0.2rem 0;
   }
 
   .hero__portrait-art {
