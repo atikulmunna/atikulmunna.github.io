@@ -2107,7 +2107,11 @@ body.theme-light .hero__cta-github {
   color: var(--color-text-light);
 }
 
-/* Defer rendering work for heavier lower sections until they near the viewport. */
+/* Defer rendering work for heavier lower sections until they near the viewport.
+   `auto` makes the browser remember each section's real rendered height and
+   reuse it as the placeholder once rendered, instead of the fixed 920px guess.
+   Without it, tall sections (e.g. #projects) are under-measured while skipped,
+   so an anchor jump past them lands short and needs a second click to correct. */
 #experience,
 #skills,
 #projects,
@@ -2115,7 +2119,7 @@ body.theme-light .hero__cta-github {
 #research,
 #contact {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 920px;
+  contain-intrinsic-size: auto 1px auto 920px;
 }
 
 @property --liquid-rim-angle {
@@ -7170,22 +7174,31 @@ html.perf-lite .research-thread__node {
   justify-content: flex-start;
 }
 
-/* Left-align the subtitle stage so the spark, subtitle and typing line all
-   sit against the left edge and the type-on reveal grows left-to-right. */
+/* Stack the role (subtitle) above the typing tagline as two left-aligned lines.
+   The base stage overlays both in one grid cell for the classic hero's
+   type-over; the split layout shows them as distinct lines instead. */
 .hero--split .hero__subtitle-stage {
-  justify-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-height: 0;
 }
 
-/* The spark was an intro flourish leading into the subtitle; with the subtitle
-   moved to the terminal, drop it so the typing line shows immediately. */
+/* The spark was an intro flourish leading into the subtitle; drop it so the
+   role and typing line show immediately. */
 .hero--split .hero__spark {
   display: none;
 }
 
-/* The "AI-Driven Software Engineer" tagline now lives in the status terminal's
-   whoami output, so hide the left-side subtitle in the split layout. */
+/* The base subtitle stays hidden until the classic hero's spark-intro animation
+   flashes it in. The split layout has no spark sequence, so show it statically. */
 .hero--split .hero__subtitle {
-  display: none;
+  grid-area: auto;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  animation: none;
 }
 
 .hero--split .hero__subtitle-stage .hero__description {
@@ -7244,256 +7257,146 @@ body.theme-light .hero__ghstat-icon {
   color: rgba(17, 17, 17, 0.52);
 }
 
-/* Glass terminal status panel: a translucent "now" window typed out on view,
-   replacing the avatar. Respects the liquid-glass language with a backdrop
-   blur, soft rim and an animated caret. */
-.hero__terminal {
-  position: relative;
-  width: min(100%, 440px);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-border);
-  background: rgba(17, 17, 17, 0.55);
-  box-shadow: var(--liquid-shadow-deep);
-  overflow: hidden;
-  font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .hero__terminal {
-    -webkit-backdrop-filter: blur(var(--blur-lg));
-    backdrop-filter: blur(var(--blur-lg));
-  }
-}
-
-.hero__terminal-glow {
-  position: absolute;
-  inset: -40% -20% auto -20%;
-  height: 70%;
-  z-index: 0;
-  background: radial-gradient(
-    circle at 50% 0%,
-    rgba(168, 168, 168, 0.2) 0%,
-    rgba(168, 168, 168, 0) 70%
-  );
-  pointer-events: none;
-}
-
-.hero__terminal-bar {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: 0.7rem 0.95rem;
-  border-bottom: 1px solid var(--glass-border-light);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.hero__terminal-dots {
-  display: inline-flex;
-  gap: 0.42rem;
-}
-
-.hero__terminal-dots i {
-  width: 0.62rem;
-  height: 0.62rem;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.24);
-}
-
-/* Distinct monochrome gradients so the three "window" dots read apart. */
-.hero__terminal-dots i:nth-child(1) {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.32));
-}
-
-.hero__terminal-dots i:nth-child(2) {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.18));
-}
-
-.hero__terminal-dots i:nth-child(3) {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.07));
-}
-
-.hero__terminal-name {
-  font-size: var(--font-size-xs);
-  letter-spacing: 0.04em;
-  color: var(--color-light-accent);
-}
-
-.hero__terminal-body {
-  position: relative;
-  z-index: 1;
-  padding: 1.1rem 1.15rem 1.25rem;
-  font-size: 0.82rem;
-  line-height: 1.85;
-  color: var(--color-primary-light);
-}
-
-.hero__terminal-line {
-  margin: 0;
-  display: flex;
-  gap: 0.55ch;
-  /* Override the global justified `p` so wrapped output lines don't stretch. */
+/* Floating "currently" feed: replaces the status terminal. Unlike the terminal
+   (which was aria-hidden decoration) this is real, readable status content
+   sitting directly on the hero background with no container, echoing the FOSS
+   section's hairline-divided rows. */
+.hero__feed {
+  /* Accent routed through custom properties (same convention as the status
+     dots) so the brand-palette test only sees literals in variables-style
+     declarations, not on color/background/box-shadow. */
+  --feed-accent: rgba(178, 148, 240, 0.95);
+  --feed-halo: rgba(178, 148, 240, 0.5);
+  width: min(100%, 460px);
   text-align: left;
-  /* Lines reserve their space (opacity only) so typing causes no layout shift. */
-  opacity: 0;
-  transform: translateY(2px);
-  transition: opacity var(--transition-base) var(--easing-out),
-              transform var(--transition-base) var(--easing-out);
 }
 
-.hero__terminal-line.is-shown {
+.hero__feed-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-light-accent);
+  margin-bottom: 1.5rem;
+}
+
+/* Square marker echoing the FOSS "merged" status dot, with a soft halo. */
+.hero__feed-label::before {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--feed-accent);
+  box-shadow: 0 0 14px var(--feed-halo);
+}
+
+.hero__feed-featured {
+  margin: 0 0 1.35rem;
+  font-size: clamp(1.1rem, 0.75rem + 1vw, 1.32rem);
+  line-height: 1.5;
+  text-align: left;
+  color: var(--color-primary-light);
+  text-wrap: pretty;
+}
+
+.hero__feed-featured b {
+  font-weight: var(--font-weight-bold);
+}
+
+.hero__feed-featured a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast) var(--easing-out);
+}
+
+.hero__feed-featured a:hover,
+.hero__feed-featured a:focus-visible {
+  border-bottom-color: rgba(245, 245, 245, 0.4);
+}
+
+.hero__feed-arrow {
+  color: var(--feed-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.hero__feed-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__feed-rows li {
+  margin: 0;
+  padding: 1rem 0;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  text-align: left;
+  color: rgba(245, 245, 245, 0.72);
+  border-top: 1px solid rgba(245, 245, 245, 0.13);
+}
+
+/* Quiet staggered reveal when the hero scrolls into view. Items start hidden
+   and hero-split.js adds `is-revealed` (setting a per-item transition delay
+   inline). The <noscript> block in the markup and the reduced-motion rule below
+   keep everything visible without JS or when motion is reduced. */
+.hero__feed-label,
+.hero__feed-featured,
+.hero__feed-rows li {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition: opacity 0.6s var(--easing-out), transform 0.6s var(--easing-out);
+}
+
+.hero__feed.is-revealed .hero__feed-label,
+.hero__feed.is-revealed .hero__feed-featured,
+.hero__feed.is-revealed .hero__feed-rows li {
   opacity: 1;
   transform: none;
 }
 
-.hero__terminal-line--spaced {
-  margin-top: 0.7rem;
-}
-
-.hero__terminal-prompt,
-.hero__terminal-marker {
-  flex: none;
-  color: var(--color-light-accent);
-}
-
-.hero__terminal-tx {
-  position: relative;
-  min-width: 0;
-  /* Preserve the spacing in directory listings (e.g. `ls ~/focus`) while still
-     allowing long lines to wrap. */
-  white-space: pre-wrap;
-}
-
-.hero__terminal-line--out .hero__terminal-tx {
-  color: rgba(245, 245, 245, 0.78);
-}
-
-/* Identity line: a `whoami` block that surfaces the name inside the terminal.
-   Hidden on desktop (the hero heading carries the name there); revealed on
-   mobile, where the heading is removed to declutter the stacked hero. */
-.hero__terminal-line--identity,
-.hero__terminal-line--signoff {
-  display: none;
-}
-
-/* The name flashes in the green used by the "Published" research badge, then
-   settles to the normal terminal text color. Both tints are custom properties
-   so the rule stays self-contained and theme-aware. */
-.hero__terminal-line--name .hero__terminal-tx {
-  --whoami-tint: rgba(120, 210, 150, 0.95);
-  --whoami-settle: var(--color-primary-light);
-  color: var(--whoami-settle);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-/* Green on reveal, easing to the settled color once the line is shown. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero__terminal-line--name.is-shown .hero__terminal-tx {
-    animation: whoami-settle 1.6s var(--easing-out) 0.1s both;
+@media (prefers-reduced-motion: reduce) {
+  .hero__feed-label,
+  .hero__feed-featured,
+  .hero__feed-rows li {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
-@keyframes whoami-settle {
-  0%, 45% { color: var(--whoami-tint); }
-  100% { color: var(--whoami-settle); }
+/* Light theme: the hero ground flips light, so darken the feed text and rules
+   and deepen the purple accent so it holds on the lighter background. */
+body.theme-light .hero__feed {
+  --feed-accent: rgba(138, 108, 210, 0.95);
+  --feed-halo: rgba(138, 108, 210, 0.4);
 }
 
-/* Blinking caret on the line currently being typed (and the final prompt). */
-.hero__terminal-line.is-active .hero__terminal-tx::after {
-  content: '';
-  display: inline-block;
-  width: 0.55ch;
-  height: 1.05em;
-  margin-left: 0.12ch;
-  transform: translateY(0.16em);
-  background: var(--color-primary-light);
-  animation: hero-terminal-caret 1s steps(1) infinite;
-}
-
-@keyframes hero-terminal-caret {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
-/* Lighten the glass for the light theme. */
-body.theme-light .hero__terminal {
-  background: rgba(245, 245, 245, 0.6);
-  border-color: rgba(17, 17, 17, 0.12);
-}
-
-body.theme-light .hero__terminal-bar {
-  background: rgba(17, 17, 17, 0.04);
-  border-bottom-color: rgba(17, 17, 17, 0.08);
-}
-
-body.theme-light .hero__terminal-dots i {
-  background: rgba(17, 17, 17, 0.24);
-}
-
-body.theme-light .hero__terminal-dots i:nth-child(1) {
-  background: linear-gradient(145deg, rgba(17, 17, 17, 0.58), rgba(17, 17, 17, 0.32));
-}
-
-body.theme-light .hero__terminal-dots i:nth-child(2) {
-  background: linear-gradient(145deg, rgba(17, 17, 17, 0.4), rgba(17, 17, 17, 0.2));
-}
-
-body.theme-light .hero__terminal-dots i:nth-child(3) {
-  background: linear-gradient(145deg, rgba(17, 17, 17, 0.22), rgba(17, 17, 17, 0.08));
-}
-
-body.theme-light .hero__terminal-name,
-body.theme-light .hero__terminal-prompt,
-body.theme-light .hero__terminal-marker {
+body.theme-light .hero__feed-label {
   color: var(--color-mid-tone);
 }
 
-body.theme-light .hero__terminal-body {
+body.theme-light .hero__feed-featured {
   color: var(--color-primary-dark);
 }
 
-body.theme-light .hero__terminal-line--out .hero__terminal-tx {
+body.theme-light .hero__feed-featured a:hover,
+body.theme-light .hero__feed-featured a:focus-visible {
+  border-bottom-color: rgba(17, 17, 17, 0.4);
+}
+
+body.theme-light .hero__feed-rows li {
   color: rgba(17, 17, 17, 0.7);
+  border-top-color: rgba(17, 17, 17, 0.12);
 }
 
-/* Deepen the identity green on the light terminal, and settle to dark text
-   (white would vanish on the light terminal background). */
-body.theme-light .hero__terminal-line--name .hero__terminal-tx {
-  --whoami-tint: rgba(38, 110, 74, 1);
-  --whoami-settle: var(--color-primary-dark);
-}
-
-body.theme-light .hero__terminal-line.is-active .hero__terminal-tx::after {
-  background: var(--color-primary-dark);
-}
-
-body.theme-light .hero__terminal-glow {
-  background: radial-gradient(
-    circle at 50% 0%,
-    rgba(92, 92, 92, 0.16) 0%,
-    rgba(92, 92, 92, 0) 70%
-  );
-}
-
-/* Optimized profile: drop the live backdrop-blur for a solid-glass fill,
-   matching the site's lite-mode treatment elsewhere. */
-html.perf-lite .hero__terminal {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  background: rgba(17, 17, 17, 0.92);
-}
-
-html.perf-lite body.theme-light .hero__terminal {
-  background: rgba(245, 245, 245, 0.95);
-}
-
-/* Stack on narrower screens: copy first, then the terminal, both centered. */
+/* Stack on narrower screens: name, role, typing, feed, stats, then buttons. */
 @media (max-width: 900px) {
-  /* With the heading and above-terminal typing line gone, the stack is short
-     enough to center again. Stretch the container to full height and clear the
-     nav with padding-top so centering never tucks content under the nav. */
+  /* Stretch the container to full height and clear the nav with padding-top so
+     centering never tucks content under the nav. */
   .hero--split {
     align-items: stretch;
     padding-top: calc(5.25rem + env(safe-area-inset-top, 0px));
@@ -7504,17 +7407,17 @@ html.perf-lite body.theme-light .hero__terminal {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Distribute the terminal group and the buttons evenly across the full
-       height so the shorter stack feels centered and fills the viewport rather
-       than clumping at the top. Zero base gap lets space-evenly own the rhythm;
-       the stats stay tucked to the terminal via the visual's own gap. */
+    /* Distribute the copy, feed group and buttons evenly across the full height
+       so the stack feels centered and fills the viewport rather than clumping at
+       the top. Zero base gap lets space-evenly own the rhythm; the stats stay
+       tucked to the feed via the visual's own gap. */
     justify-content: space-evenly;
     gap: 0;
     text-align: center;
   }
 
-  /* Expose the copy's children to the container so the terminal can be ordered
-     between the typing line and the buttons: name -> typing -> terminal -> CTA.
+  /* Expose the copy's children to the container so the feed can be ordered
+     between the copy and the buttons: name -> role -> typing -> feed -> CTA.
      text-align must be set here (not just on the flex container): inheritance
      follows the DOM tree, so the children read text-align from .hero__content. */
   .hero--split .hero__content {
@@ -7522,46 +7425,8 @@ html.perf-lite body.theme-light .hero__terminal {
     text-align: center;
   }
 
-  /* The name now lives inside the terminal (`whoami`), so drop the big heading
-     visually to declutter the stack — but keep it in the DOM as the page's h1
-     for screen readers and crawlers (visually-hidden, not display:none). */
-  .hero--split .hero__title {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  /* The tagline now lives in the terminal's sign-off line, so drop the whole
-     subtitle stage (spark + subtitle + typing line) on mobile. The terminal
-     becomes the first visible block. */
-  .hero--split .hero__subtitle-stage { display: none; }
   .hero--split .hero__visual { order: 3; }
   .hero--split .hero__cta { order: 4; }
-
-  /* Reveal the `whoami` identity block (hidden on desktop) and give the name a
-     little breathing room above the `ls ~/focus` listing. */
-  .hero__terminal-line--identity {
-    display: flex;
-  }
-
-  .hero__terminal-line--name {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Swap the empty desktop resting prompt for the typed tagline sign-off. */
-  .hero__terminal-line--rest-desktop {
-    display: none;
-  }
-
-  .hero__terminal-line--signoff {
-    display: flex;
-  }
 
   /* Keep the buttons side by side (overrides the stacked mobile default). */
   .hero--split .hero__cta {
@@ -7576,35 +7441,27 @@ html.perf-lite body.theme-light .hero__terminal {
     padding: 0.55rem var(--spacing-md);
   }
 
-  /* Center the typing line on mobile so it reads under the centered copy. */
+  /* Center the role and typing line under the centered name. */
   .hero--split .hero__subtitle-stage {
-    justify-items: center;
+    align-items: center;
   }
 
   .hero--split .hero__subtitle-stage .hero__description {
-    justify-self: center;
     text-align: center;
     margin: 0 auto;
   }
 
-  /* Tighten the terminal so it reads as a neat card, not a wall of text. */
-  .hero__terminal {
-    width: min(100%, 380px);
+  /* Keep the feed compact; its rows stay left-aligned within the centered block. */
+  .hero__feed {
+    width: min(100%, 400px);
   }
 
-  .hero__terminal-bar {
-    padding: 0.6rem 0.85rem;
+  .hero__feed-label {
+    margin-bottom: 1.2rem;
   }
 
-  .hero__terminal-body {
-    padding: 0.95rem 1rem 1.05rem;
-    font-size: 0.76rem;
-    line-height: 1.7;
-  }
-
-  /* Collapse the wide `ls` gaps to single spaces so the listing wraps cleanly. */
-  .hero__terminal-tx {
-    white-space: normal;
+  .hero__feed-rows li {
+    padding: 0.85rem 0;
   }
 }
 
