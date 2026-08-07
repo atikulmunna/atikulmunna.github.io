@@ -7208,11 +7208,39 @@ html.perf-lite .research-thread__node {
 }
 
 .hero--split .hero__visual {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: var(--spacing-md);
+}
+
+/* Soft scrim behind the feed: dims the busy contrib-grid and the bottom-right
+   glow so the monochrome arrows and rows read clearly. It fades toward the
+   ground color (dark on dark, light on light) so it lifts contrast without
+   flattening the left copy. Sits above the hero background but below the feed. */
+.hero--split .hero__visual::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -16% -18% -16% -24%;
+  background: radial-gradient(
+    118% 92% at 62% 50%,
+    rgba(17, 17, 17, 0.62) 0%,
+    rgba(17, 17, 17, 0.34) 42%,
+    rgba(17, 17, 17, 0) 76%
+  );
+  pointer-events: none;
+}
+
+body.theme-light .hero--split .hero__visual::before {
+  background: radial-gradient(
+    118% 92% at 62% 50%,
+    rgba(245, 245, 245, 0.74) 0%,
+    rgba(245, 245, 245, 0.42) 42%,
+    rgba(245, 245, 245, 0) 76%
+  );
 }
 
 /* GitHub stats: bare monochrome icon + number pairs in one row, no containers. */
@@ -7267,6 +7295,9 @@ body.theme-light .hero__ghstat-icon {
      declarations, not on color/background/box-shadow. */
   --feed-accent: rgba(178, 148, 240, 0.95);
   --feed-halo: rgba(178, 148, 240, 0.5);
+  /* Arrows are monochrome (light on the dark hero) for clearer visibility;
+     only the morphing gem keeps the purple accent. */
+  --feed-arrow: rgba(245, 245, 245, 0.9);
   width: min(100%, 460px);
   text-align: left;
 }
@@ -7348,7 +7379,7 @@ html.perf-lite .hero__feed-label::before {
 }
 
 .hero__feed-arrow {
-  color: var(--feed-accent);
+  color: var(--feed-arrow);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -7378,14 +7409,7 @@ html.perf-lite .hero__feed-label::before {
   left: 0;
   top: 1rem;
   font-size: 0.82em;
-  /* Liquid-glass arrowhead: a white sheen graded into the accent, clipped to
-     the glyph, with a soft drop-shadow so it reads as translucent glass. */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, var(--feed-accent) 55%, var(--feed-accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  filter: drop-shadow(0 1px 2px var(--feed-halo));
+  color: var(--feed-arrow);
   opacity: 0;
   transform: translateX(-0.3rem);
   transition: opacity 0.42s var(--easing-out), transform 0.42s var(--easing-out);
@@ -7453,6 +7477,7 @@ html.perf-lite .hero__feed-label::before {
 body.theme-light .hero__feed {
   --feed-accent: rgba(138, 108, 210, 0.95);
   --feed-halo: rgba(138, 108, 210, 0.4);
+  --feed-arrow: rgba(17, 17, 17, 0.82);
 }
 
 body.theme-light .hero__feed-label {
