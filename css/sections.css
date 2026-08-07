@@ -7351,8 +7351,15 @@ body.theme-light .hero__portrait {
     text-align: center;
   }
 
-  .hero--split .hero__visual { order: 3; }
-  .hero--split .hero__cta { order: 4; }
+  /* Expose the visual's children too, so the portrait can be threaded between
+     the name and the role, with the GitHub stats sitting lower in the stack:
+     name -> portrait -> role -> typing -> stats -> buttons. */
+  .hero--split .hero__visual { display: contents; }
+  .hero--split .hero__title { order: 1; }
+  .hero--split .hero__portrait { order: 2; }
+  .hero--split .hero__subtitle-stage { order: 3; }
+  .hero--split .hero__ghstats { order: 4; }
+  .hero--split .hero__cta { order: 5; }
 
   /* Keep the buttons side by side (overrides the stacked mobile default). */
   .hero--split .hero__cta {
@@ -7377,10 +7384,16 @@ body.theme-light .hero__portrait {
     margin: 0 auto;
   }
 
-  /* Drop the ASCII portrait on mobile; the GitHub stats carry the visual and the
-     portrait needs a wide column to stay legible. */
+  /* Show the portrait between the name and the role, sized for the narrow
+     column. The edge mask keeps it feathering into the background. */
   .hero__portrait {
-    display: none;
+    display: block;
+    width: min(92%, 320px);
+    margin: 0.2rem auto;
+  }
+
+  .hero__portrait-art {
+    font-size: clamp(2.2px, 0.82vw, 3.4px);
   }
 }
 
