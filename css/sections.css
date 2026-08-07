@@ -7286,43 +7286,33 @@ body.theme-light .hero__ghstat-icon {
   margin-bottom: 1.5rem;
 }
 
-/* Liquid-glass gem that smoothly morphs between rounded geometric shapes
-   (square, circle, diamond, petal, egg) via border-radius + rotation, with a
-   glassy sheen: a white top-left highlight over the accent, an inner rim and a
-   soft outer halo. */
+/* Liquid-glass gem that smoothly morphs between geometric shapes: triangle,
+   square, rhombus, pentagon and circle. Each shape is a 24-point polygon
+   sampled at matched angles so clip-path interpolates cleanly between them.
+   The glow uses drop-shadow (not box-shadow, which clip-path would clip away)
+   so it follows the shape; the gradient carries the glassy sheen. */
 .hero__feed-label::before {
   content: '';
   flex: none;
-  width: 0.72rem;
-  height: 0.72rem;
-  border-radius: 22%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, var(--feed-accent) 62%, var(--feed-accent) 100%);
-  box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.65),
-    inset 0 -1px 2px rgba(255, 255, 255, 0.12),
-    0 0 12px var(--feed-halo);
-  animation: hero-feed-morph 8s var(--easing-default) infinite;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .hero__feed-label::before {
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-  }
-}
-
-html.perf-lite .hero__feed-label::before {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, var(--feed-accent) 60%, var(--feed-accent) 100%);
+  filter: drop-shadow(0 0 4px var(--feed-halo));
+  clip-path: polygon(50.0% 5.0%, 61.6% 6.5%, 72.5% 11.0%, 81.8% 18.2%, 89.0% 27.5%, 93.5% 38.4%, 95.0% 50.0%, 93.5% 61.6%, 89.0% 72.5%, 81.8% 81.8%, 72.5% 89.0%, 61.6% 93.5%, 50.0% 95.0%, 38.4% 93.5%, 27.5% 89.0%, 18.2% 81.8%, 11.0% 72.5%, 6.5% 61.6%, 5.0% 50.0%, 6.5% 38.4%, 11.0% 27.5%, 18.2% 18.2%, 27.5% 11.0%, 38.4% 6.5%);
+  animation: hero-feed-morph 13s var(--easing-default) infinite;
 }
 
 @keyframes hero-feed-morph {
-  0%   { border-radius: 20%; transform: rotate(0deg); }
-  20%  { border-radius: 50%; transform: rotate(60deg); }
-  40%  { border-radius: 12%; transform: rotate(135deg); }
-  60%  { border-radius: 46% 14% 46% 14% / 14% 46% 14% 46%; transform: rotate(205deg); }
-  80%  { border-radius: 50% 50% 22% 22% / 50% 50% 22% 22%; transform: rotate(290deg); }
-  100% { border-radius: 20%; transform: rotate(360deg); }
+  /* triangle */
+  0%, 100% { clip-path: polygon(50.0% 4.0%, 58.4% 18.6%, 63.3% 27.0%, 66.8% 33.2%, 69.9% 38.5%, 73.0% 43.8%, 76.6% 50.0%, 81.4% 58.4%, 89.8% 73.0%, 73.0% 73.0%, 63.3% 73.0%, 56.2% 73.0%, 50.0% 73.0%, 43.8% 73.0%, 36.7% 73.0%, 27.0% 73.0%, 10.2% 73.0%, 18.6% 58.4%, 23.4% 50.0%, 27.0% 43.8%, 30.1% 38.5%, 33.2% 33.2%, 36.7% 27.0%, 41.6% 18.6%); }
+  /* square */
+  20% { clip-path: polygon(50.0% 10.0%, 60.7% 10.0%, 73.1% 10.0%, 90.0% 10.0%, 90.0% 26.9%, 90.0% 39.3%, 90.0% 50.0%, 90.0% 60.7%, 90.0% 73.1%, 90.0% 90.0%, 73.1% 90.0%, 60.7% 90.0%, 50.0% 90.0%, 39.3% 90.0%, 26.9% 90.0%, 10.0% 90.0%, 10.0% 73.1%, 10.0% 60.7%, 10.0% 50.0%, 10.0% 39.3%, 10.0% 26.9%, 10.0% 10.0%, 26.9% 10.0%, 39.3% 10.0%); }
+  /* rhombus */
+  40% { clip-path: polygon(50.0% 4.0%, 59.7% 13.9%, 66.7% 21.1%, 72.7% 27.3%, 78.8% 33.4%, 85.7% 40.4%, 95.0% 50.0%, 85.7% 59.6%, 78.8% 66.6%, 72.7% 72.7%, 66.7% 78.9%, 59.7% 86.1%, 50.0% 96.0%, 40.3% 86.1%, 33.3% 78.9%, 27.3% 72.7%, 21.2% 66.6%, 14.3% 59.6%, 5.0% 50.0%, 14.3% 40.4%, 21.2% 33.4%, 27.3% 27.3%, 33.3% 21.1%, 40.3% 13.9%); }
+  /* pentagon */
+  60% { clip-path: polygon(50.0% 2.0%, 60.8% 9.8%, 69.5% 16.2%, 77.8% 22.2%, 86.8% 28.7%, 94.7% 38.0%, 90.8% 50.0%, 87.6% 60.1%, 84.4% 69.9%, 80.8% 80.8%, 72.4% 88.8%, 60.4% 88.8%, 50.0% 88.8%, 39.6% 88.8%, 27.6% 88.8%, 19.2% 80.8%, 15.6% 69.9%, 12.4% 60.1%, 9.2% 50.0%, 5.3% 38.0%, 13.2% 28.7%, 22.2% 22.2%, 30.5% 16.2%, 39.2% 9.8%); }
+  /* circle */
+  80% { clip-path: polygon(50.0% 5.0%, 61.6% 6.5%, 72.5% 11.0%, 81.8% 18.2%, 89.0% 27.5%, 93.5% 38.4%, 95.0% 50.0%, 93.5% 61.6%, 89.0% 72.5%, 81.8% 81.8%, 72.5% 89.0%, 61.6% 93.5%, 50.0% 95.0%, 38.4% 93.5%, 27.5% 89.0%, 18.2% 81.8%, 11.0% 72.5%, 6.5% 61.6%, 5.0% 50.0%, 6.5% 38.4%, 11.0% 27.5%, 18.2% 18.2%, 27.5% 11.0%, 38.4% 6.5%); }
 }
 
 .hero__feed-rows {
@@ -7404,10 +7394,9 @@ html.perf-lite .hero__feed-label::before {
     transition: none;
   }
 
-  /* Hold the label gem still (rounded square) instead of morphing. */
+  /* Hold the label gem still (circle) instead of morphing through shapes. */
   .hero__feed-label::before {
     animation: none;
-    transform: none;
   }
 }
 
