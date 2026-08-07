@@ -36,6 +36,11 @@
   <link rel="stylesheet" href="css/sections.css?v=2128cd1">
   <link rel="stylesheet" href="css/theme-light.css?v=2128cd1">
 
+  <!-- No-JS fallback: reveal the hero "Currently" feed (and its arrow bullets)
+       immediately when scripts are off. Lives in <head> so the <style> is valid
+       content (a <style> is not permitted directly inside a <div>). -->
+  <noscript><style>.hero__feed-label,.hero__feed-rows li{opacity:1;transform:none;}.hero__feed-rows li{padding-left:1.55rem;}.hero__feed-rows li::before{opacity:1;transform:none;}</style></noscript>
+
   <!-- Instant scroll restoration for Back navigation. Inlined in <head> so it
        runs before first paint and is never served from a stale cache. Keeps the
        page hidden (only when actually restoring) until it is positioned, so the
@@ -249,8 +254,8 @@
           </h1>
           <div class="hero__subtitle-stage">
             <span class="hero__spark" aria-hidden="true">✦</span>
-            <p class="hero__subtitle">AI-driven Software Engineer</p>
-            <p class="hero__description" data-hero-typing>learning ✦ exploring ✦ experimenting</p>
+            <p class="hero__subtitle">AI/ML Engineer</p>
+            <p class="hero__description" data-hero-typing>Computer Vision ✦ Production ML ✦ LLM Systems</p>
           </div>
           <div class="hero__cta">
             <a href="#contact" class="btn btn--primary btn--glass btn--large">Get In Touch</a>
@@ -261,7 +266,6 @@
           </div>
         </div>
         <div class="hero__visual">
-          <noscript><style>.hero__feed-label,.hero__feed-rows li{opacity:1;transform:none;}.hero__feed-rows li{padding-left:1.55rem;}.hero__feed-rows li::before{opacity:1;transform:none;}</style></noscript>
           <div class="hero__feed" data-hero-feed>
             <span class="hero__feed-label">Currently</span>
             <ul class="hero__feed-rows">
@@ -303,8 +307,9 @@
         <h2 class="section__title">About Me</h2>
         <div class="section__content">
           <div class="about__text">
-            <p>I'm an AI Engineer working on computer vision, LLM-powered systems and applied machine learning. I currently work at <a href="https://www.thedataisland.com/" class="about__link" target="_blank" rel="noopener">The Data Island</a>, where I help develop production computer vision pipelines for retail analytics and industrial surveillance.</p>
-            <p>My research interests include deep learning, multimodal systems, edge AI and robotics, with work accepted and under review at peer-reviewed venues.</p>
+            <p>I'm an AI/ML Engineer building and operating production AI systems across computer vision, retrieval, and applied machine learning. At <a href="https://www.thedataisland.com/" class="about__link" target="_blank" rel="noopener">The Data Island</a>, I work on Unilever Bangladesh's retail intelligence platform, where our computer vision pipeline processes 1.5M+ field images each month across 600+ SKUs. My work spans production ML pipeline operations, model training, fine-tuning and deployment, and evolving our systems toward more scalable service-oriented architectures.</p>
+            <p>Beyond production engineering, I contribute to open-source machine learning projects that align with my areas of expertise and conduct academic research in deep learning and embodied AI.</p>
+            <p>I'm particularly interested in building reliable AI systems that connect strong models with real-world infrastructure, evaluation, and deployment.</p>
           </div>
           <div class="about__education">
             <div class="education-flow">

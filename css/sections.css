@@ -7475,21 +7475,9 @@ body.theme-light .hero__feed-rows li {
     margin: 0 auto;
   }
 
-  /* Keep the feed compact; its rows stay left-aligned within the centered block. */
+  /* Drop the "Currently" feed on mobile; the GitHub stats carry the visual. */
   .hero__feed {
-    width: min(100%, 400px);
-  }
-
-  .hero__feed-label {
-    margin-bottom: 1.2rem;
-  }
-
-  .hero__feed-rows li {
-    padding: 0.85rem 0;
-  }
-
-  .hero__feed-rows li::before {
-    top: 0.85rem;
+    display: none;
   }
 }
 
