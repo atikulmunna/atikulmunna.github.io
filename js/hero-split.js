@@ -20,12 +20,16 @@ const HeroSplit = {
   rate: 0.035, // fraction of glyphs nudged per frame
   DENS: ' .:-=+*#%@',
 
-  // Eyes located in the ASCII grid (col, row); pupils ride within these sockets.
-  eyeL: { cx: 53, cy: 47 },
-  eyeR: { cx: 68, cy: 47 },
-  eyeMaxX: 3.2,   // max pupil travel in cells
-  eyeMaxY: 1.4,
-  pupil: '@',
+  // Eye sockets in the ASCII grid. Robot-style: there is no pupil, the whole
+  // dark eye block slides as one inside each lit socket.
+  eyes: [
+    { x0: 46, y0: 44, x1: 59, y1: 50 },
+    { x0: 61, y0: 44, x1: 74, y1: 50 }
+  ],
+  ballW: 8, ballH: 5,   // size of the moving eye block
+  travelX: 3, travelY: 1,
+  sclera: '#',          // lit socket the dark eye reads against
+  ball: ' ',            // the dark eye block itself
   // Live gaze state ([-1..1] each axis) eased toward the pointer target.
   gx: 0, gy: 0, tgx: 0, tgy: 0,
   mx: null, my: null,
@@ -144,18 +148,30 @@ const HeroSplit = {
       out[y] = line;
     }
 
-    // Pupils on top, eased toward the pointer.
-    const ox = Math.round(this.gx * this.eyeMaxX);
-    const oy = Math.round(this.gy * this.eyeMaxY);
-    this.drawPupil(out, this.eyeL.cx + ox, this.eyeL.cy + oy);
-    this.drawPupil(out, this.eyeR.cx + ox, this.eyeR.cy + oy);
+    // Robot eyes on top: light each socket, then slide the whole dark block
+    // toward the gaze.
+    for (let i = 0; i < this.eyes.length; i++) this.drawEye(out, this.eyes[i]);
 
     return out.join('\n');
   },
 
-  drawPupil(out, x, y) {
-    this.setCell(out, x, y, this.pupil);
-    this.setCell(out, x + 1, y, this.pupil);
+  drawEye(out, s) {
+    // Fill the socket so the dark eye block reads against a lit field.
+    for (let y = s.y0; y <= s.y1; y++) {
+      for (let x = s.x0; x <= s.x1; x++) this.setCell(out, x, y, this.sclera);
+    }
+    // Position the eye block, eased toward the pointer, clamped inside the socket.
+    const cx = (s.x0 + s.x1) / 2;
+    const cy = (s.y0 + s.y1) / 2;
+    const ox = Math.round(this.gx * this.travelX);
+    const oy = Math.round(this.gy * this.travelY);
+    let bx0 = Math.round(cx - this.ballW / 2 + ox);
+    let by0 = Math.round(cy - this.ballH / 2 + oy);
+    bx0 = Math.max(s.x0, Math.min(s.x1 - this.ballW + 1, bx0));
+    by0 = Math.max(s.y0, Math.min(s.y1 - this.ballH + 1, by0));
+    for (let y = by0; y < by0 + this.ballH; y++) {
+      for (let x = bx0; x < bx0 + this.ballW; x++) this.setCell(out, x, y, this.ball);
+    }
   },
 
   setCell(out, x, y, ch) {
