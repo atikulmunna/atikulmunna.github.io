@@ -4,9 +4,9 @@
  * Left-aligns the hero copy; on the right (and, on mobile, between the name and
  * the role) sits an ASCII robot. When the frame set (window.HERO_ROBOT_FRAMES)
  * is present it plays the frames once the first time the hero is on-screen: from
- * the default pose the robot looks up at you, then settles back to the default
- * pose and holds (a single up-then-down gesture). Under reduced-motion / no-JS
- * it just holds the default frame.
+ * the default pose the robot looks up at you, holds your gaze a moment, then
+ * settles back to the default pose and holds. Under reduced-motion / no-JS it
+ * just holds the default frame.
  */
 const HeroSplit = {
   hero: null,
@@ -16,7 +16,9 @@ const HeroSplit = {
   seq: [1, 2, 3, 4], // play the frames once: default -> look up at you -> settle back to default, and hold
                      // (frames 1 and 5 are identical, so this is a single up-then-down gesture)
   i: -1,
-  hold: 460, // ms per frame
+  hold: 460,      // ms per frame
+  dwell: 1500,    // longer pause on the look-at-you frame before going back
+  lookFrame: 2,   // frame index the robot faces you on
   played: false,
 
   isEnabled() {
@@ -80,8 +82,11 @@ const HeroSplit = {
   step() {
     this.i++;
     if (this.i >= this.seq.length) return; // done: rests on the default frame (index 0)
-    this.art.textContent = this.frames[this.seq[this.i]];
-    window.setTimeout(() => this.step(), this.hold);
+    const frame = this.seq[this.i];
+    this.art.textContent = this.frames[frame];
+    // Hold a beat while facing you, then continue back to the default pose.
+    const wait = frame === this.lookFrame ? this.dwell : this.hold;
+    window.setTimeout(() => this.step(), wait);
   }
 };
 
