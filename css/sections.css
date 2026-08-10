@@ -2107,20 +2107,14 @@ body.theme-light .hero__cta-github {
   color: var(--color-text-light);
 }
 
-/* Defer rendering work for heavier lower sections until they near the viewport.
-   `auto` makes the browser remember each section's real rendered height and
-   reuse it as the placeholder once rendered, instead of the fixed 920px guess.
-   Without it, tall sections (e.g. #projects) are under-measured while skipped,
-   so an anchor jump past them lands short and needs a second click to correct. */
-#experience,
-#skills,
-#projects,
-#opensource,
-#research,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 1px auto 920px;
-}
+/* NOTE: do not add `content-visibility: auto` to these sections. It collapses
+   each skipped section to its `contain-intrinsic-size` guess, and the `auto`
+   remembered-size only becomes accurate AFTER a section has rendered once. On a
+   cold first navigation nothing is rendered yet, so tall sections (e.g.
+   #projects) are under-measured, `offsetTop` is wrong, and an anchor jump (e.g.
+   nav -> FOSS) lands short and needs a second click. Leaving these in normal
+   flow keeps every section's height correct at all times so the first click
+   lands accurately. The initial-paint saving is negligible on a page this size. */
 
 @property --liquid-rim-angle {
   syntax: '<angle>';
