@@ -16,6 +16,7 @@
   ];
 
   const TITLE_TO_CATEGORY = {
+    'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Ledgerly Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
     'Multi-Step Research Assistant Platform': 'ai-systems',
