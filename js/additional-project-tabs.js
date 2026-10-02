@@ -16,10 +16,10 @@
   ];
 
   const TITLE_TO_CATEGORY = {
+    'Research Pilot': 'ai-systems',
     'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Ledgerly Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
-    'Multi-Step Research Assistant Platform': 'ai-systems',
     'SourceCast: Evidence-Grounded Media Research Workspace': 'ai-systems',
     'Predictive Maintenance MLOps Platform': 'ai-systems',
     'Realtime Fraud Detection Pipeline': 'ai-systems',

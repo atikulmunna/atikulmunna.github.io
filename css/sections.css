@@ -4217,11 +4217,22 @@ body.theme-light .project-card__info-btn:focus-visible {
 }
 
 body.theme-light .project-card__info-pop {
-  background: rgba(245, 245, 245, 0.82);
+  background: rgba(245, 245, 245, 0.9);
   border-color: rgba(17, 17, 17, 0.12);
   box-shadow:
     0 14px 30px rgba(17, 17, 17, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+body.theme-light .project-card__info-tags .tag {
+  color: var(--color-primary-dark);
+  background: rgba(17, 17, 17, 0.07);
+  border-color: rgba(17, 17, 17, 0.16);
+}
+
+body.theme-light .project-card__info-tags .tag:hover {
+  background: rgba(17, 17, 17, 0.13);
+  border-color: rgba(17, 17, 17, 0.32);
 }
 
 /* Project card links container */
