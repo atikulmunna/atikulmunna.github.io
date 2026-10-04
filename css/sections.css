@@ -5647,17 +5647,12 @@ body.theme-light .oss-item + .oss-item {
   min-width: 0;
 }
 
-/* Timeline date */
+/* Timeline date: plain text, coloured by whether the role is current */
 .timeline-date {
-  display: inline-block;
-  padding: var(--spacing-xs) var(--spacing-md);
+  display: block;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-primary-light);
-  background: rgba(168, 168, 168, 0.3);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-full);
-  width: fit-content;
   letter-spacing: 0.02em;
 }
 
@@ -5935,45 +5930,23 @@ body.theme-light .oss-item + .oss-item {
   }
 }
 
-/* Duration pills: a soft tint and dot tell industry and academic roles apart
-   while the text stays monochrome. */
-.timeline-date--industry,
-.timeline-date--academic {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  background: rgba(var(--pill-tint), 0.12);
-  border-color: rgba(var(--pill-tint), 0.36);
+/* Duration text: champagne gold for a current role, muted for a past one. */
+.timeline-date.timeline-date--current {
+  color: rgb(216, 192, 142);
 }
 
-.timeline-date--industry::before,
-.timeline-date--academic::before {
-  content: '';
-  flex: none;
-  width: 0.5em;
-  height: 0.5em;
-  border-radius: var(--radius-full);
-  background: rgba(var(--pill-tint), 0.95);
-  box-shadow: 0 0 0 0.2em rgba(var(--pill-tint), 0.2);
+.timeline-date.timeline-date--past {
+  color: rgba(245, 245, 245, 0.55);
 }
 
-/* Soft steel blue for industry, soft sand for academic. */
-.timeline-date--industry {
-  --pill-tint: 138, 170, 210;
+/* Light theme: bronze and a deeper grey to keep contrast on the pale cards, and a
+   dark divider gradient to match the light section dividers. */
+body.theme-light .timeline-date.timeline-date--current {
+  color: rgb(126, 90, 30);
 }
 
-.timeline-date--academic {
-  --pill-tint: 214, 186, 146;
-}
-
-/* Light theme: deeper tints so the dots hold up on the pale pill, and a dark
-   divider gradient to match the light section dividers. */
-body.theme-light .timeline-date--industry {
-  --pill-tint: 74, 112, 160;
-}
-
-body.theme-light .timeline-date--academic {
-  --pill-tint: 160, 120, 62;
+body.theme-light .timeline-date.timeline-date--past {
+  color: rgba(17, 17, 17, 0.62);
 }
 
 body.theme-light .experience-columns__divider {
@@ -6127,8 +6100,7 @@ body.theme-light .experience-columns__divider::after {
   }
   
   .timeline-date {
-    font-size: 0.625rem; /* 10px */
-    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
   }
   
   .timeline-title {

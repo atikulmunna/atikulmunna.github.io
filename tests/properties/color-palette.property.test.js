@@ -31,6 +31,14 @@ const VALID_PALETTE = {
   '#ffffff': { r: 255, g: 255, b: 255 }
 };
 
+// Deliberate accents outside the monochrome palette, allowed in component
+// styles only (never in the core palette variables). Champagne gold (dark
+// theme) and bronze (light theme) mark the dates of a current role in Experience.
+const ACCENT_COLORS = [
+  { r: 216, g: 192, b: 142 },
+  { r: 126, g: 90, b: 30 }
+];
+
 /**
  * Parse a color string to RGB components
  * Supports: hex (#rrggbb), rgb(r,g,b), rgba(r,g,b,a)
@@ -81,6 +89,12 @@ function isValidPaletteColor(colorStr) {
   }
 
   return false;
+}
+
+function isAccentColor(colorStr) {
+  const parsed = parseColor(colorStr);
+  if (!parsed) return false;
+  return ACCENT_COLORS.some((c) => parsed.r === c.r && parsed.g === c.g && parsed.b === c.b);
 }
 
 /**
@@ -138,7 +152,9 @@ describe('Property 1: Color Palette Consistency', () => {
     const nonVariableColors = cssColors.filter(({ file }) => file !== 'variables.css');
     
     // Check each color
-    const invalidColors = nonVariableColors.filter(({ color }) => !isValidPaletteColor(color));
+    const invalidColors = nonVariableColors.filter(
+      ({ color }) => !isValidPaletteColor(color) && !isAccentColor(color)
+    );
     
     if (invalidColors.length > 0) {
       const errorMsg = invalidColors
