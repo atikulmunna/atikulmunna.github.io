@@ -17,6 +17,7 @@
 
   const TITLE_TO_CATEGORY = {
     'Research Pilot': 'ai-systems',
+    'Agentoscopy': 'ai-systems',
     'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
     'Ledgerly Invoice Processor': 'ai-systems',
     'DevLens: GitHub Repository Intelligence': 'ai-systems',
