@@ -5737,23 +5737,7 @@ body.theme-light .oss-item + .oss-item {
   align-self: flex-start;
   width: fit-content;
   max-width: 100%;
-  padding: var(--spacing-sm);
   gap: var(--spacing-sm);
-  border: 1px solid rgba(17, 17, 17, 0.22);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    155deg,
-    rgba(245, 245, 245, 0.14) 0%,
-    rgba(255, 255, 255, 0.06) 22%,
-    rgba(168, 168, 168, 0.12) 48%,
-    rgba(17, 17, 17, 0.26) 100%
-  );
-  box-shadow:
-    0 8px 18px rgba(17, 17, 17, 0.18),
-    inset 0 1px 0 rgba(245, 245, 245, 0.06),
-    inset 0 -1px 0 rgba(17, 17, 17, 0.12);
-  backdrop-filter: blur(calc(var(--blur-md) + 2px)) saturate(128%);
-  -webkit-backdrop-filter: blur(calc(var(--blur-md) + 2px)) saturate(128%);
 }
 
 .experience-disclosure.is-expanded {
@@ -5881,6 +5865,216 @@ body.theme-light .oss-item + .oss-item {
   margin-bottom: 0;
 }
 
+/* Experience columns: the industry timeline and the research timeline sit
+   under one banner. Stacked below desktop, side by side from 1024px. */
+.experience-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* A single-entry timeline has nothing to connect, so it drops the thread. */
+.timeline.timeline--single::before {
+  content: none;
+}
+
+/* Divider between the columns: the section-divider gradient, breathing, with
+   a faint glint passing along it. Horizontal when stacked, vertical on desktop. */
+.experience-columns__divider {
+  position: relative;
+  width: min(420px, 70%);
+  height: 2px;
+  margin: var(--spacing-md) auto;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 245, 245, 0) 0%,
+    rgba(168, 168, 168, 0.28) 22%,
+    rgba(245, 245, 245, 0.7) 50%,
+    rgba(168, 168, 168, 0.28) 78%,
+    rgba(245, 245, 245, 0) 100%
+  );
+  pointer-events: none;
+  animation: section-divider-breathe 3.8s ease-in-out infinite;
+}
+
+.experience-columns__divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%);
+  animation: experience-divider-glint-x 6s ease-in-out infinite;
+}
+
+@keyframes experience-divider-glint-x {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+@keyframes experience-divider-glint-y {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(340%);
+  }
+}
+
+/* Duration pills: a soft tint and dot tell industry and academic roles apart
+   while the text stays monochrome. */
+.timeline-date--industry,
+.timeline-date--academic {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: rgba(var(--pill-tint), 0.12);
+  border-color: rgba(var(--pill-tint), 0.36);
+}
+
+.timeline-date--industry::before,
+.timeline-date--academic::before {
+  content: '';
+  flex: none;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: var(--radius-full);
+  background: rgba(var(--pill-tint), 0.95);
+  box-shadow: 0 0 0 0.2em rgba(var(--pill-tint), 0.2);
+}
+
+/* Soft steel blue for industry, soft sand for academic. */
+.timeline-date--industry {
+  --pill-tint: 138, 170, 210;
+}
+
+.timeline-date--academic {
+  --pill-tint: 214, 186, 146;
+}
+
+/* Light theme: deeper tints so the dots hold up on the pale pill, and a dark
+   divider gradient to match the light section dividers. */
+body.theme-light .timeline-date--industry {
+  --pill-tint: 74, 112, 160;
+}
+
+body.theme-light .timeline-date--academic {
+  --pill-tint: 160, 120, 62;
+}
+
+body.theme-light .experience-columns__divider {
+  background: linear-gradient(
+    90deg,
+    rgba(17, 17, 17, 0) 0%,
+    rgba(168, 168, 168, 0.22) 22%,
+    rgba(17, 17, 17, 0.42) 50%,
+    rgba(168, 168, 168, 0.22) 78%,
+    rgba(17, 17, 17, 0) 100%
+  );
+}
+
+body.theme-light .experience-columns__divider::after {
+  background: linear-gradient(
+    90deg,
+    rgba(17, 17, 17, 0) 0%,
+    rgba(17, 17, 17, 0.45) 50%,
+    rgba(17, 17, 17, 0) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  body.theme-light .experience-columns__divider {
+    background: linear-gradient(
+      180deg,
+      rgba(17, 17, 17, 0) 0%,
+      rgba(168, 168, 168, 0.22) 22%,
+      rgba(17, 17, 17, 0.42) 50%,
+      rgba(168, 168, 168, 0.22) 78%,
+      rgba(17, 17, 17, 0) 100%
+    );
+  }
+
+  body.theme-light .experience-columns__divider::after {
+    background: linear-gradient(
+      180deg,
+      rgba(17, 17, 17, 0) 0%,
+      rgba(17, 17, 17, 0.45) 50%,
+      rgba(17, 17, 17, 0) 100%
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-columns {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: var(--spacing-2xl);
+    align-items: start;
+  }
+
+  .experience-columns__divider {
+    align-self: stretch;
+    width: 2px;
+    height: auto;
+    margin: var(--spacing-2xl) 0;
+    background: linear-gradient(
+      180deg,
+      rgba(245, 245, 245, 0) 0%,
+      rgba(168, 168, 168, 0.28) 22%,
+      rgba(245, 245, 245, 0.7) 50%,
+      rgba(168, 168, 168, 0.28) 78%,
+      rgba(245, 245, 245, 0) 100%
+    );
+  }
+
+  .experience-columns__divider::after {
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.75) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateY(-100%);
+    animation-name: experience-divider-glint-y;
+  }
+
+  .experience-columns .timeline {
+    max-width: none;
+    margin: 0;
+  }
+
+  /* A column is too narrow for the side-by-side meta/description grid, so
+     cards stack their content the way they do on tablet. */
+  .experience-columns .timeline-content {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+
+  .experience-columns .timeline-description,
+  .experience-columns .experience-disclosure-list {
+    padding-left: 0;
+  }
+
+  .experience-columns .experience-disclosure-list {
+    justify-content: flex-start;
+  }
+}
+
 /* ===== Mobile Timeline Styles ===== */
 
 /**
@@ -5926,6 +6120,11 @@ body.theme-light .oss-item + .oss-item {
     padding-left: var(--spacing-2xl);
     gap: var(--spacing-sm);
   }
+
+  /* No marker in a single-entry timeline, so no room to make for it */
+  .timeline--single .timeline-content {
+    padding-left: 0;
+  }
   
   .timeline-date {
     font-size: 0.625rem; /* 10px */
@@ -5954,7 +6153,6 @@ body.theme-light .oss-item + .oss-item {
 
   .experience-disclosure {
     width: 100%;
-    padding: var(--spacing-sm);
   }
 
   .experience-panel li {
@@ -6114,6 +6312,11 @@ body.theme-light .oss-item + .oss-item {
   .experience-toggle::after,
   .experience-panel {
     transition: none;
+  }
+
+  .experience-columns__divider,
+  .experience-columns__divider::after {
+    animation: none;
   }
   
   @media (max-width: 767px) {

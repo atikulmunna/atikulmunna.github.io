@@ -16,10 +16,13 @@ const propertyTestConfig = {
   verbose: true
 };
 
+// Reads full years ("2026") and abbreviated ones ("’26" or "'26").
 function yearFromDateText(text) {
-  const years = text.match(/\b(19|20)\d{2}\b/g) || [];
+  const full = (text.match(/\b(19|20)\d{2}\b/g) || []).map(Number);
+  const short = (text.match(/['’]\d{2}\b/g) || []).map((y) => 2000 + Number(y.slice(1)));
+  const years = [...full, ...short];
   if (years.length === 0) return null;
-  return Math.max(...years.map(Number));
+  return Math.max(...years);
 }
 
 describe('Property 34: Experience Chronological Order', () => {

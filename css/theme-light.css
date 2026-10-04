@@ -776,19 +776,6 @@ body.theme-light .research-item__link:hover {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.66);
 }
 
-body.theme-light .experience-disclosure {
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.86) 0%,
-    rgba(245, 245, 245, 0.64) 58%,
-    rgba(168, 168, 168, 0.3) 100%
-  );
-  border: 1px solid rgba(17, 17, 17, 0.16);
-  box-shadow:
-    0 8px 18px rgba(17, 17, 17, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.88);
-}
-
 body.theme-light .experience-toggle,
 body.theme-light .experience-toggle:hover {
   background: linear-gradient(
