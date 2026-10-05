@@ -1,25 +1,23 @@
 /**
- * Hero Split Layout + robot head-turn (plays once).
+ * Hero Split Layout + ASCII cube loop.
  * Default layout (opt back to the classic centered hero with ?hero=classic).
  * Left-aligns the hero copy; on the right (and, on mobile, between the name and
- * the role) sits an ASCII robot. When the frame set (window.HERO_ROBOT_FRAMES)
- * is present it plays the frames once the first time the hero is on-screen: from
- * the default pose the robot looks up at you, holds your gaze a moment, then
- * settles back to the default pose and holds. Under reduced-motion / no-JS it
- * just holds the default frame.
+ * the role) sits an ASCII cube. When the frame set (window.HERO_CUBE_FRAMES) is
+ * present it loops the cube's rotation while the cube is on-screen, and pauses
+ * when it scrolls away (requestAnimationFrame also pauses in hidden tabs).
+ * Under reduced-motion / no-JS it just holds the default frame.
  */
 const HeroSplit = {
   hero: null,
   wrap: null,
   art: null,
   frames: null,
-  seq: [1, 2, 3, 4], // play the frames once: default -> look up at you -> settle back to default, and hold
-                     // (frames 1 and 5 are identical, so this is a single up-then-down gesture)
-  i: -1,
-  hold: 460,      // ms per frame
-  dwell: 1500,    // longer pause on the look-at-you frame before going back
-  lookFrame: 2,   // frame index the robot faces you on
-  played: false,
+  fps: 24,        // the source renders at 30fps; a touch slower reads calmer
+  liteFps: 12,    // half speed in perf-lite mode
+  i: 0,
+  running: false,
+  raf: 0,
+  last: 0,
 
   isEnabled() {
     // Split layout is the default; opt back to the classic centered hero with
@@ -50,43 +48,52 @@ const HeroSplit = {
     // no-JS both leave the default frame visible.
     requestAnimationFrame(() => this.wrap.classList.add('is-revealed'));
 
-    const frames = typeof window !== 'undefined' && window.HERO_ROBOT_FRAMES;
+    const frames = typeof window !== 'undefined' && window.HERO_CUBE_FRAMES;
     const reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // No frames, reduced motion, or no timers: hold the embedded default frame.
-    if (!frames || !frames.length || reduceMotion || !('setTimeout' in window)) return;
+    // No frames, reduced motion, or no rAF: hold the embedded default frame.
+    if (!frames || !frames.length || reduceMotion || !('requestAnimationFrame' in window)) return;
     this.frames = frames;
+    this.tick = this.tick.bind(this);
 
-    // Play the gesture once, the first time the hero scrolls into view.
+    // Loop only while the cube is visible.
     if ('IntersectionObserver' in window) {
       this.observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          this.observer.disconnect();
-          this.play();
+          this.start();
+        } else {
+          this.stop();
         }
-      }, { threshold: 0.2 });
-      this.observer.observe(this.hero);
+      }, { threshold: 0.05 });
+      this.observer.observe(this.wrap);
     } else {
-      this.play();
+      this.start();
     }
   },
 
-  play() {
-    if (this.played) return;
-    this.played = true;
-    // Hold the default pose briefly, then run the single cycle.
-    window.setTimeout(() => this.step(), this.hold);
+  start() {
+    if (this.running) return;
+    this.running = true;
+    this.last = 0;
+    this.raf = requestAnimationFrame(this.tick);
   },
 
-  step() {
-    this.i++;
-    if (this.i >= this.seq.length) return; // done: rests on the default frame (index 0)
-    const frame = this.seq[this.i];
-    this.art.textContent = this.frames[frame];
-    // Hold a beat while facing you, then continue back to the default pose.
-    const wait = frame === this.lookFrame ? this.dwell : this.hold;
-    window.setTimeout(() => this.step(), wait);
+  stop() {
+    this.running = false;
+    cancelAnimationFrame(this.raf);
+  },
+
+  tick(now) {
+    if (!this.running) return;
+    const lite = document.documentElement.classList.contains('perf-lite');
+    const interval = 1000 / (lite ? this.liteFps : this.fps);
+    if (now - this.last >= interval) {
+      this.last = now;
+      this.i = (this.i + 1) % this.frames.length;
+      this.art.textContent = this.frames[this.i];
+    }
+    this.raf = requestAnimationFrame(this.tick);
   }
 };
 

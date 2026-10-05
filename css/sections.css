@@ -7449,31 +7449,45 @@ body.theme-light .hero__ghstat-icon {
   color: rgba(17, 17, 17, 0.52);
 }
 
-/* Hero robot: an ASCII mascot that sits where the "currently" feed used to. It
-   is decorative (aria-hidden); hero-split.js plays a single slow head-turn the
-   first time the hero is on-screen, then rests on the default frame. Rendered
+/* Hero cube: an ASCII rotating cube that sits where the "currently" feed used to.
+   It is decorative (aria-hidden); hero-split.js loops the rotation while it is
+   on-screen and holds the default frame under reduced motion. Rendered
    with the exact static-portrait treatment (no backing): ink routes through a
    custom property so only monochrome literals appear (brand-palette test), and a
    radial mask feathers every edge so it melts into the hero ground instead of
    reading as a rectangle. */
 .hero__portrait {
-  --portrait-ink: rgba(245, 245, 245, 0.46);
-  --portrait-glow: rgba(245, 245, 245, 0.10);
+  --portrait-ink: rgba(245, 245, 245, 0.92);
+  --portrait-glow: rgba(245, 245, 245, 0.22);
   width: min(100%, 540px);
   margin-inline: auto;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  -webkit-mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
-          mask-image: radial-gradient(68% 66% at 49% 44%, #000 24%, rgba(0, 0, 0, 0.35) 50%, transparent 74%);
+  /* Feather the cube into the ground; the full-field middle of the loop fades
+     to a soft circle instead of a hard square. */
+  -webkit-mask-image: radial-gradient(closest-side, #000 70%, rgba(0, 0, 0, 0.5) 88%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 70%, rgba(0, 0, 0, 0.5) 88%, transparent 100%);
 }
 
 .hero__portrait-art {
   margin: 0;
   font-family: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
-  font-size: clamp(3.2px, 0.46vw, 5.4px);
-  line-height: 1.0;
-  letter-spacing: 0;
+  font-size: clamp(7px, 0.78vw, 11px);
+  line-height: 1.6;
+  /* Square character cells for the 30x30 grid: pad each glyph's advance (1ch)
+     out to the line height, and indent by the same amount to keep it centred. */
+  letter-spacing: calc(1.6em - 1ch);
+  /* Fixed 30x30 box (frames are stored without trailing spaces, and a pre does
+     not draw a final blank row), overriding the base pre padding, scroll and
+     code-block tint (which showed as a grey patch in the light theme). */
+  box-sizing: content-box;
+  width: calc(30 * 1.6em);
+  height: calc(30 * 1.6em);
+  padding: 0 0 0 calc(1.6em - 1ch);
+  overflow: hidden;
+  background: none;
+  border-radius: 0;
   white-space: pre;
   color: var(--portrait-ink);
   text-shadow: 0 0 5px var(--portrait-glow);
@@ -7499,8 +7513,8 @@ body.theme-light .hero__ghstat-icon {
 
 /* Light theme: the hero ground flips light, so ink the portrait dark. */
 body.theme-light .hero__portrait {
-  --portrait-ink: rgba(17, 17, 17, 0.52);
-  --portrait-glow: rgba(17, 17, 17, 0.08);
+  --portrait-ink: rgba(17, 17, 17, 0.86);
+  --portrait-glow: rgba(17, 17, 17, 0.12);
 }
 
 /* Stack on narrower screens: name, role, typing, feed, stats, then buttons. */
@@ -7568,7 +7582,7 @@ body.theme-light .hero__portrait {
     margin: 0 auto;
   }
 
-  /* Show the robot between the name and the role, full column width so its
+  /* Show the cube between the name and the role, full column width so its
      flex-centred <pre> stays centred (the edge mask feathers into the ground). */
   .hero__portrait {
     width: 100%;
@@ -7576,7 +7590,7 @@ body.theme-light .hero__portrait {
   }
 
   .hero__portrait-art {
-    font-size: clamp(2.2px, 0.82vw, 3.4px);
+    font-size: clamp(4.6px, 1.45vw, 6px);
   }
 }
 
