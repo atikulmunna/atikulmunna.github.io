@@ -6557,23 +6557,79 @@ body.theme-light .oss-item + .oss-item {
   }
 }
 
-/* Duration text: champagne gold for a current role, muted for a past one. */
+/* Duration text: bright with a slow light sweep for a current role, muted for a past one. */
 .timeline-date.timeline-date--current {
-  color: rgb(216, 192, 142);
+  --date-base: rgba(245, 245, 245, 0.74);
+  --date-glint: rgb(255, 255, 255);
+  width: fit-content;
+  color: var(--date-base);
 }
 
 .timeline-date.timeline-date--past {
-  color: rgba(245, 245, 245, 0.55);
+  color: rgba(245, 245, 245, 0.5);
 }
 
-/* Light theme: bronze and a deeper grey to keep contrast on the pale cards, and a
-   dark divider gradient to match the light section dividers. */
+/* Light theme: deeper tones keep contrast on the pale cards. */
 body.theme-light .timeline-date.timeline-date--current {
-  color: rgb(126, 90, 30);
+  --date-base: rgba(17, 17, 17, 0.9);
+  --date-glint: rgba(17, 17, 17, 0.38);
 }
 
 body.theme-light .timeline-date.timeline-date--past {
-  color: rgba(17, 17, 17, 0.62);
+  color: rgba(17, 17, 17, 0.55);
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .timeline-date.timeline-date--current {
+    background-image: linear-gradient(
+      100deg,
+      var(--date-base) 0%,
+      var(--date-base) 42%,
+      var(--date-glint) 50%,
+      var(--date-base) 58%,
+      var(--date-base) 100%
+    );
+    background-size: 260% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Clipped-background text renders lighter than solid text; a hairline
+       stroke in the base tone restores the weight of the past-role dates. */
+    -webkit-text-stroke: 0.2px var(--date-base);
+    animation: timeline-date-glint 4.2s ease-in-out infinite;
+  }
+}
+
+@keyframes timeline-date-glint {
+  0% {
+    background-position: 100% 0;
+  }
+
+  55%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-date.timeline-date--current {
+    animation: none;
+  }
+}
+
+html.perf-lite .timeline-date.timeline-date--current {
+  animation: none;
+}
+
+/* Clipped-gradient text must fall back to a solid fill wherever colours are forced. */
+@media (forced-colors: active), (prefers-contrast: more), print {
+  .timeline-date.timeline-date--current {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+    -webkit-text-stroke: 0;
+    animation: none;
+  }
 }
 
 body.theme-light .experience-columns__divider {
