@@ -42,7 +42,8 @@
       this.sourceGrid = this.section.querySelector('[data-project-additional-grid]');
       if (!this.tabsMount || !this.sourceGrid) return;
 
-      this.cards = Array.from(this.sourceGrid.querySelectorAll('.project-card'));
+      // Subgroup headings travel with their category's cards, in source order.
+      this.cards = Array.from(this.sourceGrid.querySelectorAll('.project-card, [data-project-subgroup]'));
       this.mq = window.matchMedia(DESKTOP_QUERY);
       this.mobileMq = window.matchMedia('(max-width: 767px)');
 

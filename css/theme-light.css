@@ -365,6 +365,19 @@ body.theme-light .projects-tier__eyebrow {
   color: rgba(17, 17, 17, 0.58);
 }
 
+body.theme-light .projects-subgroup__title {
+  color: rgba(17, 17, 17, 0.58);
+}
+
+body.theme-light .projects-subgroup__marker {
+  border-color: rgba(17, 17, 17, 0.5);
+  background: rgba(17, 17, 17, 0.08);
+}
+
+body.theme-light .projects-subgroup__rule {
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0.2), rgba(17, 17, 17, 0));
+}
+
 body.theme-light .projects-tier__marker {
   background: linear-gradient(
     135deg,

@@ -1221,6 +1221,223 @@
                 </div>
               </div>
             </article>
+            <div class="projects-subgroup" data-project-category="research" data-project-subgroup>
+              <span class="projects-subgroup__marker" aria-hidden="true"></span>
+              <h3 class="projects-subgroup__title">Robotics &amp; Edge AI</h3>
+              <span class="projects-subgroup__rule" aria-hidden="true"></span>
+            </div>
+            <article class="project-card card card--glass" data-project-category="research">
+              <div class="project-card__image project-card__placeholder project-card__image--research robotics-thumb robotics-thumb--arm" aria-hidden="true">
+                <span class="research-thumb__grid"></span>
+                <svg class="robotics-thumb__svg" viewBox="0 0 200 120" focusable="false">
+                  <line class="rt-faint" x1="28" y1="100.5" x2="172" y2="100.5"></line>
+                  <path class="rt-arm__cone rt-detail" d="M38 30 L136 88 L116 102 Z"></path>
+                  <rect class="rt-line" x="26" y="24" width="14" height="8" rx="2"></rect>
+                  <circle class="rt-dot" cx="36" cy="28" r="1.6"></circle>
+                  <g class="rt-arm__target">
+                    <rect class="rt-cube" x="120" y="92" width="8" height="8" rx="1"></rect>
+                    <path class="rt-arm__bbox" d="M116 90 V86 H120 M128 86 H132 V90 M132 98 V102 H128 M120 102 H116 V98"></path>
+                  </g>
+                  <rect class="rt-line rt-fill-dark" x="54" y="92" width="32" height="8.5" rx="2"></rect>
+                  <g class="rt-arm__upper">
+                    <line class="rt-arm__link" x1="70" y1="84" x2="70" y2="44"></line>
+                    <g class="rt-arm__fore">
+                      <line class="rt-arm__link" x1="70" y1="44" x2="104" y2="44"></line>
+                      <g class="rt-arm__hand">
+                        <line class="rt-line" x1="104" y1="44" x2="104" y2="52"></line>
+                        <line class="rt-line" x1="98" y1="52" x2="110" y2="52"></line>
+                        <rect class="rt-cube rt-arm__held" x="100" y="53" width="8" height="8" rx="1"></rect>
+                        <line class="rt-line rt-arm__finger rt-arm__finger--l" x1="98.5" y1="52" x2="98.5" y2="61"></line>
+                        <line class="rt-line rt-arm__finger rt-arm__finger--r" x1="109.5" y1="52" x2="109.5" y2="61"></line>
+                      </g>
+                      <circle class="rt-line rt-fill-dark" cx="104" cy="44" r="2.6"></circle>
+                    </g>
+                    <circle class="rt-line rt-fill-dark" cx="70" cy="44" r="3.6"></circle>
+                  </g>
+                  <circle class="rt-line rt-fill-dark" cx="70" cy="84" r="4.4"></circle>
+                  <g class="rt-arm__voice rt-detail">
+                    <line class="rt-line" x1="156" y1="25" x2="156" y2="31"></line>
+                    <line class="rt-line" x1="161" y1="22" x2="161" y2="34"></line>
+                    <line class="rt-line" x1="166" y1="19" x2="166" y2="37"></line>
+                    <line class="rt-line" x1="171" y1="22" x2="171" y2="34"></line>
+                    <line class="rt-line" x1="176" y1="25" x2="176" y2="31"></line>
+                  </g>
+                </svg>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">ArmCortex: Language-Guided Robotic Arm</h3>
+                <p class="project-card__description">Built a low-cost robotic arm that follows spoken commands, finds objects with a depth camera and learns from human demonstrations, running fully on a Raspberry Pi 5.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">Stable-Baselines3</span>
+                  <span class="tag">RT-DETR</span>
+                  <span class="tag">Ollama</span>
+                  <span class="tag">Arduino</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/ArmCortex" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open ArmCortex GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass" data-project-category="research">
+              <div class="project-card__image project-card__placeholder project-card__image--research robotics-thumb robotics-thumb--swarm" aria-hidden="true">
+                <span class="research-thumb__grid"></span>
+                <svg class="robotics-thumb__svg" viewBox="0 0 200 120" focusable="false">
+                  <line class="rt-swarm__sweep rt-detail" x1="30" y1="14" x2="30" y2="110"></line>
+                  <g class="rt-swarm__links rt-swarm__links--a">
+                    <line class="rt-link" x1="100" y1="50" x2="54" y2="32"></line>
+                    <line class="rt-link" x1="100" y1="50" x2="146" y2="32"></line>
+                    <line class="rt-link" x1="100" y1="50" x2="64" y2="86"></line>
+                    <line class="rt-link" x1="100" y1="50" x2="136" y2="86"></line>
+                  </g>
+                  <g class="rt-swarm__links rt-swarm__links--b">
+                    <line class="rt-link" x1="54" y1="32" x2="146" y2="32"></line>
+                    <line class="rt-link" x1="54" y1="32" x2="64" y2="86"></line>
+                    <line class="rt-link" x1="54" y1="32" x2="136" y2="86"></line>
+                  </g>
+                  <g class="rt-swarm__ring">
+                    <circle class="rt-swarm__ring-pulse" cx="0" cy="0" r="13"></circle>
+                  </g>
+                  <g transform="translate(100 50)">
+                    <g class="rt-bob rt-swarm__mother">
+                      <path class="rt-line" d="M-7 -7 L7 7 M-7 7 L7 -7"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="7" r="3.8"></circle>
+                      <rect class="rt-line rt-fill-dark" x="-2.6" y="-2.6" width="5.2" height="5.2" rx="1"></rect>
+                    </g>
+                  </g>
+                  <g transform="translate(54 32)">
+                    <g class="rt-bob rt-bob--2">
+                      <path class="rt-line" d="M-7 -7 L7 7 M-7 7 L7 -7"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="7" r="3.8"></circle>
+                      <rect class="rt-line rt-fill-dark" x="-2.6" y="-2.6" width="5.2" height="5.2" rx="1"></rect>
+                    </g>
+                  </g>
+                  <g transform="translate(146 32)">
+                    <g class="rt-bob rt-bob--3">
+                      <path class="rt-line" d="M-7 -7 L7 7 M-7 7 L7 -7"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="7" r="3.8"></circle>
+                      <rect class="rt-line rt-fill-dark" x="-2.6" y="-2.6" width="5.2" height="5.2" rx="1"></rect>
+                    </g>
+                  </g>
+                  <g transform="translate(64 86)">
+                    <g class="rt-bob rt-bob--4">
+                      <path class="rt-line" d="M-7 -7 L7 7 M-7 7 L7 -7"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="7" r="3.8"></circle>
+                      <rect class="rt-line rt-fill-dark" x="-2.6" y="-2.6" width="5.2" height="5.2" rx="1"></rect>
+                    </g>
+                  </g>
+                  <g transform="translate(136 86)">
+                    <g class="rt-bob rt-bob--5">
+                      <path class="rt-line" d="M-7 -7 L7 7 M-7 7 L7 -7"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="-7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-7" cy="7" r="3.8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="7" cy="7" r="3.8"></circle>
+                      <rect class="rt-line rt-fill-dark" x="-2.6" y="-2.6" width="5.2" height="5.2" rx="1"></rect>
+                    </g>
+                  </g>
+                  <g class="rt-detail" transform="translate(170 104)">
+                    <path class="rt-line" d="M-2.5 0 H2.5 M0 -2.5 V2.5"></path>
+                    <circle class="rt-swarm__ping" cx="0" cy="0" r="6"></circle>
+                  </g>
+                </svg>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">resQswarm: Secure Search &amp; Rescue Drone Swarm</h3>
+                <p class="project-card__description">Building a simulated five-drone search and rescue swarm trained with multi-agent RL, where a backup drone takes command if the mother drone is lost or attacked.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">Multi-Agent RL</span>
+                  <span class="tag">VMAS</span>
+                  <span class="tag">PyBullet</span>
+                  <span class="tag">Ed25519</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/resQswarm" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open resQswarm GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card card--glass" data-project-category="research">
+              <div class="project-card__image project-card__placeholder project-card__image--research robotics-thumb robotics-thumb--flight" aria-hidden="true">
+                <span class="research-thumb__grid"></span>
+                <svg class="robotics-thumb__svg" viewBox="0 0 200 120" focusable="false">
+                  <g class="rt-detail" transform="translate(30 24)">
+                    <g transform="rotate(-30)">
+                      <path class="rt-line" d="M-6 0 H-3.5 M3.5 0 H6"></path>
+                      <rect class="rt-line rt-fill-dark" x="-14" y="-2.6" width="8" height="5.2" rx="0.6"></rect>
+                      <rect class="rt-line rt-fill-dark" x="6" y="-2.6" width="8" height="5.2" rx="0.6"></rect>
+                      <rect class="rt-line rt-fill-dark" x="-3.5" y="-3.5" width="7" height="7" rx="1.2"></rect>
+                      <path class="rt-faint" d="M-10 -2.6 V2.6 M10 -2.6 V2.6"></path>
+                    </g>
+                    <path class="rt-flight__signal" d="M8 12 Q14 14 16 20"></path>
+                    <path class="rt-flight__signal rt-flight__signal--2" d="M10 18 Q19 20 22 29"></path>
+                  </g>
+                  <g class="rt-flight__tether">
+                    <line class="rt-link" x1="96" y1="56" x2="122" y2="50"></line>
+                  </g>
+                  <g class="rt-flight__ghost">
+                    <g transform="translate(96 56)">
+                      <path class="rt-ghost" d="M-18 -12 L18 12 M-18 12 L18 -12"></path>
+                      <circle class="rt-ghost" cx="-18" cy="-12" r="8"></circle>
+                      <circle class="rt-ghost" cx="18" cy="-12" r="8"></circle>
+                      <circle class="rt-ghost" cx="-18" cy="12" r="8"></circle>
+                      <circle class="rt-ghost" cx="18" cy="12" r="8"></circle>
+                    </g>
+                  </g>
+                  <g transform="translate(96 56)">
+                    <g class="rt-bob">
+                      <circle class="rt-flight__alert" cx="0" cy="0" r="30"></circle>
+                      <path class="rt-line" d="M-18 -12 L18 12 M-18 12 L18 -12"></path>
+                      <circle class="rt-line rt-fill-dark" cx="-18" cy="-12" r="8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="18" cy="-12" r="8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="-18" cy="12" r="8"></circle>
+                      <circle class="rt-line rt-fill-dark" cx="18" cy="12" r="8"></circle>
+                      <line class="rt-flight__blade" x1="-24" y1="-12" x2="-12" y2="-12"></line>
+                      <line class="rt-flight__blade" x1="12" y1="-12" x2="24" y2="-12"></line>
+                      <line class="rt-flight__blade" x1="-24" y1="12" x2="-12" y2="12"></line>
+                      <line class="rt-flight__blade" x1="12" y1="12" x2="24" y2="12"></line>
+                      <rect class="rt-line rt-fill-dark" x="-6" y="-6" width="12" height="12" rx="1.5"></rect>
+                      <path class="rt-faint" d="M-9 -3 H-6 M-9 0 H-6 M-9 3 H-6 M6 -3 H9 M6 0 H9 M6 3 H9"></path>
+                    </g>
+                  </g>
+                  <g class="rt-detail">
+                    <path class="rt-faint" d="M142 84 V104 H188"></path>
+                    <line class="rt-flight__threshold" x1="142" y1="92" x2="188" y2="92"></line>
+                    <path class="rt-flight__score" pathLength="1" d="M142 103 C158 102.5 170 100 186 86"></path>
+                    <path class="rt-flight__flag" d="M184 72 L189 80 H179 Z M184 75.5 V77.5"></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="project-card__content">
+                <h3 class="project-card__title">flightMight: Custom Flight Controller</h3>
+                <p class="project-card__description">Brought up ArduPilot on a custom STM32H743 flight controller and built an onboard GPS spoofing detector, validated in simulation.</p>
+                <div class="project-card__tags">
+                  <span class="tag">ArduPilot</span>
+                  <span class="tag">STM32H743</span>
+                  <span class="tag">Lua</span>
+                  <span class="tag">MuJoCo</span>
+                  <span class="tag">SITL</span>
+                  <span class="tag">Python</span>
+                </div>
+                <div class="project-card__links">
+                  <a href="https://github.com/atikulmunna/flightMight" class="btn btn--small btn--glass" target="_blank" rel="noopener" aria-label="Open flightMight GitHub repository">GitHub</a>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>

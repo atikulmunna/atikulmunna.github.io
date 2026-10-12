@@ -19,6 +19,7 @@ const Animations = {
       '.education-item',
       '.skill-category',
       '.project-card',
+      '.projects-subgroup',
       '.timeline-item',
       '.contact-card',
       '.social-links .btn'
