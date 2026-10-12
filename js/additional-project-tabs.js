@@ -7,46 +7,15 @@
   const DESKTOP_QUERY = '(min-width: 1024px)';
 
   const CATEGORY_ORDER = [
-    { key: 'ai-systems', label: 'AI Systems' },
+    { key: 'llm-agents', label: 'LLM & Agents' },
+    { key: 'ml-data', label: 'ML & Data' },
     { key: 'developer-tools', label: 'Developer Tools' },
     { key: 'systems-infra', label: 'Systems & Infra' },
-    { key: 'full-stack', label: 'Full-Stack' },
-    { key: 'mobile-edge', label: 'Mobile & Edge' },
+    { key: 'web-mobile', label: 'Web & Mobile' },
     { key: 'research', label: 'Research' }
   ];
 
-  const TITLE_TO_CATEGORY = {
-    'Research Pilot': 'ai-systems',
-    'Agentoscopy': 'ai-systems',
-    'Common Ground: AI-Mediated Deliberation Platform': 'ai-systems',
-    'Ledgerly Invoice Processor': 'ai-systems',
-    'DevLens: GitHub Repository Intelligence': 'ai-systems',
-    'SourceCast: Evidence-Grounded Media Research Workspace': 'ai-systems',
-    'Predictive Maintenance MLOps Platform': 'ai-systems',
-    'Realtime Fraud Detection Pipeline': 'ai-systems',
-
-    'unuMCP': 'developer-tools',
-    'Dataset Quality Analyzer (DQA)': 'developer-tools',
-    'Loom: Log-Observer & Monitor': 'developer-tools',
-    'dgvis: Dependency Graph Visualizer': 'developer-tools',
-    'Complexity Lens': 'developer-tools',
-
-    'VaultCLI': 'systems-infra',
-    'WebTorrent P2P Stream App': 'systems-infra',
-    'COWFS: Copy-on-Write Filesystem': 'systems-infra',
-    'TraceBack: Explainable Backup & Restore Tool': 'systems-infra',
-    'High-Throughput Distributed File Service': 'systems-infra',
-
-    'CivicFix: Community Issue Reporting Platform': 'full-stack',
-    'Decision Archaeology': 'full-stack',
-
-    'NativeNote: Offline AI Notepad': 'mobile-edge',
-    'Resolve: Habit Streak Timer': 'mobile-edge',
-
-    'Federated Learning with Differential Privacy': 'research',
-    'Anomaly-Aware Probabilistic Forecasting for Multivariate Time Series': 'research',
-    'Cross-Chain AI Provenance Verification': 'research'
-  };
+  const FALLBACK_CATEGORY = 'developer-tools';
 
   const AdditionalProjectTabs = {
     section: null,
@@ -166,8 +135,12 @@
     },
 
     getCategoryForCard(card) {
-      const title = card.querySelector('.project-card__title')?.textContent?.trim() || '';
-      return TITLE_TO_CATEGORY[title] || 'developer-tools';
+      const category = card.dataset.projectCategory;
+      if (CATEGORY_ORDER.some(({ key }) => key === category)) return category;
+
+      const title = card.querySelector('.project-card__title')?.textContent?.trim() || 'untitled card';
+      console.warn(`[AdditionalProjectTabs] "${title}" has no valid data-project-category; using "${FALLBACK_CATEGORY}".`);
+      return FALLBACK_CATEGORY;
     },
 
     moveCardsToPanels() {

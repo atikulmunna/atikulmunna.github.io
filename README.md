@@ -7,7 +7,7 @@ Personal portfolio for [aimunna.me](https://aimunna.me), built as a static GitHu
 - Split hero with left-aligned intro and a glass "status" terminal that types out current work and availability, over a GitHub-style contribution grid and typing sequence
 - Dark and light themes with persistent theme selection
 - Responsive liquid-glass navigation with active-section tracking and mobile menu support
-- Featured projects plus categorized project browsing for AI Systems, Backend & Systems, Mobile & Edge, Developer Tools and Research
+- Featured projects plus categorized project browsing for LLM & Agents, ML & Data, Developer Tools, Systems & Infra, Web & Mobile and Research
 - Desktop project tabs and mobile checkable category filters
 - CSS-animated geometric thumbnails for research projects
 - Research publications and a consolidated Works in Progress panel
