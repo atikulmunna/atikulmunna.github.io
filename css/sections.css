@@ -3756,44 +3756,11 @@ body.theme-light .project-card--featured.card--glass:hover {
   contain: paint;
 }
 
-.research-thumb {
-  --research-spin-duration: 12s;
-  --research-pulse-duration: 3.8s;
-}
-
-.research-thumb::before,
-.research-thumb::after {
-  content: '';
+.research-thumb__grid {
   position: absolute;
-  inset: 16%;
-  border: 1px solid rgba(245, 245, 245, 0.14);
-  border-radius: var(--radius-lg);
-  pointer-events: none;
-}
-
-.research-thumb::after {
-  inset: 28%;
-  border-color: rgba(168, 168, 168, 0.2);
-  transform: rotate(45deg);
-}
-
-.research-thumb__grid,
-.research-thumb__ring,
-.research-thumb__axis,
-.research-thumb__wave,
-.research-thumb__pulse,
-.research-thumb__chain,
-.research-thumb__proof,
-.research-thumb__relay,
-.research-thumb__node {
-  position: absolute;
+  inset: 18%;
   display: block;
   pointer-events: none;
-  will-change: transform, opacity;
-}
-
-.research-thumb__grid {
-  inset: 18%;
   opacity: 0.56;
   background-image:
     linear-gradient(rgba(245, 245, 245, 0.12) 1px, transparent 1px),
@@ -3801,111 +3768,8 @@ body.theme-light .project-card--featured.card--glass:hover {
   background-size: 22px 22px;
   mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 72%);
   -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 72%);
+  will-change: background-position;
   animation: research-grid-drift 8s linear infinite;
-}
-
-.research-thumb__ring {
-  width: 76px;
-  height: 76px;
-  border: 1px solid rgba(245, 245, 245, 0.34);
-  border-top-color: rgba(168, 168, 168, 0.1);
-  border-radius: var(--radius-full);
-  animation: research-spin var(--research-spin-duration) linear infinite;
-}
-
-.research-thumb__node {
-  width: 13px;
-  height: 13px;
-  border-radius: var(--radius-full);
-  background: rgba(245, 245, 245, 0.82);
-  box-shadow:
-    0 0 18px rgba(245, 245, 245, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28);
-  animation: research-node-pulse var(--research-pulse-duration) ease-in-out infinite;
-}
-
-.research-thumb__node--a {
-  transform: translate(-58px, -20px);
-}
-
-.research-thumb__node--b {
-  transform: translate(50px, -26px);
-  animation-delay: 0.42s;
-}
-
-.research-thumb__node--c {
-  transform: translate(8px, 44px);
-  animation-delay: 0.84s;
-}
-
-.research-thumb--forecasting .research-thumb__axis {
-  left: 14%;
-  right: 14%;
-  top: 50%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.34), rgba(245, 245, 245, 0));
-}
-
-.research-thumb__wave {
-  left: 14%;
-  right: 14%;
-  height: 42px;
-  border: 1px solid transparent;
-  border-top-color: rgba(245, 245, 245, 0.52);
-  border-radius: 50%;
-  transform-origin: center;
-  animation: research-wave-shift 4.6s ease-in-out infinite;
-}
-
-.research-thumb__wave--a {
-  top: 40%;
-}
-
-.research-thumb__wave--b {
-  top: 48%;
-  border-top-color: rgba(168, 168, 168, 0.46);
-  animation-delay: 0.9s;
-}
-
-.research-thumb__pulse {
-  width: 18px;
-  height: 18px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(245, 245, 245, 0.58);
-  background: rgba(168, 168, 168, 0.2);
-  box-shadow: 0 0 22px rgba(245, 245, 245, 0.18);
-  animation: research-anomaly-pulse 2.8s ease-in-out infinite;
-}
-
-.research-thumb__chain {
-  width: 88px;
-  height: 42px;
-  border: 1px solid rgba(245, 245, 245, 0.22);
-  border-radius: var(--radius-full);
-}
-
-.research-thumb__chain--a {
-  transform: translate(-42px, -14px) rotate(-18deg);
-}
-
-.research-thumb__chain--b {
-  transform: translate(42px, 14px) rotate(-18deg);
-}
-
-.research-thumb__proof {
-  width: 56px;
-  height: 56px;
-  border: 1px solid rgba(245, 245, 245, 0.38);
-  border-radius: 0.9rem;
-  transform: rotate(45deg);
-  animation: research-proof-float 5.2s ease-in-out infinite;
-}
-
-.research-thumb__relay {
-  width: 132px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.56), rgba(245, 245, 245, 0));
-  animation: research-relay-scan 3.6s ease-in-out infinite;
 }
 
 @keyframes research-grid-drift {
@@ -3917,101 +3781,6 @@ body.theme-light .project-card--featured.card--glass:hover {
 @keyframes research-grid-drift-mobile {
   to {
     background-position: 14px 14px;
-  }
-}
-
-@keyframes research-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes research-node-pulse {
-  0%,
-  100% {
-    opacity: 0.58;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes research-wave-shift {
-  0%,
-  100% {
-    transform: translateY(0) scaleX(0.92);
-    opacity: 0.52;
-  }
-
-  50% {
-    transform: translateY(-8px) scaleX(1);
-    opacity: 0.92;
-  }
-}
-
-@keyframes research-anomaly-pulse {
-  0%,
-  100% {
-    transform: translate(42px, -10px) scale(0.82);
-    opacity: 0.54;
-  }
-
-  50% {
-    transform: translate(42px, -10px) scale(1.12);
-    opacity: 1;
-  }
-}
-
-@keyframes research-anomaly-pulse-mobile {
-  0%,
-  100% {
-    transform: translate(24px, -6px) scale(0.82);
-    opacity: 0.54;
-  }
-
-  50% {
-    transform: translate(24px, -6px) scale(1.12);
-    opacity: 1;
-  }
-}
-
-@keyframes research-proof-float {
-  0%,
-  100% {
-    transform: rotate(45deg) translate3d(0, 0, 0);
-    opacity: 0.74;
-  }
-
-  50% {
-    transform: rotate(45deg) translate3d(4px, -4px, 0);
-    opacity: 1;
-  }
-}
-
-@keyframes research-relay-scan {
-  0%,
-  100% {
-    transform: translateY(-24px) scaleX(0.62);
-    opacity: 0.35;
-  }
-
-  50% {
-    transform: translateY(24px) scaleX(1);
-    opacity: 0.95;
-  }
-}
-
-@keyframes research-relay-scan-mobile {
-  0%,
-  100% {
-    transform: translateY(-14px) scaleX(0.62);
-    opacity: 0.35;
-  }
-
-  50% {
-    transform: translateY(14px) scaleX(1);
-    opacity: 0.95;
   }
 }
 
@@ -4056,8 +3825,8 @@ body.theme-light .project-card--featured.card--glass:hover {
   background: linear-gradient(90deg, rgba(245, 245, 245, 0.24), rgba(245, 245, 245, 0));
 }
 
-/* Robotics thumbnails: inline SVG line art on the research thumbnail backdrop */
-.robotics-thumb__svg {
+/* Research thumbnails: inline SVG line art on a drifting grid backdrop */
+.research-art__svg {
   --rt-stroke: 1;
   position: relative;
   z-index: 1;
@@ -4070,33 +3839,33 @@ body.theme-light .project-card--featured.card--glass:hover {
   stroke-linejoin: round;
 }
 
-.robotics-thumb__svg .rt-line {
+.research-art__svg .rt-line {
   fill: none;
   stroke: currentColor;
   stroke-width: var(--rt-stroke);
 }
 
-.robotics-thumb__svg .rt-faint {
+.research-art__svg .rt-faint {
   fill: none;
   stroke: rgba(245, 245, 245, 0.22);
   stroke-width: var(--rt-stroke);
 }
 
-.robotics-thumb__svg .rt-fill-dark {
+.research-art__svg .rt-fill-dark {
   fill: rgba(17, 17, 17, 0.92);
 }
 
-.robotics-thumb__svg .rt-dot {
+.research-art__svg .rt-dot {
   fill: currentColor;
 }
 
-.robotics-thumb__svg .rt-cube {
+.research-art__svg .rt-cube {
   fill: rgba(245, 245, 245, 0.16);
   stroke: currentColor;
   stroke-width: var(--rt-stroke);
 }
 
-.robotics-thumb__svg .rt-link {
+.research-art__svg .rt-link {
   fill: none;
   stroke: rgba(245, 245, 245, 0.38);
   stroke-width: var(--rt-stroke);
@@ -4104,7 +3873,7 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-link-flow 1.2s linear infinite;
 }
 
-.robotics-thumb__svg .rt-ghost {
+.research-art__svg .rt-ghost {
   fill: none;
   stroke: rgba(168, 168, 168, 0.6);
   stroke-width: var(--rt-stroke);
@@ -4131,7 +3900,7 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation-delay: -2.2s;
 }
 
-/* ArmCortex: reach, grasp, lift and place a detected cube */
+/* ArmCortex: a humanoid arm reaches for a detected ball, grasps, lifts and places it */
 .rt-arm__upper,
 .rt-arm__fore,
 .rt-arm__hand {
@@ -4141,32 +3910,50 @@ body.theme-light .project-card--featured.card--glass:hover {
 }
 
 .rt-arm__upper {
-  transform-origin: 70px 84px;
+  transform-origin: 58px 44px;
   animation-name: rt-arm-upper;
 }
 
 .rt-arm__fore {
-  transform-origin: 70px 44px;
+  transform-origin: 58px 80px;
   animation-name: rt-arm-fore;
 }
 
 .rt-arm__hand {
-  transform-origin: 104px 44px;
+  transform-origin: 92px 80px;
   animation-name: rt-arm-hand;
 }
 
-.robotics-thumb__svg .rt-arm__link {
+.research-art__svg .rt-limb,
+.research-art__svg .rt-limb-core {
   fill: none;
-  stroke: rgba(245, 245, 245, 0.78);
-  stroke-width: calc(var(--rt-stroke) * 3.6);
+  stroke-linecap: round;
 }
 
-.rt-arm__finger {
-  animation: rt-arm-grip-left 8s ease-in-out infinite;
+.research-art__svg .rt-limb {
+  stroke: rgba(245, 245, 245, 0.8);
+  stroke-width: calc(6 + var(--rt-stroke) * 2);
 }
 
-.rt-arm__finger--r {
-  animation-name: rt-arm-grip-right;
+.research-art__svg .rt-limb-core {
+  stroke: rgba(17, 17, 17, 0.95);
+  stroke-width: 6;
+}
+
+.rt-arm__fingers {
+  transform-origin: 101px 80px;
+  animation: rt-arm-fingers 8s ease-in-out infinite;
+}
+
+.rt-arm__thumb {
+  transform-origin: 96px 84.5px;
+  animation: rt-arm-thumb 8s ease-in-out infinite;
+}
+
+.research-art__svg .rt-arm__eye {
+  stroke: currentColor;
+  stroke-width: calc(var(--rt-stroke) * 2.2);
+  animation: rt-blink 2.4s ease-in-out infinite;
 }
 
 .rt-arm__held {
@@ -4178,16 +3965,11 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-arm-target 8s linear infinite;
 }
 
-.robotics-thumb__svg .rt-arm__bbox {
+.research-art__svg .rt-arm__bbox {
   fill: none;
   stroke: rgba(245, 245, 245, 0.7);
   stroke-width: var(--rt-stroke);
   animation: rt-blink 1.6s ease-in-out infinite;
-}
-
-.rt-arm__cone {
-  fill: rgba(245, 245, 245, 0.06);
-  animation: rt-blink 3.2s ease-in-out infinite;
 }
 
 .rt-arm__voice line {
@@ -4208,8 +3990,124 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation-delay: -0.75s;
 }
 
+/* Federated learning: noisy client updates flow to the server, which aggregates them */
+.research-art__svg .rt-fl__update {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.92);
+  stroke-width: calc(var(--rt-stroke) * 2);
+  stroke-dasharray: 0.12 2;
+  stroke-dashoffset: 0.12;
+  animation: rt-travel 2.8s ease-in infinite;
+}
+
+.research-art__svg .rt-fl__update--2 {
+  animation-delay: -0.7s;
+}
+
+.research-art__svg .rt-fl__update--3 {
+  animation-delay: -1.4s;
+}
+
+.research-art__svg .rt-fl__update--4 {
+  animation-delay: -2.1s;
+}
+
+.research-art__svg .rt-fl__noise {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.3);
+  stroke-width: var(--rt-stroke);
+  stroke-dasharray: 1.5 3;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rt-spin 9s linear infinite;
+}
+
+.research-art__svg .rt-fl__aggregate {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.5);
+  stroke-width: var(--rt-stroke);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rt-ripple 0.7s ease-out infinite;
+}
+
+/* Forecasting: observed data leaves the uncertainty band and gets flagged */
+.research-art__svg .rt-forecast__now {
+  stroke: rgba(245, 245, 245, 0.22);
+  stroke-width: var(--rt-stroke);
+  stroke-dasharray: 2 3;
+}
+
+.research-art__svg .rt-forecast__band {
+  fill: rgba(245, 245, 245, 0.09);
+  stroke: rgba(245, 245, 245, 0.2);
+  stroke-width: var(--rt-stroke);
+}
+
+.research-art__svg .rt-forecast__mean {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.5);
+  stroke-width: var(--rt-stroke);
+  stroke-dasharray: 3 3;
+}
+
+.research-art__svg .rt-forecast__actual {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.88);
+  stroke-width: var(--rt-stroke);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: rt-draw 6s linear infinite;
+}
+
+.rt-forecast__anomaly {
+  animation: rt-anomaly 6s linear infinite;
+}
+
+.research-art__svg .rt-forecast__ring {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.7);
+  stroke-width: var(--rt-stroke);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rt-ring-pulse 1.6s ease-in-out infinite;
+}
+
+/* Provenance: a model attestation relays across chains through a ZK check */
+.research-art__svg .rt-chain__relay {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.28);
+  stroke-width: var(--rt-stroke);
+  stroke-dasharray: 2 3;
+}
+
+.research-art__svg .rt-chain__token {
+  fill: none;
+  stroke: rgba(245, 245, 245, 0.95);
+  stroke-width: calc(var(--rt-stroke) * 2.4);
+  stroke-dasharray: 0.1 2;
+  stroke-dashoffset: 0.1;
+  animation: rt-relay 4.8s ease-in-out infinite;
+}
+
+.rt-chain__model {
+  animation: rt-blink 1.6s ease-in-out infinite;
+}
+
+.rt-chain__zk {
+  animation: rt-zk 4.8s ease-in-out infinite;
+}
+
+.research-art__svg .rt-chain__check {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: calc(var(--rt-stroke) * 1.6);
+  animation: rt-check 4.8s linear infinite;
+}
+
 /* resQswarm: mother drone coordinates the swarm, then hands over on failure */
-.robotics-thumb__svg .rt-swarm__sweep {
+.research-art__svg .rt-swarm__sweep {
   stroke: rgba(245, 245, 245, 0.2);
   stroke-width: var(--rt-stroke);
   animation: rt-sweep 6s linear infinite;
@@ -4229,7 +4127,7 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-mother-ring 9s ease-in-out infinite;
 }
 
-.robotics-thumb__svg .rt-swarm__ring-pulse {
+.research-art__svg .rt-swarm__ring-pulse {
   fill: none;
   stroke: rgba(245, 245, 245, 0.62);
   stroke-width: var(--rt-stroke);
@@ -4244,7 +4142,7 @@ body.theme-light .project-card--featured.card--glass:hover {
     rt-mother-fail 9s linear infinite;
 }
 
-.robotics-thumb__svg .rt-swarm__ping {
+.research-art__svg .rt-swarm__ping {
   fill: none;
   stroke: rgba(245, 245, 245, 0.6);
   stroke-width: var(--rt-stroke);
@@ -4254,7 +4152,7 @@ body.theme-light .project-card--featured.card--glass:hover {
 }
 
 /* flightMight: spoofed GPS drifts away until the detector confirms it */
-.robotics-thumb__svg .rt-flight__blade {
+.research-art__svg .rt-flight__blade {
   stroke: rgba(245, 245, 245, 0.72);
   stroke-width: var(--rt-stroke);
   transform-box: fill-box;
@@ -4262,15 +4160,20 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-spin 0.45s linear infinite;
 }
 
-.robotics-thumb__svg .rt-flight__signal {
+.research-art__svg .rt-flight__wave {
   fill: none;
-  stroke: rgba(245, 245, 245, 0.5);
+  stroke: rgba(245, 245, 245, 0.72);
   stroke-width: var(--rt-stroke);
-  animation: rt-blink 1.8s ease-in-out infinite;
+  opacity: 0.15;
+  animation: rt-wave 1.8s ease-out infinite;
 }
 
-.rt-flight__signal--2 {
-  animation-delay: -0.6s;
+.research-art__svg .rt-flight__wave--2 {
+  animation-delay: 0.3s;
+}
+
+.research-art__svg .rt-flight__wave--3 {
+  animation-delay: 0.6s;
 }
 
 .rt-flight__ghost {
@@ -4284,7 +4187,7 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-tether 7s ease-in-out infinite;
 }
 
-.robotics-thumb__svg .rt-flight__alert {
+.research-art__svg .rt-flight__alert {
   fill: rgba(245, 245, 245, 0.04);
   stroke: rgba(245, 245, 245, 0.7);
   stroke-width: var(--rt-stroke);
@@ -4294,13 +4197,13 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-alert 7s ease-out infinite;
 }
 
-.robotics-thumb__svg .rt-flight__threshold {
+.research-art__svg .rt-flight__threshold {
   stroke: rgba(245, 245, 245, 0.36);
   stroke-width: var(--rt-stroke);
   stroke-dasharray: 2 2;
 }
 
-.robotics-thumb__svg .rt-flight__score {
+.research-art__svg .rt-flight__score {
   fill: none;
   stroke: rgba(245, 245, 245, 0.86);
   stroke-width: var(--rt-stroke);
@@ -4309,7 +4212,7 @@ body.theme-light .project-card--featured.card--glass:hover {
   animation: rt-score 7s ease-in-out infinite;
 }
 
-.robotics-thumb__svg .rt-flight__flag {
+.research-art__svg .rt-flight__flag {
   fill: rgba(245, 245, 245, 0.12);
   stroke: currentColor;
   stroke-width: var(--rt-stroke);
@@ -4355,19 +4258,19 @@ body.theme-light .project-card--featured.card--glass:hover {
   0%,
   12%,
   100% {
-    transform: rotate(-6deg);
+    transform: rotate(-10deg);
   }
 
   34%,
   44%,
   84%,
   88% {
-    transform: rotate(50.1deg);
+    transform: rotate(-21.4deg);
   }
 
   62%,
   70% {
-    transform: rotate(14deg);
+    transform: rotate(-30deg);
   }
 }
 
@@ -4375,68 +4278,68 @@ body.theme-light .project-card--featured.card--glass:hover {
   0%,
   12%,
   100% {
-    transform: rotate(10deg);
+    transform: rotate(-10deg);
   }
 
   34%,
   44%,
   84%,
   88% {
-    transform: rotate(-3.4deg);
+    transform: rotate(53.3deg);
   }
 
   62%,
   70% {
-    transform: rotate(-32deg);
+    transform: rotate(-10deg);
   }
 }
 
-/* Counter-rotates by the sum of the two joints so the gripper stays vertical. */
+/* Counter-rotates by the sum of the two joints so the hand stays level. */
 @keyframes rt-arm-hand {
   0%,
   12%,
   100% {
-    transform: rotate(-4deg);
+    transform: rotate(20deg);
   }
 
   34%,
   44%,
   84%,
   88% {
-    transform: rotate(-46.7deg);
+    transform: rotate(-31.9deg);
   }
 
   62%,
   70% {
-    transform: rotate(18deg);
+    transform: rotate(40deg);
   }
 }
 
-@keyframes rt-arm-grip-left {
+@keyframes rt-arm-fingers {
   0%,
   36%,
   88%,
   100% {
-    transform: translateX(0);
+    transform: scaleY(1.6);
   }
 
   40%,
   84% {
-    transform: translateX(1.1px);
+    transform: scaleY(1);
   }
 }
 
-@keyframes rt-arm-grip-right {
+@keyframes rt-arm-thumb {
   0%,
   36%,
   88%,
   100% {
-    transform: translateX(0);
+    transform: rotate(24deg);
   }
 
   40%,
   84% {
-    transform: translateX(-1.1px);
+    transform: rotate(-18deg);
   }
 }
 
@@ -4688,6 +4591,112 @@ body.theme-light .project-card--featured.card--glass:hover {
 
   72%,
   86% {
+    opacity: 1;
+  }
+}
+
+@keyframes rt-wave {
+  0%,
+  60%,
+  100% {
+    opacity: 0.15;
+  }
+
+  25% {
+    opacity: 1;
+  }
+}
+
+@keyframes rt-travel {
+  from {
+    stroke-dashoffset: 0.12;
+  }
+
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes rt-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@keyframes rt-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+
+  70%,
+  88% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  96%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes rt-anomaly {
+  0%,
+  34.9%,
+  96%,
+  100% {
+    opacity: 0;
+  }
+
+  35%,
+  88% {
+    opacity: 1;
+  }
+}
+
+@keyframes rt-relay {
+  0%,
+  8% {
+    stroke-dashoffset: 0.1;
+  }
+
+  78%,
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes rt-zk {
+  0%,
+  30%,
+  60%,
+  100% {
+    opacity: 0.5;
+  }
+
+  44% {
+    opacity: 1;
+  }
+}
+
+@keyframes rt-check {
+  0%,
+  77.9%,
+  96%,
+  100% {
+    opacity: 0;
+  }
+
+  78%,
+  92% {
     opacity: 1;
   }
 }
@@ -5037,93 +5046,18 @@ body.theme-light .project-card__info-tags .tag:hover {
     overflow: hidden;
   }
 
-  .project-card__image--research::before {
-    inset: 14%;
-    border-radius: var(--radius-md);
-  }
-
-  .project-card__image--research::after {
-    inset: 30%;
-  }
-
   .research-thumb__grid {
     inset: 8%;
     background-size: 14px 14px;
     animation-name: research-grid-drift-mobile;
   }
 
-  .research-thumb__ring {
-    width: 44px;
-    height: 44px;
-  }
-
-  .research-thumb__node {
-    width: 8px;
-    height: 8px;
-  }
-
-  .research-thumb__node--a {
-    transform: translate(-32px, -12px);
-  }
-
-  .research-thumb__node--b {
-    transform: translate(29px, -15px);
-  }
-
-  .research-thumb__node--c {
-    transform: translate(4px, 25px);
-  }
-
-  .research-thumb__wave {
-    left: 9%;
-    right: 9%;
-    height: 26px;
-  }
-
-  .research-thumb__wave--a {
-    top: 39%;
-  }
-
-  .research-thumb__wave--b {
-    top: 48%;
-  }
-
-  .research-thumb__pulse {
-    width: 11px;
-    height: 11px;
-    animation-name: research-anomaly-pulse-mobile;
-  }
-
-  .research-thumb__chain {
-    width: 48px;
-    height: 24px;
-  }
-
-  .research-thumb__chain--a {
-    transform: translate(-22px, -8px) rotate(-18deg);
-  }
-
-  .research-thumb__chain--b {
-    transform: translate(22px, 8px) rotate(-18deg);
-  }
-
-  .research-thumb__proof {
-    width: 32px;
-    height: 32px;
-    border-radius: 0.58rem;
-  }
-
-  .research-thumb__relay {
-    width: 78px;
-    animation-name: research-relay-scan-mobile;
-  }
-
-  .robotics-thumb__svg {
+  .research-art__svg {
     --rt-stroke: 1.8;
     width: 100%;
   }
 
-  .robotics-thumb .rt-detail {
+  .research-art .rt-detail {
     display: none;
   }
 
@@ -5389,18 +5323,12 @@ body.theme-light .project-card__info-tags .tag:hover {
     transform: none;
   }
 
-  .research-thumb__grid,
-  .research-thumb__ring,
-  .research-thumb__node,
-  .research-thumb__wave,
-  .research-thumb__pulse,
-  .research-thumb__proof,
-  .research-thumb__relay {
+  .research-thumb__grid {
     animation: none;
     will-change: auto;
   }
 
-  .robotics-thumb .robotics-thumb__svg * {
+  .research-art .research-art__svg * {
     animation: none;
   }
 }
@@ -7924,13 +7852,7 @@ html.perf-lite .projects-tier__marker,
 html.perf-lite .projects-tier__marker::after,
 html.perf-lite .timeline::before,
 html.perf-lite .research-thumb__grid,
-html.perf-lite .research-thumb__ring,
-html.perf-lite .research-thumb__node,
-html.perf-lite .research-thumb__wave,
-html.perf-lite .research-thumb__pulse,
-html.perf-lite .research-thumb__proof,
-html.perf-lite .research-thumb__relay,
-html.perf-lite .robotics-thumb .robotics-thumb__svg * {
+html.perf-lite .research-art .research-art__svg * {
   animation: none;
 }
 
