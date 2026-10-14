@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A multi-agent RL drone swarm for search and rescue that keeps working when its coordinating drone is lost or attacked.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="author" content="Atikul Islam Munna">
+  <meta name="theme-color" content="#111111">
+  <title>resQswarm | Atikul Islam Munna</title>
+  <link rel="icon" type="image/png" href="../assets/icons/logo.png">
+  <link rel="apple-touch-icon" href="../assets/icons/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../css/variables.css?v=pub1">
+  <link rel="stylesheet" href="../css/reset.css?v=pub1">
+  <link rel="stylesheet" href="../css/base.css?v=pub1">
+  <link rel="stylesheet" href="../css/layout.css?v=pub1">
+  <link rel="stylesheet" href="../css/components.css?v=pub1">
+  <link rel="stylesheet" href="../css/glassmorphism.css?v=pub1">
+  <link rel="stylesheet" href="../css/sections.css?v=pub1">
+  <link rel="stylesheet" href="../css/theme-light.css?v=pub1">
+  <link rel="stylesheet" href="../css/project-detail.css?v=pub1">
+  <link rel="stylesheet" href="../css/publication.css?v=pub1">
+</head>
+<body class="project-detail-page">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <header class="project-topbar">
+    <div class="project-topbar__inner">
+      <a href="../index.html" class="project-topbar__home" aria-label="Atikul Islam Munna home">
+        <img src="../assets/icons/logo.png" alt="Atikul Islam Munna logo" width="40" height="40" decoding="async">
+        <span>Home</span>
+      </a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">
+        <span class="theme-toggle__icon" aria-hidden="true">
+          <svg class="theme-toggle__glyph theme-toggle__glyph--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.4"></circle>
+            <path d="M12 2.6v2.3M12 19.1v2.3M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.6 12h2.3M19.1 12h2.3M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"></path>
+          </svg>
+          <svg class="theme-toggle__glyph theme-toggle__glyph--moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <path d="M20.7 14.4A8.2 8.2 0 0 1 9.6 3.3 8.2 8.2 0 1 0 20.7 14.4z"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <main class="project-detail" id="main-content">
+    <div class="pub">
+      <a class="project-detail__back" href="../index.html#projects">
+        <span aria-hidden="true">&larr;</span> Back to projects
+      </a>
+
+      <aside class="pub-notice" aria-label="Access restriction">
+        <span class="pub-notice__icon"><svg class="lock-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 7.2V5.1a3 3 0 0 1 6 0v2.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><rect x="2.8" y="7.2" width="10.4" height="7.6" rx="1.8" fill="currentColor"></rect></svg></span>
+        <div>
+          <p class="pub-notice__title">Restricted while in preparation for publication</p>
+          <p class="pub-notice__text">The source code and full write-up for this project are private until the paper is published. This page summarises the work in the meantime.</p>
+        </div>
+      </aside>
+
+      <header class="pub__head">
+        <p class="pub__eyebrow">Research &middot; 2026</p>
+        <h1 class="pub__title">resQswarm: Secure Search and Rescue Drone Swarm<span class="pub__lock" role="img" aria-label="Private"><svg class="lock-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 7.2V5.1a3 3 0 0 1 6 0v2.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><rect x="2.8" y="7.2" width="10.4" height="7.6" rx="1.8" fill="currentColor"></rect></svg></span></h1>
+        <p class="pub__venue">Manuscript in preparation</p>
+        <div class="pub__actions">
+          <a class="btn btn--primary btn--glass" href="mailto:atikulxmunna@gmail.com?subject=resQswarm%20research">Discuss this work</a>
+        </div>
+      </header>
+
+      <section class="pub__section" aria-labelledby="pub-abstract">
+        <h2 class="pub__heading" id="pub-abstract">Abstract</h2>
+        <p>resQswarm studies how a small drone swarm can keep searching when its coordinator is lost or attacked. Five simulated drones search a disaster area under a policy trained with multi-agent reinforcement learning. One drone acts as the mother: it fuses the shared search map, assigns sectors and sends heartbeats.</p>
+        <p>If the mother is destroyed, stops responding or is compromised, a child drone takes over through a signed succession protocol, and this repeats down to the last drone. Every drone flies on a custom cascaded flight controller and carries a security layer against GPS spoofing, RF jamming and firmware attacks.</p>
+      </section>
+
+      <section class="pub__section" aria-labelledby="pub-contributions">
+        <h2 class="pub__heading" id="pub-contributions">Approach</h2>
+        <ul class="pub__list">
+          <li>Two simulation levels: training in GPU-vectorised VMAS and evaluation in full PyBullet quadrotor physics, with one policy that runs in both.</li>
+          <li>A custom cascaded flight controller with attitude, rate and altitude loops, validated against a reference PID controller under gusts and waypoint jumps.</li>
+          <li>Signed swarm messaging with replay protection and attestation, plus attacker models for GPS spoofing, jamming and compromised firmware.</li>
+          <li>Sensor models with datasheet-based noise parameters and a lawnmower sector sweep as the search baseline.</li>
+        </ul>
+      </section>
+
+      <section class="pub__section" aria-labelledby="pub-results">
+        <h2 class="pub__heading" id="pub-results">Current status</h2>
+        <p>The flight controller, simulation worlds and sensor models are implemented. Swarm training and the attack experiments are in progress.</p>
+      </section>
+
+      <section class="pub__section" aria-labelledby="pub-areas">
+        <h2 class="pub__heading" id="pub-areas">Research areas</h2>
+        <ul class="pub__tags">
+          <li class="pub__tag">Multi-Agent RL</li>
+          <li class="pub__tag">Drone Swarms</li>
+          <li class="pub__tag">Robotics</li>
+          <li class="pub__tag">Cyber-Physical Security</li>
+          <li class="pub__tag">Simulation</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="../js/theme-toggle.js?v=pub1"></script>
+</body>
+</html>

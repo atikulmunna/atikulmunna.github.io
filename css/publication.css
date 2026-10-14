@@ -1,0 +1,254 @@
+/* ==========================================================================
+   Publication pages for private research projects (publications/*.html).
+   A paper-style summary (notice, title, abstract, contributions, results,
+   areas) on the project detail page's top bar and monochrome palette.
+   ========================================================================== */
+
+.pub {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.lock-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ----- Restriction notice ----- */
+.pub-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: var(--spacing-2xl);
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  background: rgba(245, 245, 245, 0.04);
+}
+
+.pub-notice__icon {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.2rem;
+  color: rgba(245, 245, 245, 0.8);
+}
+
+.pub-notice__title {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-light);
+}
+
+.pub-notice__text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: rgba(245, 245, 245, 0.68);
+}
+
+/* ----- Header ----- */
+.pub__head {
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.pub__eyebrow {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.56);
+}
+
+.pub__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+  line-height: 1.25;
+  color: var(--color-primary-light);
+}
+
+.pub__lock {
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-left: 0.4em;
+  vertical-align: 0.02em;
+  color: rgba(245, 245, 245, 0.62);
+}
+
+.pub__venue {
+  margin: var(--spacing-md) 0 0;
+  font-style: italic;
+  color: rgba(245, 245, 245, 0.66);
+}
+
+.pub__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+/* ----- Sections ----- */
+.pub__section {
+  padding-top: var(--spacing-xl);
+}
+
+.pub__heading {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-primary-light);
+}
+
+.pub__section p,
+.pub__list li {
+  color: rgba(245, 245, 245, 0.84);
+  line-height: var(--line-height-relaxed, 1.7);
+}
+
+/* Span the full column like the lists and tables (base p caps at 70ch). */
+.pub p {
+  max-width: none;
+}
+
+.pub__section p {
+  margin: 0 0 var(--spacing-md);
+}
+
+.pub__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.pub__list li + li {
+  margin-top: 0.45rem;
+}
+
+.pub__list li::marker {
+  color: rgba(245, 245, 245, 0.45);
+}
+
+.pub__table-wrap {
+  overflow-x: auto;
+}
+
+.pub__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.pub__table th,
+.pub__table td {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--glass-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pub__table th {
+  width: 42%;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-light);
+  background: rgba(245, 245, 245, 0.04);
+}
+
+.pub__table td {
+  color: rgba(245, 245, 245, 0.84);
+}
+
+.pub__section .pub__note {
+  margin-top: var(--spacing-md);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.pub__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pub__tag {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  color: rgba(245, 245, 245, 0.78);
+  background: rgba(245, 245, 245, 0.04);
+}
+
+/* ----- Light theme ----- */
+body.theme-light .pub-notice,
+body.theme-light .pub__table th,
+body.theme-light .pub__tag {
+  background: rgba(17, 17, 17, 0.03);
+}
+
+body.theme-light .pub-notice,
+body.theme-light .pub__head,
+body.theme-light .pub__table th,
+body.theme-light .pub__table td,
+body.theme-light .pub__tag {
+  border-color: rgba(17, 17, 17, 0.14);
+}
+
+body.theme-light .pub-notice__title,
+body.theme-light .pub__title,
+body.theme-light .pub__heading,
+body.theme-light .pub__table th {
+  color: var(--color-primary-dark);
+}
+
+body.theme-light .pub-notice__icon,
+body.theme-light .pub__lock {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+body.theme-light .pub-notice__text,
+body.theme-light .pub__eyebrow,
+body.theme-light .pub__venue,
+body.theme-light .pub__section .pub__note {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+body.theme-light .pub__section p,
+body.theme-light .pub__list li,
+body.theme-light .pub__table td,
+body.theme-light .pub__tag {
+  color: rgba(17, 17, 17, 0.82);
+}
+
+body.theme-light .pub__list li::marker {
+  color: rgba(17, 17, 17, 0.4);
+}
+
+@media (max-width: 767px) {
+  .pub-notice {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Justified text opens wide gaps in a narrow column. */
+  .pub p,
+  .pub li {
+    text-align: left;
+  }
+
+  .pub__table th {
+    width: 48%;
+  }
+}

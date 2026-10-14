@@ -11,6 +11,11 @@
   const RAW_BASE = 'https://raw.githubusercontent.com';
   const BLOB_BASE = 'https://github.com';
   const MERMAID_SRC = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+  const PUBLICATION_PAGES = {
+    chainattest: 'publications/chainattest.html',
+    flightmight: 'publications/flightmight.html',
+    resqswarm: 'publications/resqswarm.html'
+  };
 
   // A URL that already points somewhere (absolute, protocol-relative, data:,
   // mailto:) or is an in-page anchor — anything we should NOT treat as a
@@ -373,6 +378,15 @@
 
   async function init() {
     const repo = getRepo();
+
+    // Private research repos have publication pages instead of README pages;
+    // send old project.html links there.
+    const publication = PUBLICATION_PAGES[repo.toLowerCase()];
+    if (publication) {
+      window.location.replace(publication);
+      return;
+    }
+
     const mount = document.querySelector('[data-readme-mount]');
     const githubBtn = document.querySelector('[data-github-link]');
 

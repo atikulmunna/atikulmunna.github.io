@@ -3784,6 +3784,26 @@ body.theme-light .project-card--featured.card--glass:hover {
   }
 }
 
+/* Lock beside the title of a project whose repository is private */
+.project-card__lock {
+  display: inline-block;
+  width: 0.68em;
+  height: 0.68em;
+  margin-left: 0.4em;
+  vertical-align: 0.02em;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.project-card__lock .lock-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.theme-light .project-card__lock {
+  color: rgba(17, 17, 17, 0.55);
+}
+
 /* Subgroup heading inside a project category (e.g. Research > Robotics & Edge AI) */
 .projects-subgroup {
   grid-column: 1 / -1;

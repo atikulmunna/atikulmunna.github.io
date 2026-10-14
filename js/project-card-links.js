@@ -36,13 +36,18 @@
     setupCard(card) {
       if (card.dataset.cardLinkInit === '1') return;
 
-      const githubLink = card.querySelector('.project-card__links a[href*="github.com"]');
-      if (!githubLink) return;
+      // Private research projects already link to their own publication page
+      // (data-card-detail); every other card is derived from its GitHub link.
+      const presetLink = card.querySelector('.project-card__links a[data-card-detail]');
+      const githubLink = presetLink ? null : card.querySelector('.project-card__links a[href*="github.com"]');
+      if (!presetLink && !githubLink) return;
 
-      const slug = repoSlug(githubLink.href);
-      if (!slug) return;
+      const slug = githubLink ? repoSlug(githubLink.href) : '';
+      if (githubLink && !slug) return;
 
-      const detailHref = `project.html?repo=${encodeURIComponent(slug)}`;
+      const detailHref = presetLink
+        ? presetLink.getAttribute('href')
+        : `project.html?repo=${encodeURIComponent(slug)}`;
       const title = (card.querySelector('.project-card__title')?.textContent || slug).trim();
 
       card.dataset.detailHref = detailHref;
@@ -50,11 +55,13 @@
       card.classList.add('project-card--github-card');
 
       // Repoint the visible action button (the touch surface) to the detail page.
-      githubLink.setAttribute('href', detailHref);
-      githubLink.removeAttribute('target');
-      githubLink.removeAttribute('rel');
-      githubLink.textContent = 'Overview';
-      githubLink.setAttribute('aria-label', card.dataset.detailLabel);
+      if (githubLink) {
+        githubLink.setAttribute('href', detailHref);
+        githubLink.removeAttribute('target');
+        githubLink.removeAttribute('rel');
+        githubLink.textContent = 'Overview';
+        githubLink.setAttribute('aria-label', card.dataset.detailLabel);
+      }
 
       const goToDetail = () => {
         window.location.assign(card.dataset.detailHref);
