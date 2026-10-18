@@ -6531,6 +6531,11 @@ body.theme-light .oss-item + .oss-item {
   content: none;
 }
 
+/* Gap thread between cards: phones only (see the mobile timeline styles) */
+.timeline-link {
+  display: none;
+}
+
 /* Divider between the columns: the section-divider gradient, breathing, with
    a faint glint passing along it. Horizontal when stacked, vertical on desktop. */
 .experience-columns__divider {
@@ -6776,9 +6781,9 @@ body.theme-light .experience-columns__divider::after {
   }
   
   /* The thread moves to the middle so the cards keep their full width
-     instead of giving up a left gutter to it. A continuous line would show
-     through the glass cards, so each marker instead draws a short connector
-     up to the card above it. */
+     instead of giving up a left gutter to it. Instead of one long line, a
+     .timeline-link between each pair of cards draws the stretch of thread
+     across the gap. */
   .timeline::before {
     content: none;
   }
@@ -6789,15 +6794,9 @@ body.theme-light .experience-columns__divider::after {
   }
 
   /* A small marker sits centred at the top of each card; the extra top
-     padding is just enough to clear it. The card stops clipping so the
-     connector can reach out across the gap. */
+     padding is just enough to clear it. */
   .timeline:not(.timeline--single) .timeline-item {
     padding-top: calc(var(--spacing-lg) + 10px);
-    overflow: visible;
-  }
-
-  .timeline:not(.timeline--single) .timeline-item.card--glass::before {
-    border-radius: inherit;
   }
 
   .timeline-marker {
@@ -6808,17 +6807,35 @@ body.theme-light .experience-columns__divider::after {
     box-shadow: 0 0 0 3px rgba(168, 168, 168, 0.2);
   }
 
-  /* Spans only the gap between this card and the one above, so the thread
-     reads as passing behind the cards. The marker's padding box starts 13px
-     below the card's outer top edge (1px card border, 10px offset, 2px marker
-     border). A light rises along it, from the earlier role to the later one. */
-  .timeline-item + .timeline-item .timeline-marker::before {
+  .timeline-item:hover .timeline-marker {
+    box-shadow: 0 0 0 5px rgba(168, 168, 168, 0.3);
+  }
+
+  /* Keeps the link's negative z-index inside the timeline, so it paints
+     behind the cards but above the section background. */
+  .timeline:not(.timeline--single) {
+    isolation: isolate;
+  }
+
+  /* The link is an empty block at the top edge of the next card. Its thread
+     runs behind both cards, from 17px inside the card above to the next
+     card's marker centre (1px border + 10px offset + 6px half marker), so
+     the glass blurs it where it passes under each edge and no seam shows.
+     A light rises along it, from the earlier role to the later one. */
+  .timeline-link {
+    display: block;
+    position: relative;
+    height: 0;
+  }
+
+  .timeline-link::before {
     content: '';
     position: absolute;
-    bottom: calc(100% + 13px);
+    bottom: -17px;
     left: 50%;
+    z-index: -1;
     width: 2px;
-    height: var(--spacing-2xl);
+    height: calc(var(--spacing-2xl) + 34px);
     transform: translateX(-50%);
     background-color: rgba(168, 168, 168, 0.5);
     background-image: linear-gradient(
@@ -6830,13 +6847,11 @@ body.theme-light .experience-columns__divider::after {
     background-repeat: no-repeat;
     background-size: 100% 50%;
     background-position: center 200%;
+    /* Fades in across the stretch inside the card above, so the thread
+       emerges from behind it instead of stopping at a cut end. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 17px);
+    mask-image: linear-gradient(180deg, transparent 0, #000 17px);
     animation: timeline-connector-rise 2.8s linear infinite;
-  }
-
-  /* No scale on mobile: it would stretch the connector too */
-  .timeline-item:hover .timeline-marker {
-    transform: translateX(-50%);
-    box-shadow: 0 0 0 5px rgba(168, 168, 168, 0.3);
   }
 
   .timeline-content {
@@ -7065,7 +7080,8 @@ body.theme-light .experience-columns__divider::after {
     padding: var(--spacing-lg) 0;
   }
   
-  .timeline::before {
+  .timeline::before,
+  .timeline-link {
     display: none;
   }
   
@@ -7900,7 +7916,8 @@ body.theme-light .contact-icon-link__glyph::after {
     border-top: 1px solid rgba(245, 245, 245, 0.12);
   }
 
-  html.perf-lite .timeline::before {
+  html.perf-lite .timeline::before,
+  html.perf-lite .timeline-link {
     display: none;
   }
 
