@@ -6280,6 +6280,18 @@ body.theme-light .oss-item + .oss-item {
   }
 }
 
+/* Mobile connector: the light enters at the bottom, leaves at the top, then
+   rests briefly before the next pass. */
+@keyframes timeline-connector-rise {
+  0% {
+    background-position: center 200%;
+  }
+  75%,
+  100% {
+    background-position: center -100%;
+  }
+}
+
 /* Timeline content wrapper */
 .timeline-content {
   display: flex;
@@ -6763,43 +6775,72 @@ body.theme-light .experience-columns__divider::after {
     max-width: 100%;
   }
   
+  /* The thread moves to the middle so the cards keep their full width
+     instead of giving up a left gutter to it. A continuous line would show
+     through the glass cards, so each marker instead draws a short connector
+     up to the card above it. */
   .timeline::before {
-    display: block;
-    top: calc(var(--spacing-lg) - 10px);
-    bottom: calc(var(--spacing-lg) + 15px);
-    left: calc(var(--spacing-lg) + 8px);
-    transform: none;
-    width: 2px;
+    content: none;
   }
-  
+
   .timeline-item {
     margin-bottom: var(--spacing-2xl);
     padding: var(--spacing-lg);
   }
-  
-  /* Position marker on the left side on mobile */
-  .timeline-marker {
-    left: var(--spacing-lg);
-    top: calc(var(--spacing-lg) - 2px);
-    transform: translateX(0);
-    width: 16px;
-    height: 16px;
-    border-width: 3px;
-  }
-  
-  .timeline-item:hover .timeline-marker {
-    transform: translateX(0) scale(1.2);
-  }
-  
-  /* Add left padding to content to make room for marker */
-  .timeline-content {
-    padding-left: var(--spacing-2xl);
-    gap: var(--spacing-sm);
+
+  /* A small marker sits centred at the top of each card; the extra top
+     padding is just enough to clear it. The card stops clipping so the
+     connector can reach out across the gap. */
+  .timeline:not(.timeline--single) .timeline-item {
+    padding-top: calc(var(--spacing-lg) + 10px);
+    overflow: visible;
   }
 
-  /* No marker in a single-entry timeline, so no room to make for it */
-  .timeline--single .timeline-content {
-    padding-left: 0;
+  .timeline:not(.timeline--single) .timeline-item.card--glass::before {
+    border-radius: inherit;
+  }
+
+  .timeline-marker {
+    top: 10px;
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(168, 168, 168, 0.2);
+  }
+
+  /* Spans only the gap between this card and the one above, so the thread
+     reads as passing behind the cards. The marker's padding box starts 13px
+     below the card's outer top edge (1px card border, 10px offset, 2px marker
+     border). A light rises along it, from the earlier role to the later one. */
+  .timeline-item + .timeline-item .timeline-marker::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 13px);
+    left: 50%;
+    width: 2px;
+    height: var(--spacing-2xl);
+    transform: translateX(-50%);
+    background-color: rgba(168, 168, 168, 0.5);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 50%;
+    background-position: center 200%;
+    animation: timeline-connector-rise 2.8s linear infinite;
+  }
+
+  /* No scale on mobile: it would stretch the connector too */
+  .timeline-item:hover .timeline-marker {
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 5px rgba(168, 168, 168, 0.3);
+  }
+
+  .timeline-content {
+    gap: var(--spacing-sm);
   }
   
   .timeline-date {
@@ -6992,12 +7033,6 @@ body.theme-light .experience-columns__divider::after {
   .experience-columns__divider,
   .experience-columns__divider::after {
     animation: none;
-  }
-  
-  @media (max-width: 767px) {
-    .timeline-item:hover .timeline-marker {
-      transform: translateX(0);
-    }
   }
 }
 
