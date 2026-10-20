@@ -4734,6 +4734,12 @@ body.theme-light .project-card__lock {
   transform: scale(1.1);
 }
 
+/* A screenshot taller than the 16:9 frame: crop toward its upper part, where
+   the most telling content sits, instead of the centre. */
+.project-card__image img.project-card__img--upper {
+  object-position: 50% 22%;
+}
+
 /* Project card content area */
 .project-card__content {
   display: flex;
