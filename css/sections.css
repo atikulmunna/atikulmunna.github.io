@@ -4740,6 +4740,31 @@ body.theme-light .project-card__lock {
   object-position: 50% 22%;
 }
 
+/* A portrait capture would lose half its height to a cover crop, so it is
+   shown whole, centred over a blurred, dimmed copy of itself that fills the
+   frame. */
+.project-card__image--contain img {
+  position: relative;
+  object-fit: contain;
+}
+
+/* Overhangs the frame so the blur never shows a soft edge */
+.project-card__image--contain img.project-card__img-backdrop {
+  position: absolute;
+  top: -12%;
+  left: -12%;
+  width: 124%;
+  max-width: none;
+  height: 124%;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.55) saturate(1.2);
+}
+
+/* Re-blurring an animated image every frame is GPU work lite mode avoids */
+html.perf-lite .project-card__image--contain img.project-card__img-backdrop {
+  display: none;
+}
+
 /* Project card content area */
 .project-card__content {
   display: flex;
